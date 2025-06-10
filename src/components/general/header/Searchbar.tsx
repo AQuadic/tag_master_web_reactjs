@@ -36,69 +36,83 @@ const Searchbar = () => {
   }, [showSearchBox]);
 
   return (
-    <div ref={containerRef} className="relative">
-      <button onClick={toggleSearch} className="cursor-pointer ">
+    <div ref={containerRef} className="relative z-[999]">
+      <button onClick={toggleSearch} className="cursor-pointer">
         <SearchIcon />
       </button>
 
       <AnimatePresence>
         {showSearchBox && (
-          <motion.div
-            initial={{ opacity: 0, y: -10 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -10 }}
-            transition={{ duration: 0.2 }}
-            className="absolute mt-2 w-[94dvw] md:w-[700px] max-md:left-0 z-[999] md:-right-20 bg-white border border-gray-300 shadow-lg "
-          >
-            <div className="flex items-center gap-2 px-5 py-4">
-              <button onClick={toggleSearch} className="cursor-pointer">
-                <ArrowBack />
-              </button>
-              <input
-                type="text"
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                placeholder="البحث عن "
-                className="w-full    rounded outline-none  "
-              />
-              {searchQuery && (
-                <button
-                  onClick={() => setSearchQuery("")}
-                  className="cursor-pointer"
-                >
-                  <X size={18} />
+          <>
+            {/* Overlay */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 0.5 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.2 }}
+              onClick={() => setShowSearchBox(false)}
+              className="fixed inset-0 bg-black z-[998]"
+            />
+
+            {/* Search Box */}
+            <motion.div
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -10 }}
+              transition={{ duration: 0.2 }}
+              className="absolute mt-2 w-[94dvw] md:w-[700px] max-md:left-0 md:-right-20 bg-white border border-gray-300 shadow-lg z-[999]"
+            >
+              <div className="flex items-center gap-2 px-5 py-4">
+                <button onClick={toggleSearch} className="cursor-pointer">
+                  <ArrowBack />
                 </button>
-              )}
-            </div>
-            <hr className="border-[#79747E]" />
-            <div className="px-5 py-3">
-              <div className="flex items-center gap-2">
-                <LightBulb />
-                <p className="text-secondary-text text-[15px]">مقترحات</p>
+                <input
+                  type="text"
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  placeholder="البحث عن "
+                  className="w-full rounded outline-none"
+                />
+                {searchQuery && (
+                  <button
+                    onClick={() => setSearchQuery("")}
+                    className="cursor-pointer"
+                  >
+                    <X size={18} />
+                  </button>
+                )}
               </div>
-              <ul className="my-2 flex items-center gap-4">
-                <li className=" text-[15px] cursor-pointer bg-[#F4F4F4] py-2 px-4 rounded-full">
-                  مقترح 1
-                </li>
-                <li className=" text-[15px] cursor-pointer bg-[#F4F4F4] py-2 px-4 rounded-full">
-                  مقترح 2
-                </li>
-                <li className=" text-[15px] cursor-pointer bg-[#F4F4F4] py-2 px-4 rounded-full">
-                  مقترح 3
-                </li>
-              </ul>
-              <hr className="border-[#9C9C9C] w-3/5 my-4" />
-              <div className="flex items-center gap-2">
-                <SmallSearchIcon />
-                <p className="text-secondary-text text-[15px]">نتائج البحث</p>
+
+              <hr className="border-[#79747E]" />
+              <div className="px-5 py-3">
+                <div className="flex items-center gap-2">
+                  <LightBulb />
+                  <p className="text-secondary-text text-[15px]">مقترحات</p>
+                </div>
+                <ul className="my-2 flex items-center gap-4">
+                  <li className="text-[15px] cursor-pointer bg-[#F4F4F4] py-2 px-4 rounded-full">
+                    مقترح 1
+                  </li>
+                  <li className="text-[15px] cursor-pointer bg-[#F4F4F4] py-2 px-4 rounded-full">
+                    مقترح 2
+                  </li>
+                  <li className="text-[15px] cursor-pointer bg-[#F4F4F4] py-2 px-4 rounded-full">
+                    مقترح 3
+                  </li>
+                </ul>
+                <hr className="border-[#9C9C9C] w-3/5 my-4" />
+                <div className="flex items-center gap-2">
+                  <SmallSearchIcon />
+                  <p className="text-secondary-text text-[15px]">نتائج البحث</p>
+                </div>
+                <div className="my-3 flex flex-col gap-3">
+                  <SearchResult />
+                  <SearchResult />
+                  <SearchResult />
+                </div>
               </div>
-              <div className="my-3 flex flex-col gap-3">
-                <SearchResult />
-                <SearchResult />
-                <SearchResult />
-              </div>
-            </div>
-          </motion.div>
+            </motion.div>
+          </>
         )}
       </AnimatePresence>
     </div>
