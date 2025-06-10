@@ -48,7 +48,7 @@ const Searchbar = () => {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
             transition={{ duration: 0.2 }}
-            className="absolute mt-2 w-[700px] -right-20 bg-white border border-gray-300 shadow-lg "
+            className="absolute mt-2 w-[94dvw] md:w-[700px] max-md:left-0 z-[999] md:-right-20 bg-white border border-gray-300 shadow-lg "
           >
             <div className="flex items-center gap-2 px-5 py-4">
               <button onClick={toggleSearch} className="cursor-pointer">
