@@ -16,8 +16,10 @@ const Header = () => {
     <nav className="container py-4 flex items-center justify-between">
       <div className="flex items-center gap-6">
         <Link href="/cart">Cart</Link>
-        <SignInButton />
-        <Searchbar />
+        <div className="flex gap-6">
+          <SignInButton />
+          <Searchbar />
+        </div>
         <ChangeLanguage />
       </div>
       <div className="flex items-center gap-6">

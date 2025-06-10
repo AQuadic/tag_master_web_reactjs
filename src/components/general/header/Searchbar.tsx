@@ -37,7 +37,7 @@ const Searchbar = () => {
 
   return (
     <div ref={containerRef} className="relative">
-      <button onClick={toggleSearch} className="cursor-pointer">
+      <button onClick={toggleSearch} className="cursor-pointer ">
         <SearchIcon />
       </button>
 
