@@ -1,8 +1,11 @@
 import ArrowBack from "@/components/icons/general/ArrowBack";
+import LightBulb from "@/components/icons/general/LightBulb";
 import SearchIcon from "@/components/icons/general/SearchIcon";
+import SmallSearchIcon from "@/components/icons/general/SmallSearchIcon";
 import { AnimatePresence, motion } from "framer-motion";
 import { X } from "lucide-react";
 import React, { useEffect, useRef, useState } from "react";
+import SearchResult from "./SearchResult";
 
 const Searchbar = () => {
   const [showSearchBox, setShowSearchBox] = useState(false);
@@ -45,9 +48,9 @@ const Searchbar = () => {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
             transition={{ duration: 0.2 }}
-            className="absolute mt-2 w-[700px] -right-20 bg-white border border-gray-300 shadow-lg p-2"
+            className="absolute mt-2 w-[700px] -right-20 bg-white border border-gray-300 shadow-lg "
           >
-            <div className="flex items-center gap-2 px-3 py-2">
+            <div className="flex items-center gap-2 px-5 py-4">
               <button onClick={toggleSearch} className="cursor-pointer">
                 <ArrowBack />
               </button>
@@ -66,6 +69,34 @@ const Searchbar = () => {
                   <X size={18} />
                 </button>
               )}
+            </div>
+            <hr className="border-[#79747E]" />
+            <div className="px-5 py-3">
+              <div className="flex items-center gap-2">
+                <LightBulb />
+                <p className="text-secondary-text text-[15px]">مقترحات</p>
+              </div>
+              <ul className="my-2 flex items-center gap-4">
+                <li className=" text-[15px] cursor-pointer bg-[#F4F4F4] py-2 px-4 rounded-full">
+                  مقترح 1
+                </li>
+                <li className=" text-[15px] cursor-pointer bg-[#F4F4F4] py-2 px-4 rounded-full">
+                  مقترح 2
+                </li>
+                <li className=" text-[15px] cursor-pointer bg-[#F4F4F4] py-2 px-4 rounded-full">
+                  مقترح 3
+                </li>
+              </ul>
+              <hr className="border-[#9C9C9C] w-3/5 my-4" />
+              <div className="flex items-center gap-2">
+                <SmallSearchIcon />
+                <p className="text-secondary-text text-[15px]">نتائج البحث</p>
+              </div>
+              <div className="my-3 flex flex-col gap-3">
+                <SearchResult />
+                <SearchResult />
+                <SearchResult />
+              </div>
             </div>
           </motion.div>
         )}
