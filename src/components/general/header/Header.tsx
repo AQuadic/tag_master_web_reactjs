@@ -46,7 +46,7 @@ const Header = () => {
             : "bg-white"
         }`}
       >
-        <div className="container py-4 flex items-center justify-between">
+        <div className="container flex items-center justify-between">
           {/* Logo - Left on desktop, center on mobile */}
           <motion.div
             initial={{ opacity: 0, x: -20 }}
@@ -108,7 +108,7 @@ const Header = () => {
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.5, delay: 0.4 }}
-            className="hidden lg:flex items-center gap-4 lg:order-1"
+            className="hidden lg:flex items-center gap-6 lg:order-1"
           >
             {isSignedIn && (
               <motion.div
@@ -123,11 +123,11 @@ const Header = () => {
                 </Link>
               </motion.div>
             )}
-            <div className="flex items-center gap-3">
-              <SignInButton />
-              <div className="w-px h-6 bg-gray-300" />
-              <Searchbar />
-              <div className="w-px h-6 bg-gray-300" />
+            <div className="flex items-center gap-6">
+              <div className="flex gap-6">
+                <SignInButton />
+                <Searchbar />
+              </div>
               <ChangeLanguage />
             </div>
           </motion.div>
