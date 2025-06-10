@@ -1,5 +1,6 @@
 "use client";
 
+import CartIcon from "@/components/icons/general/CartIcon";
 import { navbarLinks } from "@/constants/navbarLinks";
 import Image from "next/image";
 import Link from "next/link";
@@ -11,11 +12,16 @@ import SignInButton from "./SignInButton";
 
 const Header = () => {
   const pathname = usePathname();
+  const isSignedIn = true;
 
   return (
     <nav className="container py-4 flex items-center justify-between">
       <div className="flex items-center gap-6">
-        <Link href="/cart">Cart</Link>
+        {isSignedIn && (
+          <Link href="/cart">
+            <CartIcon />
+          </Link>
+        )}
         <div className="flex gap-6">
           <SignInButton />
           <Searchbar />
