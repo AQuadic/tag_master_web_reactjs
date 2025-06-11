@@ -14,7 +14,7 @@ const MainProducts = () => {
         selectedFilter={selectedFilter}
         setSelectedFilter={setSelectedFilter}
       />
-      <div>
+      <div className="container grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 mt-8">
         <ProductCard />
         <ProductCard />
         <ProductCard />
