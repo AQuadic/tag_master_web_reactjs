@@ -36,7 +36,7 @@ const Searchbar = () => {
   }, [showSearchBox]);
 
   return (
-    <div ref={containerRef} className="relative z-[999]">
+    <div ref={containerRef} className="relative z-[999] ">
       <button onClick={toggleSearch} className="cursor-pointer">
         <SearchIcon />
       </button>
@@ -51,7 +51,7 @@ const Searchbar = () => {
               exit={{ opacity: 0 }}
               transition={{ duration: 0.2 }}
               onClick={() => setShowSearchBox(false)}
-              className="fixed inset-0 bg-black z-50"
+              className="fixed inset-0 h-screen bg-black z-50"
             />
 
             {/* Search Box */}
@@ -60,7 +60,7 @@ const Searchbar = () => {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -10 }}
               transition={{ duration: 0.2 }}
-              className="absolute mt-2 w-[94dvw] md:w-[700px] max-md:left-0 md:-right-20 bg-white border border-gray-300 shadow-lg z-[999]"
+              className="absolute mt-2 w-[94dvw] md:w-[700px] max-md:-left-[64px] md:-right-20 bg-white border border-gray-300 shadow-lg z-[999]"
             >
               <div className="flex items-center gap-2 px-5 py-4">
                 <button onClick={toggleSearch} className="cursor-pointer">
