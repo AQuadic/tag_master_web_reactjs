@@ -51,7 +51,13 @@ const HomeAchievementsSection = () => {
               variants={itemVariants}
               className="flex flex-col items-center gap-4"
             >
-              <Image width={68} height={68} src={item.image} alt={item.title} />
+              <Image
+                width={68}
+                height={68}
+                src={item.image}
+                alt={item.title}
+                className=" h-[68px] object-contain"
+              />
               <p className="text-main-blue font-bold text-4xl">
                 +{item.number}
               </p>
