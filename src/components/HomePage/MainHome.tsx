@@ -1,5 +1,6 @@
 import React from "react";
 import HomeAboutUs from "./HomeAboutUs";
+import HomeAchievements from "./HomeAchievements";
 import HomeHero from "./HomeHero";
 import HomeMarquee from "./HomeMarquee";
 
@@ -8,6 +9,7 @@ const MainHome = () => {
     <div>
       <HomeHero />
       <HomeMarquee />
+      <HomeAchievements />
       <HomeAboutUs />
     </div>
   );
