@@ -1,4 +1,5 @@
 import React from "react";
+import HomeAboutUs from "./HomeAboutUs";
 import HomeHero from "./HomeHero";
 import HomeMarquee from "./HomeMarquee";
 
@@ -7,6 +8,7 @@ const MainHome = () => {
     <div>
       <HomeHero />
       <HomeMarquee />
+      <HomeAboutUs />
     </div>
   );
 };
