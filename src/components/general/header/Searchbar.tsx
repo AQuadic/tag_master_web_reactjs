@@ -44,16 +44,6 @@ const Searchbar = () => {
       <AnimatePresence>
         {showSearchBox && (
           <>
-            {/* Overlay */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 0.5 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.2 }}
-              onClick={() => setShowSearchBox(false)}
-              className="fixed inset-0 h-screen bg-black z-50"
-            />
-
             {/* Search Box */}
             <motion.div
               initial={{ opacity: 0, y: -10 }}
