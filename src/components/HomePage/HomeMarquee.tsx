@@ -15,7 +15,7 @@ const HomeMarquee = () => {
               width={44}
               height={44}
               alt="marquee"
-              className="mx-20"
+              className="mx-10 md:mx-20"
             />
             <StarIcon />
           </div>
