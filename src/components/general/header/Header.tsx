@@ -139,12 +139,6 @@ const Header = () => {
                   className="p-3 rounded-xl hover:bg-gray-100 transition-all duration-200 relative group"
                 >
                   <CartIcon />
-                  <motion.div
-                    className="absolute inset-0 rounded-xl bg-main-blue/10"
-                    initial={{ scale: 0, opacity: 0 }}
-                    whileHover={{ scale: 1, opacity: 1 }}
-                    transition={{ duration: 0.2 }}
-                  />
                 </Link>
               </motion.div>
             )}
