@@ -4,6 +4,7 @@ import HomeAchievements from "./HomeAchievements";
 import HomeHero from "./HomeHero";
 import HomeMarquee from "./HomeMarquee";
 import HomeServices from "./HomeServices";
+import HomeBestSelling from "./HomeBestSelling";
 
 const MainHome = () => {
   return (
@@ -13,6 +14,7 @@ const MainHome = () => {
       <HomeAchievements />
       <HomeAboutUs />
       <HomeServices />
+      <HomeBestSelling />
     </div>
   );
 };
