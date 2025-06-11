@@ -36,7 +36,7 @@ const HomeAchievementsSection = () => {
         </motion.h2>
         <motion.h3
           variants={itemVariants}
-          className="text-2xl font-bold text-center"
+          className="text-2xl font-bold text-center mt-2 mb-8"
         >
           ثقة عالمية وانتشار واسع
         </motion.h3>
