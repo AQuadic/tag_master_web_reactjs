@@ -355,7 +355,7 @@ const Header = () => {
       </AnimatePresence>
 
       {/* Spacer to prevent content overlap */}
-      <div className="h-16 md:h-20" />
+      <div className="h-20 md:h-24" />
     </>
   );
 };
