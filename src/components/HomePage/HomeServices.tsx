@@ -240,6 +240,13 @@ const HomeServices = () => {
           </div>
         </div>
       </motion.div>
+      <Image
+        src="/images/home/servicesVideo.png"
+        width={1200}
+        height={620}
+        alt="services video"
+        className="container mt-10 sm:mt-20 object-cover"
+      />
     </section>
   );
 };
