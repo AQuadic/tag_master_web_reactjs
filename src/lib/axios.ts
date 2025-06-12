@@ -4,14 +4,13 @@ import Cookies from "js-cookie";
 function authRequestInterceptor(config: {
   headers: { [key: string]: string };
 }) {
-  const token = Cookies.get("cloudwa-token");
+  const token = Cookies.get("tag-master-token");
 
   if (token) {
     config.headers.authorization = `Bearer ${token}`;
   }
 
   config.headers.Accept = "application/json";
-
 
   return config;
 }
@@ -32,7 +31,7 @@ axios.interceptors.response.use(
       error.response.status === 401 &&
       !window.location.href.includes("auth/login")
     ) {
-      Cookies.remove("cloudwa-token");
+      Cookies.remove("tag-master-token");
       window.location.href = "/auth/login";
     }
     return Promise.reject(error);
