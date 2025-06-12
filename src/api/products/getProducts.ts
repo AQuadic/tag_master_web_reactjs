@@ -1,6 +1,6 @@
 import { axios } from "@/lib/axios";
 
-export interface Product {
+export interface ProductTypes {
   id: number;
   name: {
     ar: string;
@@ -55,7 +55,7 @@ export interface Product {
 export interface ProductsResponseTypes {
   current_page: number;
   to: number;
-  data: Product[];
+  data: ProductTypes[];
 }
 
 export const getProducts = async (

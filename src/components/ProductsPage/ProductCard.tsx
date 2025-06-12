@@ -1,11 +1,18 @@
+import { ProductTypes } from "@/api/products/getProducts";
 import Image from "next/image";
 import React from "react";
 import ReviewStarIcon from "../icons/general/ReviewStarIcon";
 import NotFavoriteIcon from "../icons/products/NotFavoriteIcon";
 import { Button } from "../ui/button";
 
-const ProductCard = () => {
+interface ProductCardProps {
+  product: ProductTypes;
+}
+
+const ProductCard = ({ product }: ProductCardProps) => {
   const isNew = true;
+  const price = parseInt(product.price);
+  const discount = parseInt(product.discount);
   return (
     <div className="flex flex-col items-center gap-5 relative">
       <div className="absolute  top-6 w-full flex justify-between items-center">
@@ -19,15 +26,16 @@ const ProductCard = () => {
         </button>
       </div>
       <Image
-        src="/images/productPlaceholder.png"
+        src={product.images[0].responsive_urls[0]}
         width={280}
         height={162}
         alt="product"
-        className="rounded-sm"
+        className="rounded-sm w-[280px] h-[162px] object-cover"
       />
       <div className="flex items-center justify-between w-[78%]">
         <p>
-          204 درهم <span className="line-through">520</span>
+          {price - discount} درهم{" "}
+          {discount > 0 && <span className="line-through">{price}</span>}
         </p>
         <div className="flex items-center gap-1">
           <ReviewStarIcon />
@@ -38,8 +46,8 @@ const ProductCard = () => {
           <span>(5)</span>
         </div>
       </div>
-      <p className="w-[78%]  text-lg">
-        بطاقة تاج ستار - قم بحفر الإسم مخصص على البطاقة
+      <p className="w-[78%]  text-lg h-[54px] overflow-y-hidden">
+        {product.name.ar}
       </p>
       <Button className="rounded-full w-[80%] bg-[#2F3437] cursor-pointer">
         + إضافة سريعة
