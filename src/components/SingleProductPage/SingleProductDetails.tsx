@@ -2,6 +2,7 @@
 import { ProductTypes } from "@/types/product";
 import React from "react";
 import ReviewStarIcon from "../icons/general/ReviewStarIcon";
+import { Button } from "../ui/button";
 import SingleProductColorPicker from "./SingleProductColorPicker";
 
 interface SingleProductDetailsProps {
@@ -14,7 +15,7 @@ const SingleProductDetails = ({ product }: SingleProductDetailsProps) => {
   const discount = parseInt(product.discount) || 10;
 
   return (
-    <section className="w-full">
+    <section className="w-full flex flex-col ">
       <div className="flex flex-wrap justify-between">
         <h2 className="font-bold text-lg sm:text-2xl max-w-[400px]">
           {product.name.ar}
@@ -51,6 +52,9 @@ const SingleProductDetails = ({ product }: SingleProductDetailsProps) => {
         selectedColor={selectedColor}
         setSelectedColor={setSelectedColor}
       />
+      <Button className="px-20 rounded-full bg-main-blue cursor-pointer mt-5 self-start">
+        + إضافة سريعة
+      </Button>
     </section>
   );
 };
