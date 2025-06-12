@@ -1,11 +1,23 @@
 import Image from "next/image";
 import React from "react";
 import ReviewStarIcon from "../icons/general/ReviewStarIcon";
+import NotFavoriteIcon from "../icons/products/NotFavoriteIcon";
 import { Button } from "../ui/button";
 
 const ProductCard = () => {
+  const isNew = true;
   return (
-    <div className="flex flex-col items-center gap-5">
+    <div className="flex flex-col items-center gap-5 relative">
+      <div className="absolute  top-6 w-full flex justify-between items-center">
+        {isNew && (
+          <p className="absolute left-5 bg-[#2CF257] p-2 rounded-full text-white font-bold text-xs">
+            مضاف حديثا
+          </p>
+        )}
+        <button className="cursor-pointer absolute right-5 z-10">
+          <NotFavoriteIcon />
+        </button>
+      </div>
       <Image
         src="/images/productPlaceholder.png"
         width={280}
