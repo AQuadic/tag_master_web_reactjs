@@ -104,7 +104,7 @@ const Header = () => {
                     href={link.path}
                     className={`relative py-3 px-4 rounded-xl transition-all duration-300 group ${
                       isActive
-                        ? "font-semibold text-main-blue bg-main-blue/5"
+                        ? "font-semibold text-main-blue "
                         : "text-gray-700 hover:text-main-blue hover:bg-gray-50"
                     }`}
                   >
