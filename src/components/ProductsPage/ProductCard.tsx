@@ -1,4 +1,4 @@
-import { ProductTypes } from "@/api/products/getProducts";
+import { ProductTypes } from "@/types/product";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
