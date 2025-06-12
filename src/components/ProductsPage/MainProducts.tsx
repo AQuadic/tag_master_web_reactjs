@@ -1,10 +1,16 @@
 "use client";
+import { ProductsResponseTypes } from "@/api/products/getProducts";
 import React, { useState } from "react";
 import ProductCard from "./ProductCard";
 import ProductsFilter from "./ProductsFilter";
 import ProductsSearchbar from "./ProductsSearchbar";
 
-const MainProducts = () => {
+interface MainProductsProps {
+  data: ProductsResponseTypes;
+}
+
+const MainProducts = ({ data }: MainProductsProps) => {
+  console.log("Products data:", data);
   const [selectedFilter, setSelectedFilter] = useState<string>("");
   return (
     <main>
