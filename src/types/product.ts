@@ -1,3 +1,10 @@
+export type ProductImageTypes = {
+  id: number;
+  uuid: string;
+  size: number;
+  url: string;
+  responsive_urls: string[];
+};
 export interface ProductTypes {
   id: number;
   name: {
@@ -21,13 +28,7 @@ export interface ProductTypes {
   created_at: string;
   updated_at: string;
   order_column: number;
-  images: Array<{
-    id: number;
-    uuid: string;
-    size: number;
-    url: string;
-    responsive_urls: string[];
-  }>;
+  images: ProductImageTypes[];
   category: {
     id: number;
     name: {

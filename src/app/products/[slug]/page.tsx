@@ -5,7 +5,6 @@ import React from "react";
 const page = async ({ params }: { params: Promise<{ slug: string }> }) => {
   const { slug } = await params;
   const product = await getSingleProduct(slug);
-  console.log(product);
   return <MainSingleProduct product={product} />;
 };
 
