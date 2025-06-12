@@ -1,5 +1,6 @@
 import { ProductTypes } from "@/types/product";
 import React from "react";
+import SingleProductDetails from "./SingleProductDetails";
 import SingleProductGallery from "./SingleProductGallery";
 
 interface MainSingleProductProps {
@@ -8,9 +9,9 @@ interface MainSingleProductProps {
 
 const MainSingleProduct = ({ product }: MainSingleProductProps) => {
   return (
-    <main className="flex items-center gap-8 container">
+    <main className="flex  gap-8 container justify-between">
       <SingleProductGallery images={product.images} />
-      <div className="w-3/5">test</div>
+      <SingleProductDetails product={product} />
     </main>
   );
 };

@@ -5,6 +5,7 @@
 
 @theme inline {
   --color-main-blue: #007cc2;
+  --color-main-green: #15b600;
   --color-secondary-text: #9c9c9c;
   --color-background: var(--background);
   --color-foreground: var(--foreground);

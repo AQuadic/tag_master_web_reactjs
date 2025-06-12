@@ -5,6 +5,13 @@ export type ProductImageTypes = {
   url: string;
   responsive_urls: string[];
 };
+
+export type ProductOptionTypes = {
+  color: string;
+  value: string;
+  in_stock: boolean;
+};
+
 export interface ProductTypes {
   id: number;
   name: {
@@ -17,11 +24,7 @@ export interface ProductTypes {
   };
   price: string;
   discount: string;
-  options: Array<{
-    color: string;
-    value: string;
-    in_stock: boolean;
-  }>;
+  options: ProductOptionTypes[];
   category_id: number;
   brand_id: number | null;
   is_active: number;
