@@ -176,7 +176,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
         <div className="absolute top-6 w-full flex justify-between items-center z-20">
           {isNew && (
             <motion.div
-              className="absolute left-5 bg-gradient-to-r from-slate-800 to-slate-700 px-3 py-2 rounded-xl text-white font-semibold text-xs backdrop-blur-sm"
+              className="absolute left-5 bg-[#2CF257]  px-3 py-2 rounded-xl text-white font-semibold text-xs "
               variants={badgeVariants}
               whileHover="hover"
             >
@@ -297,7 +297,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
           <Button
             onClick={handleAddToCart}
             asChild
-            className="rounded-full w-full bg-gradient-to-r from-slate-800 to-slate-700 hover:from-slate-700 hover:to-slate-600 text-white font-semibold border-0 cursor-pointer"
+            className="rounded-full w-full bg-[#2F3437] hover:from-slate-700 hover:to-slate-600 text-white font-semibold border-0 cursor-pointer"
           >
             <motion.button
               variants={buttonVariants}
