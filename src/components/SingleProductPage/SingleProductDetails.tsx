@@ -52,7 +52,7 @@ const SingleProductDetails = ({ product }: SingleProductDetailsProps) => {
         selectedColor={selectedColor}
         setSelectedColor={setSelectedColor}
       />
-      <Button className="px-20 rounded-full bg-main-blue cursor-pointer mt-5 self-start">
+      <Button className="px-20 rounded-full bg-main-blue cursor-pointer mt-5 md:self-start">
         + إضافة سريعة
       </Button>
     </section>

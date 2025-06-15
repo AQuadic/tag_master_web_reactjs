@@ -12,7 +12,7 @@ const MainSingleProduct = ({ product }: MainSingleProductProps) => {
   return (
     <main>
       <SingleProductBreadCrumb title={product.name.ar} />
-      <div className="flex  gap-8 container justify-between">
+      <div className="flex max-md:flex-col  gap-8 container justify-between">
         <SingleProductGallery images={product.images} />
         <SingleProductDetails product={product} />
       </div>

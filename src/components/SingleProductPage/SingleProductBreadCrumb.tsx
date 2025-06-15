@@ -14,7 +14,7 @@ const SingleProductBreadCrumb = ({ title }: SingleProductBreadCrumbProps) => {
         <p className=""> المنتجات</p>
       </Link>
       <div className="w-1.5 h-1.5 rounded-full bg-[#BEBEC0]"></div>
-      <p className="text-main-blue">{title}</p>
+      <p className="text-main-blue w-[200px] text-ellipsis truncate">{title}</p>
     </section>
   );
 };
