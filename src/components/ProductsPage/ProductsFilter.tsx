@@ -121,7 +121,7 @@ const ProductsFilter = ({
 
   return (
     <motion.div
-      className="container flex items-center justify-between flex-wrap gap-5 py-4 relative overflow-hidden"
+      className="container flex items-center justify-center md:justify-between flex-wrap gap-5 py-4 relative overflow-hidden"
       variants={containerVariants}
       initial="initial"
       animate="animate"
@@ -137,7 +137,7 @@ const ProductsFilter = ({
         >
           <motion.button
             onClick={() => setSelectedFilter(filter.key)}
-            className="relative py-3 px-6 cursor-pointer font-medium text-sm rounded-full transition-colors duration-200 overflow-hidden border-2 border-transparent hover:border-slate-200"
+            className="relative py-3 px-4 md:px-6 cursor-pointer font-medium text-xs md:text-sm rounded-full transition-colors duration-200 overflow-hidden border-2 border-transparent hover:border-slate-200"
             style={{
               boxShadow:
                 selectedFilter === filter.key
