@@ -1,5 +1,5 @@
 "use client";
-import { ProductsResponseTypes } from "@/api/products/getProducts";
+import { ProductsResponseTypes } from "@/types/product";
 import React, { useState } from "react";
 import ProductCard from "./ProductCard";
 import ProductsFilter from "./ProductsFilter";

@@ -121,7 +121,7 @@ const ProductsFilter = ({
 
   return (
     <motion.div
-      className="container flex items-center justify-between flex-wrap gap-5 py-4"
+      className="container flex items-center justify-between flex-wrap gap-5 py-4 relative overflow-hidden"
       variants={containerVariants}
       initial="initial"
       animate="animate"
@@ -217,42 +217,6 @@ const ProductsFilter = ({
           />
         </motion.div>
       ))}
-
-      {/* Floating background decoration */}
-      <motion.div
-        className="absolute inset-0 pointer-events-none overflow-hidden rounded-2xl"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 0.5, duration: 0.8 }}
-      >
-        <motion.div
-          className="absolute -top-4 -right-4 w-24 h-24 bg-gradient-to-br from-slate-100 to-slate-50 rounded-full blur-xl"
-          animate={{
-            x: [0, 10, 0],
-            y: [0, -5, 0],
-            scale: [1, 1.1, 1],
-          }}
-          transition={{
-            duration: 6,
-            repeat: Infinity,
-            ease: "easeInOut",
-          }}
-        />
-        <motion.div
-          className="absolute -bottom-4 -left-4 w-16 h-16 bg-gradient-to-tr from-slate-200 to-slate-100 rounded-full blur-lg"
-          animate={{
-            x: [0, -8, 0],
-            y: [0, 8, 0],
-            scale: [1, 0.9, 1],
-          }}
-          transition={{
-            duration: 8,
-            repeat: Infinity,
-            ease: "easeInOut",
-            delay: 1,
-          }}
-        />
-      </motion.div>
     </motion.div>
   );
 };
