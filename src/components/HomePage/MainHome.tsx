@@ -6,6 +6,7 @@ import HomeBestSelling from "./HomeBestSelling";
 import HomeHero from "./HomeHero";
 import HomeMarquee from "./HomeMarquee";
 import HomeServices from "./HomeServices";
+import HomeUserPicks from "./HomeUserPicks";
 
 const MainHome = () => {
   return (
@@ -16,6 +17,7 @@ const MainHome = () => {
       <HomeAboutUs />
       <HomeServices />
       <HomeBestSelling />
+      <HomeUserPicks />
       <DownloadApp />
     </div>
   );

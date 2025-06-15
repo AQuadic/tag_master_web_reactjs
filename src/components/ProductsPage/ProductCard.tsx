@@ -217,7 +217,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
 
         {/* Price and Rating Section */}
         <motion.div
-          className="flex items-center justify-between w-full"
+          className="flex items-center justify-between max-sm:flex-col w-full"
           variants={contentVariants}
         >
           <motion.div
@@ -226,7 +226,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
             transition={{ delay: 0.3, duration: 0.4 }}
           >
             <motion.p
-              className="font-bold text-lg text-slate-800"
+              className="font-bold text-sm sm:text-lg text-slate-800"
               whileHover={{ scale: 1.05 }}
               transition={{ duration: 0.2 }}
             >
