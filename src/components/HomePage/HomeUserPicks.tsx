@@ -68,7 +68,8 @@ const HomeUserPicks: React.FC = () => {
       {
         breakpoint: 768,
         settings: {
-          centerPadding: "0px", // No padding on mobile
+          centerMode: false,
+          centerPadding: "0px",
           slidesToShow: 1,
         },
       },
@@ -79,7 +80,7 @@ const HomeUserPicks: React.FC = () => {
   const sliderRef = React.useRef<Slider>(null);
 
   return (
-    <section dir="ltr" className="container py-8 sm:py-16">
+    <section dir="ltr" className="container py-8 sm:py-16 overflow-x-hidden">
       <motion.h2
         variants={itemVariants}
         initial="hidden"
@@ -119,6 +120,7 @@ const HomeUserPicks: React.FC = () => {
 
       <style jsx global>{`
         .user-pick-slider .slick-list {
+          max-width: screen !important;
           overflow: visible !important;
         }
 
