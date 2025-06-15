@@ -1,10 +1,11 @@
 import React from "react";
+import DownloadApp from "../general/DownloadApp";
 import HomeAboutUs from "./HomeAboutUs";
 import HomeAchievements from "./HomeAchievements";
+import HomeBestSelling from "./HomeBestSelling";
 import HomeHero from "./HomeHero";
 import HomeMarquee from "./HomeMarquee";
 import HomeServices from "./HomeServices";
-import HomeBestSelling from "./HomeBestSelling";
 
 const MainHome = () => {
   return (
@@ -15,6 +16,7 @@ const MainHome = () => {
       <HomeAboutUs />
       <HomeServices />
       <HomeBestSelling />
+      <DownloadApp />
     </div>
   );
 };
