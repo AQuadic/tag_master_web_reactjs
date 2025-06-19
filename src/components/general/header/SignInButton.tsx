@@ -12,7 +12,7 @@ const SignInButton = () => {
         </Link>
       ) : (
         <Link
-          href="auth/login"
+          href="/auth/login"
           className="rounded-full bg-main-blue cursor-pointer px-3 py-2 text-white"
         >
           تسجيل الدخول
