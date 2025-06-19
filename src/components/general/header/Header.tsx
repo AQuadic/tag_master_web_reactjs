@@ -13,7 +13,7 @@ import SignInButton from "./SignInButton";
 
 const Header = () => {
   const pathname = usePathname();
-  const isSignedIn = true;
+  const isSignedIn = false;
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
 
@@ -53,7 +53,7 @@ const Header = () => {
         initial={{ y: -100 }}
         animate={{ y: 0 }}
         transition={{ duration: 0.6, ease: "easeOut" }}
-        className={`max-md:py-4 fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
+        className={`py-4 fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
           isScrolled
             ? "bg-white/95 backdrop-blur-xl shadow-xl border-b border-gray-100/50"
             : "bg-white/90 backdrop-blur-sm"
@@ -136,7 +136,7 @@ const Header = () => {
               >
                 <Link
                   href="/cart"
-                  className="p-3 rounded-xl hover:bg-gray-100 transition-all duration-200 relative group"
+                  className=" rounded-xl hover:bg-gray-100 transition-all duration-200 relative group"
                 >
                   <CartIcon />
                 </Link>

@@ -3,9 +3,9 @@ import Link from "next/link";
 import React from "react";
 
 const SignInButton = () => {
-  const isSignedIn = true;
+  const isSignedIn = false;
   return (
-    <div>
+    <div className="h-[41] flex items-center ">
       {isSignedIn ? (
         <Link href="/profile">
           <ProfileIcon />

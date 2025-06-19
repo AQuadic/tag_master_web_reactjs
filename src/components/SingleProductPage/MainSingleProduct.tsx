@@ -9,6 +9,7 @@ interface MainSingleProductProps {
 }
 
 const MainSingleProduct = ({ product }: MainSingleProductProps) => {
+  console.log("Product in MainSingleProduct:", product);
   return (
     <main>
       <SingleProductBreadCrumb title={product.name.ar} />
