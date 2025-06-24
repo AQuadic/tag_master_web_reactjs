@@ -2,12 +2,13 @@ import { axios } from "@/lib/axios";
 import { ProductsResponseTypes } from "@/types/product";
 
 export const getProducts = async (
-  page: number = 1
+  page: number = 1,
+  search: string = ""
 ): Promise<ProductsResponseTypes> => {
   const response = await axios.get("/products", {
     params: {
       page,
-      per_page: 5,
+      q: search,
     },
   });
   return response.data;

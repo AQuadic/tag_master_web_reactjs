@@ -11,13 +11,17 @@ interface MainProductsProps {
 }
 
 const MainProducts = ({ data }: MainProductsProps) => {
+  const [searchQuery, setSearchQuery] = useState<string>("");
   const [currentStep, setCurrentStep] = useState<number>(1);
   console.log("data", data);
   const [selectedFilter, setSelectedFilter] = useState<string>("");
   return (
     <main>
       <h1 className="font-bold text-2xl text-center mt-8 sm:mt-16">المنتجات</h1>
-      <ProductsSearchbar />
+      <ProductsSearchbar
+        searchQuery={searchQuery}
+        setSearchQuery={setSearchQuery}
+      />
       <ProductsFilter
         selectedFilter={selectedFilter}
         setSelectedFilter={setSelectedFilter}
