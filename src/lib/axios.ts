@@ -5,7 +5,7 @@ function authRequestInterceptor(config: {
   headers: { [key: string]: string };
 }) {
   const token = Cookies.get("tag-master-token");
-  const language = localStorage.getItem("language") ?? "ar";
+  const language = Cookies.get("language") ?? "ar";
   config.headers["Accept-Language"] = language;
   if (token) {
     config.headers.authorization = `Bearer ${token}`;
