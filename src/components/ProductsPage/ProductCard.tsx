@@ -201,7 +201,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
           whileHover="hover"
         >
           <Image
-            src={product.images[0].responsive_urls[0]}
+            src={product.images[0]?.responsive_urls[0]}
             width={280}
             height={162}
             alt="product"

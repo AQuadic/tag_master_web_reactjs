@@ -10,6 +10,7 @@ interface MainProductsProps {
 }
 
 const MainProducts = ({ data }: MainProductsProps) => {
+  console.log("data", data);
   const [selectedFilter, setSelectedFilter] = useState<string>("");
   return (
     <main>
