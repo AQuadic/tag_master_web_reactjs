@@ -1,7 +1,8 @@
+import MainSignUp from "@/components/auth/MainSignUp";
 import React from "react";
 
 const page = () => {
-  return <div>page</div>;
+  return <MainSignUp />;
 };
 
 export default page;

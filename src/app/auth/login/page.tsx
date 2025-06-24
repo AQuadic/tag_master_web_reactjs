@@ -1,4 +1,4 @@
-import MainLogin from "@/components/auth/login/MainLogin";
+import MainLogin from "@/components/auth/MainLogin";
 import React from "react";
 
 const page = () => {
