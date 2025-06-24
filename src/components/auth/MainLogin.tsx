@@ -5,7 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 
-const LoginStep1 = () => {
+const MainLogin = () => {
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
   return (
@@ -40,4 +40,4 @@ const LoginStep1 = () => {
   );
 };
 
-export default LoginStep1;
+export default MainLogin;
