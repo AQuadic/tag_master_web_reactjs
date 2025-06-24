@@ -106,13 +106,13 @@ const Header = () => {
                     href={link.path}
                     className={`relative py-3 px-4 rounded-xl transition-all duration-300 group ${
                       isActive
-                        ? "font-semibold text-main-blue "
-                        : "text-gray-700 hover:text-main-blue hover:bg-gray-50"
+                        ? "font-semibold text-primary "
+                        : "text-gray-700 hover:text-primary hover:bg-gray-50"
                     }`}
                   >
                     {link.titleAr}
                     <motion.div
-                      className="absolute bottom-1 left-4 right-4 h-0.5 bg-gradient-to-r from-main-blue to-blue-600 rounded-full"
+                      className="absolute bottom-1 left-4 right-4 h-0.5 bg-gradient-to-r from-primary to-blue-600 rounded-full"
                       animate={{ scaleX: isActive ? 1 : 0 }}
                       whileHover={{ scaleX: 1 }}
                       transition={{ duration: 0.3 }}
@@ -175,7 +175,7 @@ const Header = () => {
 
             <motion.button
               onClick={toggleMobileMenu}
-              className="p-2.5 rounded-xl hover:bg-gray-100 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-main-blue/20"
+              className="p-2.5 rounded-xl hover:bg-gray-100 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-primary/20"
               aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
@@ -276,8 +276,8 @@ const Header = () => {
                           href={link.path}
                           className={`block py-4 px-5 rounded-xl transition-all duration-300 relative group ${
                             isActive
-                              ? "bg-gradient-to-r from-main-blue to-blue-600 text-white font-semibold shadow-lg"
-                              : "text-gray-700 hover:bg-gray-50 hover:text-main-blue"
+                              ? "bg-gradient-to-r from-primary to-blue-600 text-white font-semibold shadow-lg"
+                              : "text-gray-700 hover:bg-gray-50 hover:text-primary"
                           }`}
                         >
                           <motion.div
@@ -293,7 +293,7 @@ const Header = () => {
                           </motion.div>
                           {!isActive && (
                             <motion.div
-                              className="absolute inset-0 bg-gradient-to-r from-main-blue/5 to-blue-600/5 rounded-xl"
+                              className="absolute inset-0 bg-gradient-to-r from-primary/5 to-blue-600/5 rounded-xl"
                               initial={{ scale: 0, opacity: 0 }}
                               whileHover={{ scale: 1, opacity: 1 }}
                               transition={{ duration: 0.2 }}
@@ -321,7 +321,7 @@ const Header = () => {
                         href="/cart"
                         className="flex items-center gap-4 py-4 px-4 rounded-xl hover:bg-gray-50 transition-all duration-200 group w-full"
                       >
-                        <div className="flex items-center justify-center w-10 h-10 rounded-lg bg-main-blue/10 group-hover:bg-main-blue/20 transition-colors flex-shrink-0">
+                        <div className="flex items-center justify-center w-10 h-10 rounded-lg bg-primary/10 group-hover:bg-primary/20 transition-colors flex-shrink-0">
                           <CartIcon />
                         </div>
                         <span className="text-gray-700 font-medium flex-1 text-right">

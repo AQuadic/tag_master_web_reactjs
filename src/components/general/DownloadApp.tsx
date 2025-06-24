@@ -20,7 +20,7 @@ const DownloadApp = () => {
         initial="hidden"
         whileInView="show"
         viewport={{ once: true }}
-        className="text-lg text-main-blue text-center"
+        className="text-lg text-primary text-center"
       >
         تطبيقنا على المتاجر
       </motion.h2>

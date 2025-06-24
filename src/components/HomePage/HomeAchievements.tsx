@@ -30,7 +30,7 @@ const HomeAchievementsSection = () => {
       <div className="py-8 sm:py-16">
         <motion.h2
           variants={itemVariants}
-          className="text-lg text-main-blue text-center"
+          className="text-lg text-primary text-center"
         >
           كن جزءًا من مجتمعنا
         </motion.h2>
@@ -58,9 +58,7 @@ const HomeAchievementsSection = () => {
                 alt={item.title}
                 className=" h-[68px] object-contain"
               />
-              <p className="text-main-blue font-bold text-4xl">
-                +{item.number}
-              </p>
+              <p className="text-primary font-bold text-4xl">+{item.number}</p>
               <p className="text-center w-[92px] text-white bg-black rounded-full p-1">
                 {item.title}
               </p>

@@ -6,7 +6,7 @@ const ProductsSearchbar = () => {
   return (
     <div className="relative max-w-[890px] mx-auto container">
       <Input
-        className="rounded-full p-6 border-main-blue   my-8"
+        className="rounded-full p-6 border-primary   my-8"
         placeholder="البحث عن اسم منتج"
       />
       <span className="absolute top-1/2 left-8 transform -translate-y-1/2">

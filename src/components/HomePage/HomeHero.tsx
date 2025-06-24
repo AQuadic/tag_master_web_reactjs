@@ -23,7 +23,7 @@ const HomeHero = () => {
         <div className="flex items-center gap-4 mt-10">
           <Link
             href="/auth/login"
-            className="bg-white  px-6 py-3 rounded-full font-semibold text-main-blue hover:bg-gray-200 transition-colors duration-300  min-w-[160px] text-center"
+            className="bg-white  px-6 py-3 rounded-full font-semibold text-primary hover:bg-gray-200 transition-colors duration-300  min-w-[160px] text-center"
           >
             ابدأ الآن الآن
           </Link>

@@ -120,7 +120,7 @@ const HomeServices = () => {
       >
         <motion.h2
           variants={itemVariants}
-          className="text-lg text-main-blue text-center"
+          className="text-lg text-primary text-center"
         >
           أبرز الخدمات
         </motion.h2>

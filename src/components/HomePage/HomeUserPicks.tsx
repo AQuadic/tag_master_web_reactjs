@@ -38,7 +38,7 @@ const HomeUserPicks: React.FC = () => {
           onClick={() => goToSlide(index)}
           className={`transition-all duration-300 ${
             index === currentSlide
-              ? "w-6 h-2 bg-main-blue rounded-full" // Active dot as dash
+              ? "w-6 h-2 bg-primary rounded-full" // Active dot as dash
               : "w-2 h-2 bg-blue-300 rounded-full hover:bg-blue-400" // Inactive dots
           }`}
           aria-label={`Go to slide ${index + 1}`}
@@ -86,7 +86,7 @@ const HomeUserPicks: React.FC = () => {
         initial="hidden"
         whileInView="show"
         viewport={{ once: true }}
-        className="text-lg text-main-blue text-center"
+        className="text-lg text-primary text-center"
       >
         توصيات المستخدمين
       </motion.h2>
