@@ -1,6 +1,7 @@
 "use client";
 import { ProductsResponseTypes } from "@/types/product";
 import React, { useState } from "react";
+import Pagination from "./Pagination";
 import ProductCard from "./ProductCard";
 import ProductsFilter from "./ProductsFilter";
 import ProductsSearchbar from "./ProductsSearchbar";
@@ -10,6 +11,7 @@ interface MainProductsProps {
 }
 
 const MainProducts = ({ data }: MainProductsProps) => {
+  const [currentStep, setCurrentStep] = useState<number>(1);
   console.log("data", data);
   const [selectedFilter, setSelectedFilter] = useState<string>("");
   return (
@@ -25,6 +27,11 @@ const MainProducts = ({ data }: MainProductsProps) => {
           <ProductCard key={product.id} product={product} />
         ))}
       </div>
+      <Pagination
+        currentStep={currentStep}
+        setCurrentStep={setCurrentStep}
+        totalSteps={3}
+      />
     </main>
   );
 };
