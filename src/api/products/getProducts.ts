@@ -7,6 +7,7 @@ export const getProducts = async (
   const response = await axios.get("/products", {
     params: {
       page,
+      per_page: 5,
     },
   });
   return response.data;
