@@ -82,8 +82,7 @@ const Header = () => {
                 />
               </motion.div>
             </Link>
-          </motion.div>
-
+          </motion.div>{" "}
           {/* Desktop Navigation - Center */}
           <motion.div
             initial={{ opacity: 0, y: -20 }}
@@ -92,7 +91,10 @@ const Header = () => {
             className="hidden lg:flex items-center gap-8 lg:order-2"
           >
             {navbarLinks.map((link, index) => {
-              const isActive = pathname === link.path;
+              const isActive =
+                link.path === "/"
+                  ? pathname === "/"
+                  : pathname.startsWith(link.path);
               return (
                 <motion.div
                   key={link.path}
@@ -121,7 +123,6 @@ const Header = () => {
               );
             })}
           </motion.div>
-
           {/* Desktop Actions - Right */}
           <motion.div
             initial={{ opacity: 0, x: 20 }}
@@ -166,7 +167,6 @@ const Header = () => {
               </motion.div>
             </div>
           </motion.div>
-
           {/* Mobile Search/Menu Toggle */}
           <div className="lg:hidden flex items-center gap-3">
             <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
@@ -259,8 +259,12 @@ const Header = () => {
                   transition={{ duration: 0.3, delay: 0.1 }}
                   className="space-y-2 mb-8"
                 >
+                  {" "}
                   {navbarLinks.map((link, index) => {
-                    const isActive = pathname === link.path;
+                    const isActive =
+                      link.path === "/"
+                        ? pathname === "/"
+                        : pathname.startsWith(link.path);
                     return (
                       <motion.div
                         key={link.path}
