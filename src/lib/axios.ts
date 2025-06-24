@@ -5,7 +5,8 @@ function authRequestInterceptor(config: {
   headers: { [key: string]: string };
 }) {
   const token = Cookies.get("tag-master-token");
-
+  const language = localStorage.getItem("language") ?? "ar";
+  config.headers["Accept-Language"] = language;
   if (token) {
     config.headers.authorization = `Bearer ${token}`;
   }
@@ -34,6 +35,14 @@ axios.interceptors.response.use(
       Cookies.remove("tag-master-token");
       window.location.href = "/auth/login";
     }
-    return Promise.reject(error);
+    let processedError;
+    if (error instanceof Error) {
+      processedError = error;
+    } else if (typeof error === "string") {
+      processedError = new Error(error);
+    } else {
+      processedError = new Error(JSON.stringify(error));
+    }
+    return Promise.reject(processedError);
   }
 );

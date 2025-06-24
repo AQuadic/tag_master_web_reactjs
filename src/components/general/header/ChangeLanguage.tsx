@@ -8,6 +8,7 @@ import { ChevronDown } from "lucide-react";
 import React from "react";
 
 const ChangeLanguage = () => {
+  
   return (
     <DropdownMenu>
       <DropdownMenuTrigger className="cursor-pointer flex items-center gap-2 text-[#525659]">
