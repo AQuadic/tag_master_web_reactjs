@@ -7,6 +7,7 @@ import HomeHero from "./HomeHero";
 import HomeMarquee from "./HomeMarquee";
 import HomeServices from "./HomeServices";
 import HomeUserPicks from "./HomeUserPicks";
+import HowItWorks from "./HowItWorks";
 
 const MainHome = () => {
   return (
@@ -16,6 +17,7 @@ const MainHome = () => {
       <HomeAchievements />
       <HomeAboutUs />
       <HomeServices />
+      <HowItWorks />
       <HomeBestSelling />
       <HomeUserPicks />
       <DownloadApp />
