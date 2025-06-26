@@ -1,3 +1,4 @@
+import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
 
@@ -5,7 +6,12 @@ const HowItWorks = () => {
     return (
         <section className='container'>
             <div className='grid lg:grid-cols-2 grid-cols-1'>
-                <div className='md:w-[387px] h-[387px] bg-purple-500 flex justify-center'></div>
+                <Image 
+                    src='/images/home/howItWorks.png' 
+                    alt='tagmaster image' 
+                    width={387} 
+                    height={387} 
+                    />
                 <div className='mt-4 lg:mt-0'>
                     <div className='flex items-center justify-between'>
                         <h1 className='text-[#000000] text-[25px] font-bold'>كيف يعمل تاج ماستر</h1>
