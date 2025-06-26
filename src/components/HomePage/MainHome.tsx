@@ -10,6 +10,7 @@ import HomeUserPicks from "./HomeUserPicks";
 import HowItWorks from "./HowItWorks";
 import HomeBlogs from "./HomeBlogs";
 import HomeFaq from "./HomeFaq";
+import HomeContact from "../icons/home/HomeContact";
 
 const MainHome = () => {
   return (
@@ -25,6 +26,7 @@ const MainHome = () => {
       <DownloadApp />
       <HomeBlogs />
       <HomeFaq />
+      <HomeContact />
     </div>
   );
 };
