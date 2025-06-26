@@ -13,8 +13,10 @@ const MainSignUp = () => {
   const [showPassword, setShowPassword] = React.useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = React.useState(false);
   return (
-    <section className="flex flex-col items-center justify-center  container !max-w-[400px]  gap-5 sm:gap-8 my-10 sm:my-20">
-      <Image src="/images/logo.png" alt="Logo" width={155} height={54} />
+    <section className="flex items-center justify-center  container  gap-5 sm:gap-8 my-10 sm:my-20">
+        <Image src="/images/signIMG.png" alt="Sign" width={724} height={911} />
+      <div>
+        <Image src="/images/logo.png" alt="Logo" width={155} height={54} />
       <div className="flex flex-col gap-3">
         <h1 className="font-bold text-2xl"> أهلا بك في Tag master</h1>
         <p className="text-lg text-secondary-text ">
@@ -65,6 +67,7 @@ const MainSignUp = () => {
       <Link className="text-primary text-lg self-start" href="/auth/signup">
         شروط الخصوصية
       </Link>
+      </div>
     </section>
   );
 };

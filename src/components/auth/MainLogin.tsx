@@ -44,8 +44,10 @@ const MainLogin = () => {
   };
 
   return (
-    <section className="flex flex-col items-center justify-center  container !max-w-[400px]  gap-5 sm:gap-8 my-10 sm:my-20">
-      <Image src="/images/logo.png" alt="Logo" width={155} height={54} />
+    <section className="flex flex-wrap items-center justify-center  container  gap-5 sm:gap-8 my-10 sm:my-20">
+      <Image src="/images/signIMG.png" alt="Sign" width={724} height={911} />
+      <div>
+        <Image src="/images/logo.png" alt="Logo" width={155} height={54} />
       <div className="flex flex-col gap-3">
         <h1 className="font-bold text-2xl text-center">تسجيل الدخول</h1>
         <p className="text-lg text-secondary-text text-center">
@@ -86,6 +88,7 @@ const MainLogin = () => {
       <Link className="text-primary text-lg self-start" href="/auth/signup">
         ليس لديك حساب؟
       </Link>
+      </div>
     </section>
   );
 };
