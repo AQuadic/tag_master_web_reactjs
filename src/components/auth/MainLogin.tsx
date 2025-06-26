@@ -5,11 +5,44 @@ import { Eye, EyeOff } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
+import { useRouter } from 'next/navigation';
+import Cookies from 'js-cookie';
+import { toast } from 'sonner';
+import { postSignIn } from '@/api/auth';
+import { useAuthStore } from '../stores/userStore';
 
 const MainLogin = () => {
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
   const [showPassword, setShowPassword] = React.useState(false);
+  const [loading, setLoading] = React.useState(false);
+  const router = useRouter();
+  const setUser = useAuthStore((state) => state.setUser);
+
+  const handleSignIn = async (email: string, password: string) => {
+    try {
+      setLoading(true);
+      const res = await postSignIn({ email, password });
+      setUser(res.user);
+      Cookies.set('token', res.token);
+
+      toast.success('تم تسجيل الدخول بنجاح'); 
+      router.push('/');
+    } catch (err: any) {
+      console.error('Login error:', err);
+      const errorMessage =
+        err.response?.data?.message || 'فشل تسجيل الدخول.';
+      toast.error(errorMessage);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    handleSignIn(email, password);
+  };
+
   return (
     <section className="flex flex-col items-center justify-center  container !max-w-[400px]  gap-5 sm:gap-8 my-10 sm:my-20">
       <Image src="/images/logo.png" alt="Logo" width={155} height={54} />
@@ -19,12 +52,14 @@ const MainLogin = () => {
           أدخل البريد الاكتروني و كلمة المرور الخاصة بك لتسجيل الدخول إلى حسابك.
         </p>
       </div>
-      <form className=" w-full flex flex-col gap-5 sm:gap-8">
+      <form onSubmit={handleSubmit} className=" w-full flex flex-col gap-5 sm:gap-8">
         <Input
           className="border-neutral-700 w-full   "
+          type="email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           placeholder="البريد الالكتروني"
+          required
         />{" "}
         <div className="relative">
           <Input
@@ -33,6 +68,7 @@ const MainLogin = () => {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             placeholder="كلمة المرور"
+            required
           />
           <button
             type="button"
@@ -42,7 +78,10 @@ const MainLogin = () => {
             {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
           </button>
         </div>
-        <Button>تسجيل الدخول</Button>
+
+        <Button disabled={loading}>
+          {loading ? 'جاري تسجيل الدخول...' : 'تسجيل الدخول'}
+        </Button>
       </form>
       <Link className="text-primary text-lg self-start" href="/auth/signup">
         ليس لديك حساب؟

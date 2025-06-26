@@ -1,6 +1,8 @@
 import Layout from "@/components/general/Layout";
 import type { Metadata } from "next";
 import { IBM_Plex_Sans } from "next/font/google";
+import { ReactQueryProvider } from "@/providers/ReactQueryProvider"; // ✅ Add this line
+import { Toaster } from 'sonner';
 
 import "./globals.css";
 
@@ -23,7 +25,10 @@ export default function RootLayout({
   return (
     <html lang="ar" dir="rtl">
       <body className={ibmFont.className}>
-        <Layout>{children}</Layout>
+        <ReactQueryProvider>
+          <Layout>{children}</Layout>
+            <Toaster position="top-center" richColors closeButton />
+        </ReactQueryProvider>
       </body>
     </html>
   );
