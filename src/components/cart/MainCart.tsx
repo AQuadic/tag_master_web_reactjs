@@ -1,6 +1,7 @@
 import Image from 'next/image'
 import React from 'react'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import OtherProducts from './OtherProducts';
 
 const MainCart = () => {
 
@@ -118,6 +119,8 @@ const MainCart = () => {
               </div>
             </div>
           </div>
+
+          <OtherProducts />
         </section>
     )
 }
