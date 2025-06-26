@@ -10,10 +10,13 @@ import React, { useEffect, useState } from "react";
 import ChangeLanguage from "./ChangeLanguage";
 import Searchbar from "./Searchbar";
 import SignInButton from "./SignInButton";
+import { useAuthStore } from "@/components/stores/userStore";
 
 const Header = () => {
   const pathname = usePathname();
-  const isSignedIn = false;
+  const user = useAuthStore((state) => state.user);
+  const isSignedIn = !!user;
+
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
 
