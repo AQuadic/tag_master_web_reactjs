@@ -5,15 +5,46 @@ import { Eye, EyeOff } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
+import { toast } from "sonner";
+import { postSignUp } from "@/api/auth/signUp";
 
 const MainSignUp = () => {
+  const [name, setName] = React.useState("");
+  const [phone, setPhone] = React.useState("");
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
   const [confirmPassword, setConfirmPassword] = React.useState("");
   const [showPassword, setShowPassword] = React.useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = React.useState(false);
+
+  const handleSignUp = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    try {
+      const response = await postSignUp({
+        name,
+        phone,
+        phone_country: "EG",
+        email,
+        password,
+      });
+
+      toast.success("تم إنشاء الحساب بنجاح");
+      console.log("Signup successful:", response);
+    } catch (err: any) {
+      const errors = err?.response?.data?.errors;
+      if (errors) {
+        Object.values(errors).forEach((msgs: any) => {
+          msgs.forEach((msg: string) => toast.error(msg));
+        });
+      } else {
+        toast.error("حدث خطأ أثناء إنشاء الحساب");
+      }
+    }
+  };
+
   return (
-    <section className="flex items-center justify-center  container  gap-5 sm:gap-8 my-10 sm:my-20">
+    <section className="flex flex-wrap items-center justify-center container gap-5 sm:gap-8 my-10 sm:my-20">
         <Image src="/images/signIMG.png" alt="Sign" width={724} height={911} />
       <div>
         <Image src="/images/logo.png" alt="Logo" width={155} height={54} />
@@ -23,7 +54,19 @@ const MainSignUp = () => {
           قم بإنشاء حساب جديد لتتمكن من استخدام جميع ميزات التطبيق.
         </p>
       </div>
-      <form className=" w-full flex flex-col gap-5 sm:gap-8">
+      <form onSubmit={handleSignUp} className=" w-full flex flex-col gap-5 sm:gap-8">
+        <Input
+          className="border-neutral-700 w-full"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          placeholder="الاسم الكامل"
+        />
+        <Input
+          className="border-neutral-700 w-full"
+          value={phone}
+          onChange={(e) => setPhone(e.target.value)}
+          placeholder="رقم الهاتف"
+        />
         <Input
           className="border-neutral-700 w-full   "
           value={email}
@@ -56,13 +99,13 @@ const MainSignUp = () => {
           />
           <button
             type="button"
-            className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-gray-700"
+            className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500"
             onClick={() => setShowConfirmPassword(!showConfirmPassword)}
           >
             {showConfirmPassword ? <EyeOff size={20} /> : <Eye size={20} />}
           </button>
         </div>
-        <Button> إنشاء حساب</Button>
+        <Button type="submit">إنشاء حساب</Button>
       </form>
       <Link className="text-primary text-lg self-start" href="/auth/signup">
         شروط الخصوصية
