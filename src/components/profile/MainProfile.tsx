@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import ProfileSidebar from "./ProfileSidebar";
 import ProfileDetails from "./ProfileDetails";
 import FavoriteDetails from "./FavoriteDetails";
+import BookmarksDetails from "./BookmarksDetails";
 
 const MainProfile = () => {
   const [activeTab, setActiveTab] = useState("profile");
@@ -13,9 +14,9 @@ const MainProfile = () => {
         return <ProfileDetails />;
       case "favorite":
         return <FavoriteDetails />;
-      //   case 'bookmarks':
-      //     return <BookmarksDetails />;
-      //   case 'products':
+      case "bookmarks":
+        return <BookmarksDetails />;
+      case "products":
       //     return <MyProductsDetails />;
       //   case 'logout':
       //     return <LogoutDetails />;
