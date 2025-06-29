@@ -77,7 +77,7 @@ const Blogs = () => {
                 alt='Blog image' 
                 width={1200} 
                 height={453} 
-                className='object-cover'
+                className='object-cover w-full'
             />
                 <div className='absolute bottom-4 right-8 md:p-6 text-white'>
                     <h2 className='md:text-5xl text-xl font-bold'>أدوات تعريفية ذكية حديثة</h2>
@@ -88,11 +88,11 @@ const Blogs = () => {
                 </div>
             </div>
 
-            <div className='mt-12 flex flex-wrap gap-[21px]'>
+            <div className='mt-12 grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 items-center justify-center gap-[21px]'>
                 {BlogsSection.map((item,index) => (
                     <div
                         key={index}
-                        className='relative w-[387px] h-[376px] border border-[#B2B2B2] rounded-md bg-[#F6F7FB]'
+                        className='relative w-full h-[376px] border border-[#B2B2B2] rounded-md bg-[#F6F7FB]'
                     >
                         <div className='absolute top-4 right-4'>
                             <Bookmark />
@@ -102,6 +102,7 @@ const Blogs = () => {
                             alt='big blog image'
                             width={387}
                             height={212}
+                            className='w-full'
                         />
                         <div className='flex items-center justify-between mt-4 px-4'>
                             <h2 className='text-[#333333] text-[17px] font-bold'>{item.title}</h2>
