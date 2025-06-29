@@ -2,7 +2,6 @@ import React from "react";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { TabsContent } from "@radix-ui/react-tabs";
 import Image from "next/image";
-import NotFavoriteIcon from "../icons/products/NotFavoriteIcon";
 
 const MyProductsDetails = () => {
   const ProductsData = [
@@ -34,7 +33,7 @@ const MyProductsDetails = () => {
   return (
     <section className="mt-10">
       <div className="flex w-full flex-col gap-6 mt-10">
-        <Tabs defaultValue="account" dir="rtl">
+        <Tabs defaultValue="products" dir="rtl">
           <TabsList className="pb-5">
             <TabsTrigger className="w-32 lg:w-full md:w-40" value="products">
               المنتجات
@@ -123,6 +122,67 @@ const MyProductsDetails = () => {
                   </div>
                 </div>
               ))}
+            </div>
+          </TabsContent>
+
+          <TabsContent value="orders" className="md:mt-[60px]">
+            <div className="relative overflow-x-auto">
+              <table className="w-full text-sm text-left rtl:text-right">
+                <thead className="text-xs ">
+                  <tr>
+                    <th
+                      scope="col"
+                      className="px-6 py-3 text-[#000000] text-lg font-medium text-center"
+                    >
+                      معرف الطلب
+                    </th>
+                    <th
+                      scope="col"
+                      className="px-6 py-3 text-[#000000] text-lg font-medium text-center"
+                    >
+                      المنتج
+                    </th>
+                    <th
+                      scope="col"
+                      className="px-6 py-3 text-[#000000] text-lg font-medium text-center"
+                    >
+                      التاريخ
+                    </th>
+                    <th
+                      scope="col"
+                      className="px-6 py-3 text-[#000000] text-lg font-medium text-center"
+                    >
+                      القيمة
+                    </th>
+                    <th
+                      scope="col"
+                      className="px-6 py-3 text-[#000000] text-lg font-medium text-center"
+                    >
+                      العنوان
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr className="bg-white text-[#5A5A5A]">
+                    <th scope="row" className="px-6 py-4">
+                      #123
+                    </th>
+                    <td className="px-6 py-4">Business Card</td>
+                    <td className="px-6 py-4">12 Jun 2025</td>
+                    <td className="px-6 py-4">130 درهم</td>
+                    <td className="px-6 py-4">الشارقة مدينة عجمان شارع 32</td>
+                  </tr>
+                  <tr className="bg-white text-[#5A5A5A]">
+                    <th scope="row" className="px-6 py-4">
+                      #123
+                    </th>
+                    <td className="px-6 py-4">Business Card</td>
+                    <td className="px-6 py-4">12 Jun 2025</td>
+                    <td className="px-6 py-4">130 درهم</td>
+                    <td className="px-6 py-4">الشارقة مدينة عجمان شارع 32</td>
+                  </tr>
+                </tbody>
+              </table>
             </div>
           </TabsContent>
         </Tabs>
