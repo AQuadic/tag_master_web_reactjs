@@ -154,7 +154,9 @@ const Header = () => {
                   whileTap={{ scale: 0.98 }}
                 >
         {isSignedIn ? (
-          <Profile />
+          <Link href='/profile' >
+            <Profile />
+          </Link>
         ) : (
           <SignInButton />
         )}
