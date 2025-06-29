@@ -22,6 +22,6 @@ export const navbarLinks = [
   {
     titleAr: "المحتوى التعليمي",
     titleEn: "Educational Content",
-    path: "/educational-content",
+    path: "/educationalcontent",
   },
 ];
