@@ -2,7 +2,7 @@ import React from "react";
 
 const ProfileDetails = () => {
   return (
-    <section className="">
+    <section className="mt-10">
       <div className="grid lg:grid-cols-2 gap-[43px]">
         <div className="flex flex-col relative ">
           <div className="relative w-full max-w-[358px]">
@@ -17,7 +17,7 @@ const ProfileDetails = () => {
               name="name"
               id="name"
               placeholder="وليد السيد"
-              className="w-full h-16 border border-[#9C9C9C] rounded-[12px] px-4 pr-14"
+              className="w-full h-16 border border-[#9C9C9C] rounded-[12px] px-4"
             />
           </div>
         </div>
