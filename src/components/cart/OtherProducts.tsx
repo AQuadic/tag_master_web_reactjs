@@ -1,5 +1,6 @@
 import Image from 'next/image'
 import React from 'react'
+import NotFavoriteIcon from '../icons/products/NotFavoriteIcon'
 
 const OtherProducts = () => {
     const ProductsData = [
@@ -34,8 +35,14 @@ const OtherProducts = () => {
             <h2 className='text-[#000000] text-[21px] font-medium'>منتجات اخري مشابهة</h2>
             <div className='mt-[22px] grid xl:grid-cols-4 md:grid-cols-2 grid-cols-1'>
                 {ProductsData.map((item, index) => (
-                <div key={index} className='w-[281px] h-[348px] rounded-md bg-[#F6F7FB] mt-4'>
+                <div key={index} className='relative w-[281px] h-[348px] rounded-md bg-[#F6F7FB] mt-4'>
                     <Image src={item.image} alt='product' width={281} height={162} />
+                    <div className='absolute top-4 right-4'>
+                        <NotFavoriteIcon />
+                    </div>
+                    <div className='w-[87px] h-[33px] bg-[#2CF257] rounded-[28px] flex items-center justify-center absolute top-4 left-2'>
+                        <p className='text-[#FFFFFF] text-base'>مضاف حديثا</p>
+                    </div>
                     <div className='mt-3 px-[18px] flex items-center justify-between'>
                         <p className='text-[#000000] text-lg font-medium'>
                             {item.priceAfterDiscount} 
