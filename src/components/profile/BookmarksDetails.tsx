@@ -80,7 +80,7 @@ const BookmarksDetails = () => {
   ];
   return (
     <section className="mt-10">
-      <div className="mt-12 grid lg:grid-cols-2 grid-cols-1 items-center justify-center gap-[21px]">
+      <div className="mt-12 grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 items-center justify-center gap-[21px]">
         {BlogsSection.map((item, index) => (
           <div
             key={index}
