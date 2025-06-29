@@ -11,6 +11,7 @@ import ChangeLanguage from "./ChangeLanguage";
 import Searchbar from "./Searchbar";
 import SignInButton from "./SignInButton";
 import { useAuthStore } from "@/components/stores/userStore";
+import Profile from "@/components/icons/general/Profile";
 
 const Header = () => {
   const pathname = usePathname();
@@ -152,7 +153,11 @@ const Header = () => {
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
                 >
-                  <SignInButton />
+        {isSignedIn ? (
+          <Profile />
+        ) : (
+          <SignInButton />
+        )}
                 </motion.div>
                 <motion.div
                   whileHover={{ scale: 1.02 }}
