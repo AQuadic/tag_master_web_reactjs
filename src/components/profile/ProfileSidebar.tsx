@@ -5,7 +5,7 @@ import ProfileTabs from "./ProfileTabs";
 const ProfileSidebar = ({ activeTab, setActiveTab }) => {
   return (
     <section
-      className="w-full md:max-w-[279px] flex flex-col items-center rounded-[12px] p-4"
+      className="w-full md:max-w-[279px] h-full flex flex-col items-center rounded-[12px] p-4"
       style={{ boxShadow: "0px 1px 2px 0px #00000040" }}
     >
       <div className="relative flex justify-center">
