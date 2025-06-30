@@ -2,22 +2,43 @@ import { ProductTypes } from "@/types/product";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
-import React from "react";
+import React, { useState } from "react";
 import ReviewStarIcon from "../icons/general/ReviewStarIcon";
 import NotFavoriteIcon from "../icons/products/NotFavoriteIcon";
+import FavoriteIcon from "../icons/products/FavoriteIcon"; // Make sure you have this icon
 import { Button } from "../ui/button";
+import { addToFavorite } from "@/api/favorite/addToFav";
+import { toast } from "sonner";
 
 interface ProductCardProps {
   product: ProductTypes;
 }
 
 const ProductCard = ({ product }: ProductCardProps) => {
+  const [isFavorite, setIsFavorite] = useState(false);
+
   const isNew = true;
   const price = parseInt(product.price);
   const discount = parseInt(product.discount);
 
   const handleAddToCart = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
+  };
+
+  const handleAddToFavorite = async (
+    e: React.MouseEvent<HTMLButtonElement>
+  ) => {
+    e.preventDefault();
+    try {
+      await addToFavorite({
+        favorable_id: product.id,
+        favorable_type: "product",
+      });
+      setIsFavorite(true);
+      toast.success("Added to fav successfully")
+    } catch {
+      toast.error("Error adding to favorite");
+    }
   };
 
   const cardVariants = {
@@ -169,7 +190,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
         animate="animate"
         whileHover="hover"
         style={{
-          boxShadow: "0 4px 20px rgba(0, 0, 0, 0.08)",
+          boxShadow: "0 4px 20px rgba(0, 0, 0, 0.08)"
         }}
       >
         {/* Floating badges and favorite button */}
@@ -185,12 +206,13 @@ const ProductCard = ({ product }: ProductCardProps) => {
           )}
 
           <motion.button
+            onClick={handleAddToFavorite}
             className="absolute right-5 z-10 p-2 rounded-full bg-white/80 backdrop-blur-sm shadow-lg cursor-pointer"
             variants={favoriteVariants}
             whileHover="hover"
             whileTap="tap"
           >
-            <NotFavoriteIcon />
+            {isFavorite ? <FavoriteIcon /> : <NotFavoriteIcon />}
           </motion.button>
         </div>
 
