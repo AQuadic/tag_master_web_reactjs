@@ -10,7 +10,7 @@ const BlogsHeader = () => {
             <h1 className='text-[#000000] text-[25px] font-bold flex justify-center'>المدونة</h1>  
                 <div className="flex w-full flex-col gap-6 mt-10">
                     <Tabs defaultValue="account" dir='rtl'>
-                        <TabsList className='border-b pb-5'>
+                        <TabsList className='border-b pb-14'>
                             <TabsTrigger className='w-32 lg:w-full md:w-40' value="allBlogs">كل المقالات</TabsTrigger>
                             <TabsTrigger className='w-32 lg:w-full md:w-40' value="advices">نصائح التشبيك</TabsTrigger>
                             <TabsTrigger className='w-32 lg:w-full md:w-40' value="tools">أدوات للتشبيك الفعّال</TabsTrigger>

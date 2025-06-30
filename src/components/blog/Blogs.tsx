@@ -4,6 +4,8 @@ import Bookmark from '../icons/blogs/Bookmark'
 import { getPosts } from '@/api/blogs/getBlogs'
 import { PostType } from '@/types/blogs'
 import { useQuery } from '@tanstack/react-query'
+import Spinner from '../icons/general/Spinner'
+import Link from 'next/link'
 
 const Blogs = () => {
   const {
@@ -14,7 +16,9 @@ const Blogs = () => {
     queryFn: getPosts,
   });
 
-  if (isLoading) return <p>Loading ...</p>
+  if (isLoading) return <div className='flex justify-center my-10'>
+    <Spinner />
+  </div>
 
     return (
         <section className='mt-6'>
@@ -37,6 +41,7 @@ const Blogs = () => {
 
             <div className='mt-12 grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 items-center justify-center gap-[21px]'>
                 {posts?.map((item,index) => (
+                    <Link href={`/blog/${item.id}`} key={item.id}>
                     <div
                         key={index}
                         className='relative w-full h-[376px] border border-[#B2B2B2] rounded-md bg-[#F6F7FB]'
@@ -53,7 +58,7 @@ const Blogs = () => {
                         />
                         <div className='flex items-center justify-between mt-4 px-4'>
                             <h2 className='text-[#333333] text-[17px] font-bold'>{item.title}</h2>
-                            <h2 className='text-[#787676] text-base font-normal'>5 دقائق</h2>
+                            {/* <h2 className='text-[#787676] text-base font-normal'>5 دقائق</h2> */}
                         </div>
                         <p
                           className='text-[#8B8282] text-base mt-3 px-4 line-clamp-2'
@@ -66,6 +71,7 @@ const Blogs = () => {
                           })}
                         </p>
                     </div>
+                    </Link>
                 ))}
             </div>
         </section>
