@@ -5,17 +5,18 @@ import Link from "next/link";
 import React, { useState } from "react";
 import ReviewStarIcon from "../icons/general/ReviewStarIcon";
 import NotFavoriteIcon from "../icons/products/NotFavoriteIcon";
-import FavoriteIcon from "../icons/products/FavoriteIcon"; // Make sure you have this icon
+import FavoriteIcon from "../icons/products/FavoriteIcon";
 import { Button } from "../ui/button";
 import { addToFavorite } from "@/api/favorite/addToFav";
 import { toast } from "sonner";
+import { removeFromFavorite } from "@/api/favorite/removFromFav";
 
 interface ProductCardProps {
   product: ProductTypes;
 }
 
 const ProductCard = ({ product }: ProductCardProps) => {
-  const [isFavorite, setIsFavorite] = useState(false);
+  const [isFavorite, setIsFavorite] = useState(product.is_favorite);
 
   const isNew = true;
   const price = parseInt(product.price);
@@ -25,19 +26,28 @@ const ProductCard = ({ product }: ProductCardProps) => {
     e.preventDefault();
   };
 
-  const handleAddToFavorite = async (
+  const handleToggleFavorite = async (
     e: React.MouseEvent<HTMLButtonElement>
   ) => {
     e.preventDefault();
     try {
-      await addToFavorite({
-        favorable_id: product.id,
-        favorable_type: "product",
-      });
-      setIsFavorite(true);
-      toast.success("Added to fav successfully")
-    } catch {
-      toast.error("Error adding to favorite");
+      if (isFavorite) {
+        await removeFromFavorite({
+          favorable_id: product.id,
+          favorable_type: "product",
+        });
+        setIsFavorite(false);
+        toast.success("Removed from favorite successfully")
+      } else {
+        await addToFavorite({
+          favorable_id: product.id,
+          favorable_type: "product",
+        });
+        setIsFavorite(true);
+        toast.success("Added to favorite successfully")
+      }
+    } catch (error) {
+      toast.error("Error toggling favorite:", error);
     }
   };
 
@@ -206,7 +216,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
           )}
 
           <motion.button
-            onClick={handleAddToFavorite}
+            onClick={handleToggleFavorite}
             className="absolute right-5 z-10 p-2 rounded-full bg-white/80 backdrop-blur-sm shadow-lg cursor-pointer"
             variants={favoriteVariants}
             whileHover="hover"
@@ -214,6 +224,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
           >
             {isFavorite ? <FavoriteIcon /> : <NotFavoriteIcon />}
           </motion.button>
+
         </div>
 
         {/* Product Image */}

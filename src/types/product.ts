@@ -28,6 +28,7 @@ export interface ProductTypes {
   category_id: number;
   brand_id: number | null;
   is_active: number;
+  is_favorite?: boolean;
   created_at: string;
   updated_at: string;
   order_column: number;
