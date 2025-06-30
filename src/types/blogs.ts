@@ -1,0 +1,23 @@
+export interface PostType {
+  id: number;
+  title: string;
+  content: string;
+  published_at: string;
+  image: {
+    url: string;
+    file_name: string;
+    uuid: string;
+    mime_type: string;
+    responsive_urls: string[];
+  };
+  category: {
+    id: number;
+    name: {
+      ar: string;
+      en: string;
+    };
+    image: {
+      url: string;
+    };
+  };
+}
