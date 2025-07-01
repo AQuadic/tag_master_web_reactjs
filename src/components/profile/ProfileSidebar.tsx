@@ -1,8 +1,11 @@
 import Image from "next/image";
 import React from "react";
 import ProfileTabs from "./ProfileTabs";
+import { useAuthStore } from "../stores/userStore";
 
 const ProfileSidebar = ({ activeTab, setActiveTab }) => {
+    const user = useAuthStore((state) => state.user);
+  
   return (
     <section
       className="w-full md:max-w-[279px] h-full flex flex-col items-center rounded-[12px] p-4"
@@ -24,7 +27,7 @@ const ProfileSidebar = ({ activeTab, setActiveTab }) => {
           className="absolute bottom-0 right-0"
         />
       </div>
-      <h1 className="text-[#000000] text-lg font-medium mt-2">وليد السيد</h1>
+      <h1 className="text-[#000000] text-lg font-medium mt-2">{user?.name}</h1>
       <p className="text-[#4A4A4A] text-base mt-1">UI UX Designer</p>
 
       <ProfileTabs activeTab={activeTab} setActiveTab={setActiveTab} />
