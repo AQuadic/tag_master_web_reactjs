@@ -11,5 +11,6 @@ export const getProducts = async (
       q: search,
     },
   });
+  console.log(response);
   return response.data;
 };

@@ -1,3 +1,5 @@
+// noinspection t
+
 "use client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -8,6 +10,7 @@ import React from "react";
 import { toast } from "sonner";
 import { postSignUp } from "@/api/auth/signUp";
 import { useRouter } from "next/navigation";
+import {useAuthStore} from "@/components/stores/userStore";
 
 const MainSignUp = () => {
   const [name, setName] = React.useState("");
@@ -18,6 +21,7 @@ const MainSignUp = () => {
   const [showPassword, setShowPassword] = React.useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = React.useState(false);
   const router = useRouter();
+  const setUser = useAuthStore(state => state.setUser)
 
   const handleSignUp = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -30,10 +34,14 @@ const MainSignUp = () => {
         email,
         password,
       });
-
-      const token = response?.data?.token;
+      const token = response?.token;
+      const newUser = response?.user;
       if (token) {
         localStorage.setItem("tag-master-token", token); 
+      }
+
+      if (newUser) {
+        setUser(newUser);
       }
 
       toast.success("تم إنشاء الحساب بنجاح");
