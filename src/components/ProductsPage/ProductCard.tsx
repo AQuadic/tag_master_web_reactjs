@@ -29,8 +29,13 @@ const handleAddToCart = async (e: React.MouseEvent<HTMLButtonElement>) => {
   try {
     await addToCart(product.id);
     toast.success("تمت إضافة المنتج إلى السلة بنجاح");
-  } catch (error) {
-    toast.error("حدث خطأ أثناء إضافة المنتج إلى السلة");
+  } catch (error: any) {
+    const apiMessage =
+      error?.response?.data?.message ||
+      error?.message ||
+      "حدث خطأ أثناء إضافة المنتج إلى السلة";
+
+    toast.error(apiMessage);
     console.error("Add to cart error:", error);
   }
 };
