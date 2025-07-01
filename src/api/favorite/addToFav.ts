@@ -1,4 +1,4 @@
-import axios from "axios";
+import { axios } from "@/lib/axios";
 
 interface FavoriteParams {
   favorable_id: number;
@@ -17,7 +17,7 @@ export const addToFavorite = async ({
   const token = localStorage.getItem("token");
 
   const response = await axios.post(
-    "https://tag-master.aquadic.com/api/favorites",
+    "/favorites",
     null,
     {
       params: {
