@@ -10,6 +10,7 @@ import { Button } from "../ui/button";
 import { addToFavorite } from "@/api/favorite/addToFav";
 import { toast } from "sonner";
 import { removeFromFavorite } from "@/api/favorite/removFromFav";
+import { useCartStore } from "../stores/cartStore";
 
 interface ProductCardProps {
   product: ProductTypes;
@@ -17,14 +18,22 @@ interface ProductCardProps {
 
 const ProductCard = ({ product }: ProductCardProps) => {
   const [isFavorite, setIsFavorite] = useState(product.is_favorite);
+  const addToCart = useCartStore((state) => state.addToCart);
 
   const isNew = true;
   const price = parseInt(product.price);
   const discount = parseInt(product.discount);
 
-  const handleAddToCart = (e: React.MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault();
-  };
+const handleAddToCart = async (e: React.MouseEvent<HTMLButtonElement>) => {
+  e.preventDefault();
+  try {
+    await addToCart(product.id);
+    toast.success("تمت إضافة المنتج إلى السلة بنجاح");
+  } catch (error) {
+    toast.error("حدث خطأ أثناء إضافة المنتج إلى السلة");
+    console.error("Add to cart error:", error);
+  }
+};
 
   const handleToggleFavorite = async (
     e: React.MouseEvent<HTMLButtonElement>
