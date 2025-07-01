@@ -1,6 +1,6 @@
 // file: @/api/user/postSignUp.ts
 
-import axios from "axios";
+import { axios } from "@/lib/axios";
 
 export interface SignUpResponse {
   token: string;
@@ -24,7 +24,7 @@ export const postSignUp = async ({
   email: string;
   password: string;
 }): Promise<SignUpResponse> => {
-  const response = await axios.post("https://tag-master.aquadic.com/api/user/signup", {
+  const response = await axios.post("/user/signup", {
     name,
     phone,
     phone_country,

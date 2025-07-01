@@ -1,5 +1,5 @@
 // src/api/auth/index.ts
-import axios from 'axios';
+import { axios } from "@/lib/axios";
 
 export interface LoginResponse {
     token: string;
@@ -17,7 +17,7 @@ export const postSignIn = async ({
     email: string;
     password: string;
 }): Promise<LoginResponse> => {
-    const response = await axios.post('https://tag-master.aquadic.com/api/user/login', {
+    const response = await axios.post('/user/login', {
         email,
         password,
         password_confirmation: password, 
