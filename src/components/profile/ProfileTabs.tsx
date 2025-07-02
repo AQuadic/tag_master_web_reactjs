@@ -1,3 +1,4 @@
+'use client';
 import React from "react";
 import Profile from "../icons/profile/Profile";
 import Favorite from "../icons/profile/Favorite";
@@ -6,6 +7,8 @@ import MyProducts from "../icons/profile/MyProducts";
 import Logout from "../icons/profile/Logout";
 import { logOut } from "@/api/auth/logout";
 import { toast } from "sonner";
+import { useAuthStore } from "../stores/userStore";
+import { useRouter } from "next/navigation";
 
 interface ProfileTabsProps {
   activeTab: string;
@@ -19,12 +22,16 @@ interface TabItem {
 }
 
 const ProfileTabs: React.FC<ProfileTabsProps> = ({ activeTab, setActiveTab }) => {
+  const clearUser = useAuthStore((state) => state.clearUser);
+  const router = useRouter();
+
   const handleTabClick = async (tabKey: string): Promise<void> => {
     if (tabKey === "logout") {
       try {
         await logOut();
+        clearUser();
         toast.success("Logged out successfully")
-        window.location.href = "/";
+        router.push("/")
       } catch {
         toast.error("Logout failed");
       }
