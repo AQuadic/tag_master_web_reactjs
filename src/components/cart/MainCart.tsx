@@ -1,31 +1,44 @@
 'use client';
 import React from 'react';
 import Image from 'next/image';
-import { useQuery } from '@tanstack/react-query';
+import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import OtherProducts from './OtherProducts';
 import { getCart } from '@/api/cart/getCart';
 import EmptyState from '../general/EmptyState';
+import { deleteCartItem } from '@/api/cart/deleteFromCart';
+import { toast } from 'sonner';
+import Spinner from '../icons/general/Spinner';
 
 const MainCart = () => {
 const [couponInput, setCouponInput] = React.useState('');
 const [appliedCoupon, setAppliedCoupon] = React.useState('');
+const queryClient = useQueryClient();
 
-  const { data, isLoading, isError } = useQuery({
+  const { data, isLoading } = useQuery({
     queryKey: ['cart', appliedCoupon],
     queryFn: () => getCart(appliedCoupon),
   });
 
   console.log("Cart data :",data)
 
-  if (isLoading) return <p>جاري تحميل السلة...</p>;
-  if (isError) return <p>حدث خطأ أثناء تحميل السلة.</p>;
+  if (isLoading) return <div className='flex justify-center'><Spinner /></div>
 
   if (!data || data.items.length === 0) {
-    return <div>
-      <EmptyState />
+    return <div className='flex items-center justify-center'>
+      <p>لا توجد عناصر لعرضها حالياً</p>
     </div>;
   }
+
+  const handleRemoveItem = async (cartItemId: number) => {
+  try {
+    await deleteCartItem(cartItemId);
+    toast.success("Item deleted successfully")
+    queryClient.invalidateQueries({ queryKey: ['cart', appliedCoupon] });
+  } catch {
+      toast.success("Failed to delete item")
+  }
+};
   
 
   return (
@@ -44,7 +57,12 @@ const [appliedCoupon, setAppliedCoupon] = React.useState('');
               <div className="xl:w-[535px] w-full lg:h-[184px] border border-[#D9D9D9] rounded-md py-4 px-8">
                 <div className='flex items-center justify-between'>
                   <h2 className="text-[#000000] text-[21px] font-bold">{item.itemable.name?.ar}</h2>
-                  <button className='text-[#CB0306] text-base font-bold'>إزالة</button>
+                  <button
+                    className='text-[#CB0306] text-base font-bold'
+                    onClick={() => handleRemoveItem(item.id)}
+                  >
+                    إزالة
+                  </button>
                 </div>
                 <p className="text-[#464B4E] text-[17px] mt-2.5">{item.itemable.description?.ar}</p>
                 <div className='flex items-center justify-between mt-6'>
