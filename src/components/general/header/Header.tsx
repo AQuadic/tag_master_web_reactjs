@@ -144,6 +144,9 @@ const Header = () => {
                   className=" rounded-xl hover:bg-gray-100 transition-all duration-200 relative group"
                 >
                   <CartIcon />
+                  <div className="absolute w-5 h-5 rounded-full bg-[#FF3B30] text-[#FFFFFF] flex items-center justify-center -top-2 -left-1">
+                    <p>2</p>
+                  </div>
                 </Link>
               </motion.div>
             )}
@@ -331,8 +334,11 @@ const Header = () => {
                         href="/cart"
                         className="flex items-center gap-4 py-4 px-4 rounded-xl hover:bg-gray-50 transition-all duration-200 group w-full"
                       >
-                        <div className="flex items-center justify-center w-10 h-10 rounded-lg bg-primary/10 group-hover:bg-primary/20 transition-colors flex-shrink-0">
+                        <div className="relative flex items-center justify-center w-10 h-10 rounded-lg bg-primary/10 group-hover:bg-primary/20 transition-colors flex-shrink-0">
                           <CartIcon />
+                          <div className="absolute w-5 h-5 rounded-full bg-[#FF3B30] text-[#FFFFFF] flex items-center justify-center -top-2 -left-1">
+                            <p>2</p>
+                          </div>
                         </div>
                         <span className="text-gray-700 font-medium flex-1 text-right">
                           السلة
@@ -347,9 +353,13 @@ const Header = () => {
                       whileTap={{ scale: 0.98 }}
                       className="w-full"
                     >
-                      <div className="py-2 px-4 rounded-xl hover:bg-gray-50 transition-all duration-200">
-                        <SignInButton />
-                      </div>
+                          {isSignedIn ? (
+                          <Link href='/profile'>
+                            <Profile />
+                          </Link>
+                        ) : (
+                          <SignInButton />
+                        )}
                     </motion.div>
                     <motion.div
                       whileHover={{ scale: 1.02 }}
