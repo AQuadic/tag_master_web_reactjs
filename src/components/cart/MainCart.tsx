@@ -9,6 +9,7 @@ import EmptyState from '../general/EmptyState';
 import { deleteCartItem } from '@/api/cart/deleteFromCart';
 import { toast } from 'sonner';
 import Spinner from '../icons/general/Spinner';
+import Tracking from '../general/Tracking';
 
 const MainCart = () => {
 const [couponInput, setCouponInput] = React.useState('');
@@ -49,6 +50,7 @@ const totalItemsPrice = data.items.reduce((sum, item) => {
 
   return (
     <section className='container'>
+      <Tracking />
       <div className="mt-[50px] flex xl:flex-row flex-col items-start justify-between">
         <div className='w-full'>
           {data.items.map((item, index) => (
