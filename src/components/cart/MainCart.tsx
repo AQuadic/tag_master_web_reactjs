@@ -41,10 +41,16 @@ const queryClient = useQueryClient();
 };
   
 
+const totalItemsPrice = data.items.reduce((sum, item) => {
+  const itemTotal = parseFloat(item.itemable.price) * item.quantity;
+  return sum + itemTotal;
+}, 0);
+
+
   return (
     <section className='container'>
       <div className="mt-[50px] flex xl:flex-row flex-col items-start justify-between">
-        <div>
+        <div className='w-full'>
           {data.items.map((item, index) => (
             <div key={index} className="flex md:flex-row flex-col items-center gap-4 mt-4">
               <Image 
@@ -87,7 +93,7 @@ const queryClient = useQueryClient();
         </div>
 
             <div className='xl:w-[387px] w-full h-[568px] bg-[#FFFFFF] mt-4 rounded-[12px] py-[39px] px-[31px]' style={{boxShadow: ' 0px 1px 2px 0px #00000040'}}>
-              <div className="flex w-full max-w-sm flex-col gap-6">
+              <div className="flex w-full xl:max-w-sm flex-col gap-6">
                 <Tabs defaultValue="total" dir='rtl'>
                   <TabsList>
                     <TabsTrigger value="address">العنوان</TabsTrigger>
@@ -110,32 +116,38 @@ const queryClient = useQueryClient();
                       <div className='mt-[28px]'>
                         <h2 className='text-[#000000] text-base font-medium'>التكلفة الاجمالية</h2>
                         
-                        <div className='text-[#000000] text-base flex items-center justify-between mt-4'>
-                          <h3>ميدالية مفاتيح</h3>
-                          <p>300 درهم</p>
-                        </div>
+                        {data.items.map((item, index) => (
+                          <div key={index} className='text-[#000000] text-base flex items-center justify-between mt-4'>
+                            <h3>
+                              {item.itemable.name?.ar.length > 30
+                                  ? item.itemable.name.ar.slice(0, 35) + '...'
+                                  : item.itemable.name?.ar}
+                              </h3>
 
-                        <div className='text-[#000000] text-base flex items-center justify-between mt-4'>
-                          <h3>المحفظة الجلبدة</h3>
-                          <p>220 درهم</p>
-                        </div>
+                            <p>{item.itemable.price} درهم</p>
+                          </div>
+                        ))}
 
-                        <div className='text-[#000000] text-base flex items-center justify-between mt-4'>
+                      <div className='text-[#000000] text-base flex items-center justify-between mt-4'>
                           <h3>التوصيل</h3>
-                          <p>25 درهم</p>
+                          <p>{data.delivery_fees} درهم</p>
                         </div>
 
                         <div className='text-[#000000] text-base flex items-center justify-between mt-4'>
                           <h3>كود الخصم</h3>
-                          <p>0 درهم</p>
+                          <p>{data.discount} درهم</p>
                         </div>
+
                       </div>
 
                       <hr className='mt-7'/>
-                        <div className='text-base font-bold flex items-center justify-between mt-4'>
-                          <h3 className='text-[#000000]'>إجمالي</h3>
-                          <p className='text-[#15B600]'>550 درهم</p>
-                        </div>
+                      <div className='text-base font-bold flex items-center justify-between mt-4'>
+  <h3 className='text-[#000000]'>إجمالي</h3>
+  <p className='text-[#15B600]'>
+    {(totalItemsPrice + parseFloat(data.delivery_fees || 0) - parseFloat(data.discount || 0)).toFixed(2)} درهم
+  </p>
+</div>
+
 
                       <div className='flex items-center justify-center'>
                         <button className='xl:w-[280px] w-full h-11 bg-[#007CC2] rounded-[8px] mt-4 text-[#FFFFFF] text-base'>دفع الآن</button>
