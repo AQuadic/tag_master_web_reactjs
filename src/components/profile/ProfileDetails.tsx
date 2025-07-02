@@ -8,9 +8,9 @@ const ProfileDetails = () => {
   const user = useAuthStore((state) => state.user);
   const setUser = useAuthStore((state) => state.setUser);
   const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    phone: "",
+    name: user?.name,
+    email: user?.email,
+    phone: user?.phone,
     job: "",
   });
 
