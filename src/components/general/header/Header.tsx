@@ -17,6 +17,7 @@ const Header = () => {
   const pathname = usePathname();
   const user = useAuthStore((state) => state.user);
   const isSignedIn = !!user;
+  const [hydrated, setHydrated] = useState(false);
 
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
@@ -50,6 +51,10 @@ const Header = () => {
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
   };
+
+    useEffect(() => {
+    setHydrated(true);
+  }, []);
 
   return (
     <>
@@ -153,13 +158,15 @@ const Header = () => {
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
                 >
-        {isSignedIn ? (
-          <Link href='/profile' >
-            <Profile />
-          </Link>
-        ) : (
-          <SignInButton />
-        )}
+                {hydrated && (
+                  isSignedIn ? (
+                    <Link href='/profile' >
+                      <Profile />
+                    </Link>
+                  ) : (
+                    <SignInButton />
+                  )
+                )}
                 </motion.div>
                 <motion.div
                   whileHover={{ scale: 1.02 }}
