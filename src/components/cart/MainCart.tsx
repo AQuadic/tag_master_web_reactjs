@@ -110,7 +110,7 @@ const totalItemsPrice = data.items.reduce((sum, item) => {
                       <div className='relative'>
                         <div className='relative'>
                           <input type="text" className='xl:w-[324px] w-full h-12 rounded-[8px] border border-[#000000] focus:outline-none mt-2 px-2' />
-                          <button className='w-[77px] h-[46px] bg-[#007EC1] rounded-[8px] text-[#FFFFFF] text-base font-medium absolute top-[9px] left-[3px]'>تطبيق</button>
+                          <button className='w-[77px] h-[46px] bg-[#007EC1] rounded-[8px] text-[#FFFFFF] text-base font-medium absolute top-[9.4px] left-[1px]'>تطبيق</button>
                         </div>
                       </div>
                       </div>
