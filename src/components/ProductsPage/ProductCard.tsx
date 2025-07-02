@@ -11,6 +11,7 @@ import { addToFavorite } from "@/api/favorite/addToFav";
 import { toast } from "sonner";
 import { removeFromFavorite } from "@/api/favorite/removFromFav";
 import { useCartStore } from "../stores/cartStore";
+import { useQueryClient } from "@tanstack/react-query";
 
 interface ProductCardProps {
   product: ProductTypes;
@@ -23,11 +24,13 @@ const ProductCard = ({ product }: ProductCardProps) => {
   const isNew = true;
   const price = parseInt(product.price);
   const discount = parseInt(product.discount);
+const queryClient = useQueryClient();
 
 const handleAddToCart = async (e: React.MouseEvent<HTMLButtonElement>) => {
   e.preventDefault();
   try {
     await addToCart(product.id);
+    await queryClient.invalidateQueries(['cart']);
     toast.success("تمت إضافة المنتج إلى السلة بنجاح");
   } catch (error: any) {
     const apiMessage =

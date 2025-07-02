@@ -1,64 +1,72 @@
-import Image from 'next/image'
-import React from 'react'
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+'use client';
+import React from 'react';
+import Image from 'next/image';
+import { useQuery } from '@tanstack/react-query';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import OtherProducts from './OtherProducts';
+import { getCart } from '@/api/cart/getCart';
+import EmptyState from '../general/EmptyState';
 
 const MainCart = () => {
+const [couponInput, setCouponInput] = React.useState('');
+const [appliedCoupon, setAppliedCoupon] = React.useState('');
 
-      const productsData = [
-    {
-      image:'/images/home/products/product1.png',
-      title : 'ميدالية مفاتيح جلدية بتقنية NFC - لون عنابي',
-      description: 'ميدالية مفاتيح أنيقة مصنوعة من الجلد الفاخر بلون عنابي, مزودة بتقنية NFC لتمكينك من مشاركة معلوماتك أو روابطك الاجتماعية بسرعة وسهولة بمجرد لمس هاتفك'
-    },
-    {
-      image:'/images/home/products/product2.png',
-      title : 'ميدالية مفاتيح جلدية بتقنية NFC - لون عنابي',
-      description: 'ميدالية مفاتيح أنيقة مصنوعة من الجلد الفاخر بلون عنابي, مزودة بتقنية NFC لتمكينك من مشاركة معلوماتك أو روابطك الاجتماعية بسرعة وسهولة بمجرد لمس هاتفك'
-    },
-  ];
+  const { data, isLoading, isError } = useQuery({
+    queryKey: ['cart', appliedCoupon],
+    queryFn: () => getCart(appliedCoupon),
+  });
+
+  console.log("Cart data :",data)
+
+  if (isLoading) return <p>جاري تحميل السلة...</p>;
+  if (isError) return <p>حدث خطأ أثناء تحميل السلة.</p>;
+
+  if (!data || data.items.length === 0) {
+    return <div>
+      <EmptyState />
+    </div>;
+  }
   
-    return (
-        <section className='container'>
-          <div className="mt-[50px] flex xl:flex-row flex-col items-start justify-between">
-            <div>
-                {productsData.map((item, index) => {
-                return (
-                  <div key={index} className="flex md:flex-row flex-col items-center gap-4 mt-4">
-                    <Image 
-                      className={`w-[184px] h-[184px] rounded-md }`} 
-                      width={184} 
-                      height={184} 
-                      src={item.image} 
-                      alt="cart image" />
-                    <div className="xl:w-[535px] w-full lg:h-[184px] border border-[#D9D9D9] rounded-md py-4 px-8">
-                      <div className='flex items-center justify-between'>
-                      <h2 className="text-[#000000] text-[21px] font-bold">{item.title}</h2>
-                      <button className='text-[#CB0306] text-base font-bold'>إزالة</button>
-                      </div>
-                      <p className="text-[#464B4E] text-[17px] mt-2.5">{item.description}</p>
-                      
-                      <div className='flex items-center justify-between mt-6'>
-                        <div className="flex items-center gap-4">
-                        <p className='text-[#000000] text-base'>300 درهم</p>
-                        <div className="flex items-center">
+
+  return (
+    <section className='container'>
+      <div className="mt-[50px] flex xl:flex-row flex-col items-start justify-between">
+        <div>
+          {data.items.map((item, index) => (
+            <div key={index} className="flex md:flex-row flex-col items-center gap-4 mt-4">
+              <Image 
+                className="w-[184px] h-[184px] rounded-md" 
+                width={184} 
+                height={184} 
+                src={item.itemable.images?.[0]?.responsive_urls?.[0] || "/placeholder.png"}
+                alt="cart image" 
+              />
+              <div className="xl:w-[535px] w-full lg:h-[184px] border border-[#D9D9D9] rounded-md py-4 px-8">
+                <div className='flex items-center justify-between'>
+                  <h2 className="text-[#000000] text-[21px] font-bold">{item.itemable.name?.ar}</h2>
+                  <button className='text-[#CB0306] text-base font-bold'>إزالة</button>
+                </div>
+                <p className="text-[#464B4E] text-[17px] mt-2.5">{item.itemable.description?.ar}</p>
+                <div className='flex items-center justify-between mt-6'>
+                  <div className="flex items-center gap-4">
+                    <p className='text-[#000000] text-base'>{item.itemable.price} درهم</p>
+                    <div className="flex items-center">
                             <svg className="w-4 h-4 text-[#FFB74A] me-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 20">
                               <path d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z"/>
                             </svg>
                           <p className="ms-1 text-sm font-medium text-[#7B7E80]">(5)</p>
-                        </div>
                       </div>
-                      <div className='flex items-center gap-4'>
-                          <button className='w-6 h-6 border-2 border-[#007EC1] text-[#007EC1]'>+</button>
-                          <p className='text-[#000000] text-[22px]'>2</p>
-                          <button className='w-6 h-6 border-2 border-[#007EC1] text-[#007EC1]'>-</button>
-                      </div>
-                      </div>
-                    </div>
                   </div>
-                )
-                })}
+                  <div className='flex items-center gap-4'>
+                    <button className='w-6 h-6 border-2 border-[#007EC1] text-[#007EC1]'>+</button>
+                    <p className='text-[#000000] text-[22px]'>{item.quantity}</p>
+                    <button className='w-6 h-6 border-2 border-[#007EC1] text-[#007EC1]'>-</button>
+                  </div>
+                </div>
+              </div>
             </div>
+          ))}
+        </div>
 
             <div className='xl:w-[387px] w-full h-[568px] bg-[#FFFFFF] mt-4 rounded-[12px] py-[39px] px-[31px]' style={{boxShadow: ' 0px 1px 2px 0px #00000040'}}>
               <div className="flex w-full max-w-sm flex-col gap-6">
