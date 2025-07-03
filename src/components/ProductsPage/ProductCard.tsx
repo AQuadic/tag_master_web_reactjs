@@ -23,6 +23,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
   const isNew = true;
   const price = parseInt(product.price);
   const discount = parseInt(product.discount);
+  const isAvailable = product.types?.some((type) => type.in_stock);
 
 const handleAddToCart = async (e: React.MouseEvent<HTMLButtonElement>) => {
   e.preventDefault();
@@ -301,7 +302,7 @@ const handleAddToCart = async (e: React.MouseEvent<HTMLButtonElement>) => {
             )}
           </motion.div>
 
-          <motion.div
+          {/* <motion.div
             className="flex items-center gap-1"
             variants={starsVariants}
           >
@@ -313,6 +314,7 @@ const handleAddToCart = async (e: React.MouseEvent<HTMLButtonElement>) => {
               >
                 <ReviewStarIcon />
               </motion.div>
+              
             ))}
             <motion.span
               className="ml-2 text-slate-600 font-medium"
@@ -323,6 +325,12 @@ const handleAddToCart = async (e: React.MouseEvent<HTMLButtonElement>) => {
             >
               (5)
             </motion.span>
+          </motion.div> */}
+          <motion.div
+            className={`text-sm font-medium ${isAvailable ? "text-green-600" : "text-red-500"}`}
+            variants={contentVariants}
+          >
+            {isAvailable ? "متوفر" : "غير متوفر"}
           </motion.div>
         </motion.div>
 

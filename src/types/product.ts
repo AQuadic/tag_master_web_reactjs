@@ -12,6 +12,11 @@ export type ProductOptionTypes = {
   in_stock: boolean;
 };
 
+export type ProductTypeOption = {
+  value: string;
+  in_stock: boolean;
+};
+
 export interface ProductTypes {
   id: number;
   name: {
@@ -25,6 +30,7 @@ export interface ProductTypes {
   price: string;
   discount: string;
   options: ProductOptionTypes[];
+  types: ProductTypeOption[];
   category_id: number;
   brand_id: number | null;
   is_active: number;
