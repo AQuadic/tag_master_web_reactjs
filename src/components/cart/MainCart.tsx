@@ -1,67 +1,101 @@
-import Image from 'next/image'
-import React from 'react'
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+'use client';
+import React from 'react';
+import Image from 'next/image';
+import { useQuery, useQueryClient } from '@tanstack/react-query';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import OtherProducts from './OtherProducts';
+import { getCart } from '@/api/cart/getCart';
+import EmptyState from '../general/EmptyState';
+import { deleteCartItem } from '@/api/cart/deleteFromCart';
+import { toast } from 'sonner';
+import Spinner from '../icons/general/Spinner';
+import Tracking from '../general/Tracking';
 
 const MainCart = () => {
+const [couponInput, setCouponInput] = React.useState('');
+const [appliedCoupon, setAppliedCoupon] = React.useState('');
+const queryClient = useQueryClient();
 
-      const productsData = [
-    {
-      image:'/images/home/products/product1.png',
-      title : 'ميدالية مفاتيح جلدية بتقنية NFC - لون عنابي',
-      description: 'ميدالية مفاتيح أنيقة مصنوعة من الجلد الفاخر بلون عنابي, مزودة بتقنية NFC لتمكينك من مشاركة معلوماتك أو روابطك الاجتماعية بسرعة وسهولة بمجرد لمس هاتفك'
-    },
-    {
-      image:'/images/home/products/product2.png',
-      title : 'ميدالية مفاتيح جلدية بتقنية NFC - لون عنابي',
-      description: 'ميدالية مفاتيح أنيقة مصنوعة من الجلد الفاخر بلون عنابي, مزودة بتقنية NFC لتمكينك من مشاركة معلوماتك أو روابطك الاجتماعية بسرعة وسهولة بمجرد لمس هاتفك'
-    },
-  ];
+  const { data, isLoading } = useQuery({
+    queryKey: ['cart', appliedCoupon],
+    queryFn: () => getCart(appliedCoupon),
+  });
+
+  console.log("Cart data :",data)
+
+  if (isLoading) return <div className='flex justify-center'><Spinner /></div>
+
+  if (!data || data.items.length === 0) {
+    return <div className='flex items-center justify-center'>
+      <p>لا توجد عناصر لعرضها حالياً</p>
+    </div>;
+  }
+
+  const handleRemoveItem = async (cartItemId: number) => {
+  try {
+    await deleteCartItem(cartItemId);
+    toast.success("Item deleted successfully")
+    queryClient.invalidateQueries({ queryKey: ['cart', appliedCoupon] });
+  } catch {
+      toast.success("Failed to delete item")
+  }
+};
   
-    return (
-        <section className='container'>
-          <div className="mt-[50px] flex xl:flex-row flex-col items-start justify-between">
-            <div>
-                {productsData.map((item, index) => {
-                return (
-                  <div key={index} className="flex md:flex-row flex-col items-center gap-4 mt-4">
-                    <Image 
-                      className={`w-[184px] h-[184px] rounded-md }`} 
-                      width={184} 
-                      height={184} 
-                      src={item.image} 
-                      alt="cart image" />
-                    <div className="xl:w-[535px] w-full lg:h-[184px] border border-[#D9D9D9] rounded-md py-4 px-8">
-                      <div className='flex items-center justify-between'>
-                      <h2 className="text-[#000000] text-[21px] font-bold">{item.title}</h2>
-                      <button className='text-[#CB0306] text-base font-bold'>إزالة</button>
-                      </div>
-                      <p className="text-[#464B4E] text-[17px] mt-2.5">{item.description}</p>
-                      
-                      <div className='flex items-center justify-between mt-6'>
-                        <div className="flex items-center gap-4">
-                        <p className='text-[#000000] text-base'>300 درهم</p>
-                        <div className="flex items-center">
+
+const totalItemsPrice = data.items.reduce((sum, item) => {
+  const itemTotal = parseFloat(item.itemable.price) * item.quantity;
+  return sum + itemTotal;
+}, 0);
+
+
+  return (
+    <section className='container'>
+      <Tracking />
+      <div className="mt-[50px] flex xl:flex-row flex-col items-start justify-between">
+        <div className='w-full'>
+          {data.items.map((item, index) => (
+            <div key={index} className="flex md:flex-row flex-col items-center gap-4 mt-4">
+              <Image 
+                className="w-[184px] h-[184px] rounded-md" 
+                width={184} 
+                height={184} 
+                src={item.itemable.images?.[0]?.responsive_urls?.[0] || "/placeholder.png"}
+                alt="cart image" 
+              />
+              <div className="xl:w-[535px] w-full lg:h-[184px] border border-[#D9D9D9] rounded-md py-4 px-8">
+                <div className='flex items-center justify-between'>
+                  <h2 className="text-[#000000] text-[21px] font-bold">{item.itemable.name?.ar}</h2>
+                  <button
+                    className='text-[#CB0306] text-base font-bold'
+                    onClick={() => handleRemoveItem(item.id)}
+                  >
+                    إزالة
+                  </button>
+                </div>
+                <p className="text-[#464B4E] text-[17px] mt-2.5">{item.itemable.description?.ar}</p>
+                <div className='flex items-center justify-between mt-6'>
+                  <div className="flex items-center gap-4">
+                    <p className='text-[#000000] text-base'>{item.itemable.price} درهم</p>
+                    <div className="flex items-center">
                             <svg className="w-4 h-4 text-[#FFB74A] me-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 20">
                               <path d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z"/>
                             </svg>
                           <p className="ms-1 text-sm font-medium text-[#7B7E80]">(5)</p>
-                        </div>
                       </div>
-                      <div className='flex items-center gap-4'>
-                          <button className='w-6 h-6 border-2 border-[#007EC1] text-[#007EC1]'>+</button>
-                          <p className='text-[#000000] text-[22px]'>2</p>
-                          <button className='w-6 h-6 border-2 border-[#007EC1] text-[#007EC1]'>-</button>
-                      </div>
-                      </div>
-                    </div>
                   </div>
-                )
-                })}
+                  <div className='flex items-center gap-4'>
+                    <button className='w-6 h-6 border-2 border-[#007EC1] text-[#007EC1]'>+</button>
+                    <p className='text-[#000000] text-[22px]'>{item.quantity}</p>
+                    <button className='w-6 h-6 border-2 border-[#007EC1] text-[#007EC1]'>-</button>
+                  </div>
+                </div>
+              </div>
             </div>
+          ))}
+        </div>
 
             <div className='xl:w-[387px] w-full h-[568px] bg-[#FFFFFF] mt-4 rounded-[12px] py-[39px] px-[31px]' style={{boxShadow: ' 0px 1px 2px 0px #00000040'}}>
-              <div className="flex w-full max-w-sm flex-col gap-6">
+              <div className="flex w-full xl:max-w-sm flex-col gap-6">
                 <Tabs defaultValue="total" dir='rtl'>
                   <TabsList>
                     <TabsTrigger value="address">العنوان</TabsTrigger>
@@ -76,7 +110,7 @@ const MainCart = () => {
                       <div className='relative'>
                         <div className='relative'>
                           <input type="text" className='xl:w-[324px] w-full h-12 rounded-[8px] border border-[#000000] focus:outline-none mt-2 px-2' />
-                          <button className='w-[77px] h-[46px] bg-[#007EC1] rounded-[8px] text-[#FFFFFF] text-base font-medium absolute top-[9px] left-[3px]'>تطبيق</button>
+                          <button className='w-[77px] h-[46px] bg-[#007EC1] rounded-[8px] text-[#FFFFFF] text-base font-medium absolute top-[9.4px] left-[1px]'>تطبيق</button>
                         </div>
                       </div>
                       </div>
@@ -84,32 +118,38 @@ const MainCart = () => {
                       <div className='mt-[28px]'>
                         <h2 className='text-[#000000] text-base font-medium'>التكلفة الاجمالية</h2>
                         
-                        <div className='text-[#000000] text-base flex items-center justify-between mt-4'>
-                          <h3>ميدالية مفاتيح</h3>
-                          <p>300 درهم</p>
-                        </div>
+                        {data.items.map((item, index) => (
+                          <div key={index} className='text-[#000000] text-base flex items-center justify-between mt-4'>
+                            <h3>
+                              {item.itemable.name?.ar.length > 30
+                                  ? item.itemable.name.ar.slice(0, 35) + '...'
+                                  : item.itemable.name?.ar}
+                              </h3>
 
-                        <div className='text-[#000000] text-base flex items-center justify-between mt-4'>
-                          <h3>المحفظة الجلبدة</h3>
-                          <p>220 درهم</p>
-                        </div>
+                            <p>{item.itemable.price} درهم</p>
+                          </div>
+                        ))}
 
-                        <div className='text-[#000000] text-base flex items-center justify-between mt-4'>
+                      <div className='text-[#000000] text-base flex items-center justify-between mt-4'>
                           <h3>التوصيل</h3>
-                          <p>25 درهم</p>
+                          <p>{data.delivery_fees} درهم</p>
                         </div>
 
                         <div className='text-[#000000] text-base flex items-center justify-between mt-4'>
                           <h3>كود الخصم</h3>
-                          <p>0 درهم</p>
+                          <p>{data.discount} درهم</p>
                         </div>
+
                       </div>
 
                       <hr className='mt-7'/>
-                        <div className='text-base font-bold flex items-center justify-between mt-4'>
-                          <h3 className='text-[#000000]'>إجمالي</h3>
-                          <p className='text-[#15B600]'>550 درهم</p>
-                        </div>
+                      <div className='text-base font-bold flex items-center justify-between mt-4'>
+  <h3 className='text-[#000000]'>إجمالي</h3>
+  <p className='text-[#15B600]'>
+    {(totalItemsPrice + parseFloat(data.delivery_fees || 0) - parseFloat(data.discount || 0)).toFixed(2)} درهم
+  </p>
+</div>
+
 
                       <div className='flex items-center justify-center'>
                         <button className='xl:w-[280px] w-full h-11 bg-[#007CC2] rounded-[8px] mt-4 text-[#FFFFFF] text-base'>دفع الآن</button>
