@@ -5,6 +5,7 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick-theme.css";
 import "slick-carousel/slick/slick.css";
 import UserPickCard from "./UserPickCard";
+import { useTranslations } from "next-intl";
 
 interface CustomDotsProps {
   dots: React.ReactNode[];
@@ -13,6 +14,7 @@ interface CustomDotsProps {
 }
 
 const HomeUserPicks: React.FC = () => {
+  const t = useTranslations("userPickes");
   const [currentSlide, setCurrentSlide] = React.useState<number>(0);
 
   const itemVariants = {
@@ -88,7 +90,7 @@ const HomeUserPicks: React.FC = () => {
         viewport={{ once: true }}
         className="text-lg text-primary text-center"
       >
-        توصيات المستخدمين
+        {t('userRecommendations')}
       </motion.h2>
       <motion.h3
         variants={itemVariants}
@@ -97,7 +99,7 @@ const HomeUserPicks: React.FC = () => {
         viewport={{ once: true }}
         className="text-2xl font-bold text-center mt-2 mb-8"
       >
-        ماذا قالوا عنا
+        {t('whatTheySay')}
       </motion.h3>
 
       <div className="overflow-y-visible mt-[86px]">

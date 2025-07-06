@@ -20,6 +20,9 @@ import enhowItWorks from '../../messages/en/howItWorks.json'
 import arbestProducts from '../../messages/ar/bestProducts.json'
 import enbestProducts from '../../messages/en/bestProducts.json'
 
+import aruserPickes from '../../messages/ar/userPickes.json'
+import enuserPickes from '../../messages/en/userPickes.json'
+
 export default getRequestConfig(async ({ requestLocale }) => {
   // Typically corresponds to the `[locale]` segment
   const requested = await requestLocale;
@@ -36,6 +39,7 @@ export default getRequestConfig(async ({ requestLocale }) => {
       homeServices: locale === "ar" ? arhomeServices : enhomeServices,
       howItWorks: locale === "ar" ? arhowItWorks : enhowItWorks,
       bestProducts: locale === "ar" ? arbestProducts : enbestProducts,
+      userPickes: locale === "ar" ? aruserPickes : enuserPickes,
     }
   };
 });
