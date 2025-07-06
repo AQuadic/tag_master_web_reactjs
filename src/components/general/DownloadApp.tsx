@@ -1,9 +1,11 @@
 "use client";
 import { motion } from "framer-motion";
+import { useTranslations } from "next-intl";
 import Image from "next/image";
 import React from "react";
 
 const DownloadApp = () => {
+  const t = useTranslations("downloadApp");
   const itemVariants = {
     hidden: { opacity: 0, y: 30 },
     show: {
@@ -22,7 +24,7 @@ const DownloadApp = () => {
         viewport={{ once: true }}
         className="text-lg text-primary text-center"
       >
-        تطبيقنا على المتاجر
+        {t('appOnStore')}
       </motion.h2>
 
       <motion.h3
@@ -32,7 +34,7 @@ const DownloadApp = () => {
         viewport={{ once: true }}
         className="text-2xl font-bold text-center mt-2 mb-8"
       >
-        حمل التطبيق الآن
+        {t('downloadNow')}
       </motion.h3>
 
       <div className="rounded-md border flex flex-col md:flex-row items-center justify-between p-4 sm:p-10 gap-10">
@@ -44,11 +46,7 @@ const DownloadApp = () => {
           className="flex-1 flex flex-col justify-center gap-6"
         >
           <p className="max-w-[480px] text-center md:text-start">
-            قم بتحميل تطبيق تاج ماستر وابدأ بإنشاء هويتك الرقمية الاحترافية خلال
-            دقائق. يتيح لك التطبيق إضافة بياناتك الشخصية وروابط حساباتك
-            الاجتماعية وربطها بكود ذكي يمكن مشاركته بسهولة عبر تقنية NFC أو QR.
-            مثالي لروّاد الأعمال، المصممين، وكل من يرغب في ترك انطباع رقمي مميز.
-            حمله الآن وشارك معلوماتك بأناقة وسرعة!
+            {t('downloadDescription')}
           </p>
 
           <div className="flex flex-col sm:flex-row items-center gap-4">

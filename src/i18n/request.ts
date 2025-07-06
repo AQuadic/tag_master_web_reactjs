@@ -23,6 +23,9 @@ import enbestProducts from '../../messages/en/bestProducts.json'
 import aruserPickes from '../../messages/ar/userPickes.json'
 import enuserPickes from '../../messages/en/userPickes.json'
 
+import ardownloadApp from '../../messages/ar/downloadApp.json'
+import endownloadApp from '../../messages/en/downloadApp.json'
+
 export default getRequestConfig(async ({ requestLocale }) => {
   // Typically corresponds to the `[locale]` segment
   const requested = await requestLocale;
@@ -40,6 +43,7 @@ export default getRequestConfig(async ({ requestLocale }) => {
       howItWorks: locale === "ar" ? arhowItWorks : enhowItWorks,
       bestProducts: locale === "ar" ? arbestProducts : enbestProducts,
       userPickes: locale === "ar" ? aruserPickes : enuserPickes,
+      downloadApp: locale === "ar" ? ardownloadApp : endownloadApp,
     }
   };
 });
