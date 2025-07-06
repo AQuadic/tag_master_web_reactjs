@@ -51,7 +51,7 @@ const totalItemsPrice = data.items.reduce((sum, item) => {
   return (
     <section className='container'>
       <Tracking />
-      <div className="mt-[50px] flex xl:flex-row flex-col items-start justify-between">
+      <div className="mt-[50px] flex lg:flex-row flex-col items-start justify-between gap-4">
         <div className='w-full'>
           {data.items.map((item, index) => (
             <div key={index} className="flex md:flex-row flex-col items-center gap-4 mt-4">
@@ -94,7 +94,7 @@ const totalItemsPrice = data.items.reduce((sum, item) => {
           ))}
         </div>
 
-            <div className='xl:w-[387px] w-full h-[568px] bg-[#FFFFFF] mt-4 rounded-[12px] py-[39px] px-[31px]' style={{boxShadow: ' 0px 1px 2px 0px #00000040'}}>
+            <div className='md:w-[400px] w-full h-full bg-[#FFFFFF] mt-4 rounded-[12px] py-[39px] px-[31px]' style={{boxShadow: ' 0px 1px 2px 0px #00000040'}}>
               <div className="flex w-full xl:max-w-sm flex-col gap-6">
                 <Tabs defaultValue="total" dir='rtl'>
                   <TabsList>
@@ -102,14 +102,62 @@ const totalItemsPrice = data.items.reduce((sum, item) => {
                     <TabsTrigger value="total">إجمالي الطلب</TabsTrigger>
                   </TabsList>
                   <TabsContent value="address">
-                    
+                    <div className='mt-9'>
+                      <div className='flex flex-col'>
+                        <label htmlFor="country" className='text-[#000000] text-base'>البلد</label>
+                      <input 
+                      type="text" 
+                      name="country" 
+                      id="country" 
+                      className='md:w-[324px] w-full h-12 border border-[#4A4A4A] rounded-[8px] mt-2 px-3'
+                      placeholder='الإمارات العربية المتحده'
+                      />
+                      </div>
+
+                      <div className='mt-[14px] flex flex-col'>
+                        <label htmlFor="country" className='text-[#000000] text-base'>المدينة</label>
+                        <input 
+                        type="text" 
+                        name="country" 
+                        id="country" 
+                        className='md:w-[324px] w-full h-12 border border-[#4A4A4A] rounded-[8px] mt-2 px-3'
+                        placeholder='عجمان'
+                        />
+                      </div>
+
+                      <div className='mt-[14px] flex flex-col'>
+                        <label htmlFor="country" className='text-[#000000] text-base'>العنوان</label>
+                        <input 
+                        type="text" 
+                        name="country" 
+                        id="country" 
+                        className='md:w-[324px] w-full h-12 border border-[#4A4A4A] rounded-[8px] mt-2 px-3'
+                        placeholder='شارع الشيخ خليفة بن زايد،منطقة النعيمية'
+                        />
+                      </div>
+
+                      <div className='mt-[14px] flex flex-col'>
+                        <label htmlFor="country" className='text-[#000000] text-base'>الكود البريدي</label>
+                        <input 
+                        type="text" 
+                        name="country" 
+                        id="country" 
+                        className='w-[155px] h-12 border border-[#4A4A4A] rounded-[8px] mt-2 px-3'
+                        placeholder='11612'
+                        />
+                      </div>
+
+                      <button className='w-full h-11 bg-[#007CC2] rounded-[8px] mt-7 text-[#FFFFFF] text-base'>
+                        متابعة
+                      </button>
+                    </div>
                   </TabsContent>
                   <TabsContent value="total">
                       <div className='mt-[11px]'>
                         <label htmlFor="code" className='text-[#000000] text-base'>كود الخصم</label>
                       <div className='relative'>
                         <div className='relative'>
-                          <input type="text" className='xl:w-[324px] w-full h-12 rounded-[8px] border border-[#000000] focus:outline-none mt-2 px-2' />
+                          <input type="text" className='xl:md:w-[324px] w-full w-full h-12 rounded-[8px] border border-[#000000] focus:outline-none mt-2 px-2' />
                           <button className='w-[77px] h-[46px] bg-[#007EC1] rounded-[8px] text-[#FFFFFF] text-base font-medium absolute top-[9.4px] left-[1px]'>تطبيق</button>
                         </div>
                       </div>

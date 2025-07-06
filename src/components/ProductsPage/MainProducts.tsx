@@ -27,7 +27,7 @@ const MainProducts = ({ data }: MainProductsProps) => {
         selectedFilter={selectedFilter}
         setSelectedFilter={setSelectedFilter}
       />
-      {data.data.length < 0 ? (
+      {data.data.length > 0 ? (
         <div className="container grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 mt-8">
           {data.data.map((product) => (
             <ProductCard key={product.id} product={product} />
