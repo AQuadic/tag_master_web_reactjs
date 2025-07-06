@@ -1,7 +1,12 @@
 'use client'
+import { getPosts } from '@/api/blogs/getBlogs'
+import { useQuery } from '@tanstack/react-query'
 import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
+import Spinner from '../icons/general/Spinner'
+import { PostType } from '@/types/blogs'
+import Bookmark from '../icons/blogs/Bookmark'
 
 const HomeBlogs = () => {
     const BlogsData = [
@@ -31,29 +36,19 @@ const HomeBlogs = () => {
         },
     ]
 
-    const BlogsSection = [
-        {
-            image: '/images/home/blogs/bigblog1.png',
-            title: 'عنوان المقال',
-            time: '5 دقائق',
-            description: 'وصف قصير و سريع عن المقال و محتويات وصف قصير و سريع عن المقال و محتوياته وصف قصير و سريع عن المقال و محتوياته....',
-            date: '2,Jan 12:09PM'
-        },
-        {
-            image: '/images/home/blogs/bigblog2.png',
-            title: 'عنوان المقال',
-            time: '5 دقائق',
-            description: 'وصف قصير و سريع عن المقال و محتويات وصف قصير و سريع عن المقال و محتوياته وصف قصير و سريع عن المقال و محتوياته....',
-            date: '2,Jan 12:09PM'
-        },
-        {
-            image: '/images/home/blogs/bigblog3.png',
-            title: 'عنوان المقال',
-            time: '5 دقائق',
-            description: 'وصف قصير و سريع عن المقال و محتويات وصف قصير و سريع عن المقال و محتوياته وصف قصير و سريع عن المقال و محتوياته....',
-            date: '2,Jan 12:09PM'
-        },
-    ]
+    const {
+    data: posts,
+    isLoading,
+    } = useQuery<PostType[]>({
+        queryKey: ['posts'],
+        queryFn: getPosts,
+    });
+
+    console.log("Blogs are: ", posts)
+
+    if (isLoading) return <div className='flex justify-center my-10'>
+        <Spinner />
+    </div>
 
     return (
         <section className='container mt-20'>
@@ -93,26 +88,42 @@ const HomeBlogs = () => {
                 </div>
             </div>
 
-            <div className='mt-12 grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-[21px]'>
-                {BlogsSection.map((item,index) => (
+            <div className='mt-12 grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 items-center justify-center gap-[21px]'>
+                {posts?.map((item,index) => (
+                    <Link href={`/blog/${item.id}`} key={item.id}>
                     <div
                         key={index}
-                        className='w-full border border-[#B2B2B2] rounded-md bg-[#F6F7FB] pb-5'
+                        className='relative w-full h-[376px] border border-[#B2B2B2] rounded-md bg-[#F6F7FB]'
                     >
+                        <div className='absolute top-4 right-4'>
+                            {/* <button onClick={handleToggleFavorite} className="absolute top-4 right-4 z-10 p-2 rounded-full bg-white/90 backdrop-blur-sm shadow">
+                              {isFavorite ? <FilledBookmarkIcon /> : <Bookmark />}
+                            </button> */}
+                            <Bookmark />
+                        </div>
                         <Image
-                            src={item.image}
-                            alt='big blog image'
+                            src={item.image.url}
+                            alt={item.title}
                             width={387}
                             height={212}
                             className='w-full'
                         />
                         <div className='flex items-center justify-between mt-4 px-4'>
                             <h2 className='text-[#333333] text-[17px] font-bold'>{item.title}</h2>
-                            <h2 className='text-[#787676] text-base font-normal'>{item.time}</h2>
+                            {/* <h2 className='text-[#787676] text-base font-normal'>5 دقائق</h2> */}
                         </div>
-                        <p className='text-[#8B8282] text-base mt-3 px-4'>{item.description}</p>
-                        <p className='text-[#8B8282] text-base mt-3 px-4 justify-end flex'>{item.date}</p>
+                        <p
+                          className='text-[#8B8282] text-base mt-3 px-4 line-clamp-2'
+                          dangerouslySetInnerHTML={{ __html: item.content }}
+                        />
+                        <p className='text-[#8B8282] text-base mt-3 px-4 justify-end flex'>
+                          {new Date(item.published_at).toLocaleString('ar-EG', {
+                            dateStyle: 'medium',
+                            timeStyle: 'short',
+                          })}
+                        </p>
                     </div>
+                    </Link>
                 ))}
             </div>
         </section>
