@@ -2,6 +2,7 @@
 
 import { homeAchievementsData } from "@/constants/home/homeAchivementsData";
 import { motion } from "framer-motion";
+import { useLocale, useTranslations } from "next-intl";
 import Image from "next/image";
 import React from "react";
 
@@ -20,6 +21,8 @@ const itemVariants = {
 };
 
 const HomeAchievementsSection = () => {
+  const t = useTranslations("achievements");
+  const locale = useLocale();
   return (
     <motion.section
       initial="hidden"
@@ -32,13 +35,13 @@ const HomeAchievementsSection = () => {
           variants={itemVariants}
           className="text-lg text-primary text-center"
         >
-          كن جزءًا من مجتمعنا
+          {t('bePart')}
         </motion.h2>
         <motion.h3
           variants={itemVariants}
           className="text-2xl font-bold text-center mt-2 mb-8"
         >
-          ثقة عالمية وانتشار واسع
+          {t('trust')}
         </motion.h3>
 
         <motion.div
@@ -60,9 +63,9 @@ const HomeAchievementsSection = () => {
               />
               <p className="text-primary font-bold text-4xl">+{item.number}</p>
               <p className="text-center w-[92px] text-white bg-black rounded-full p-1">
-                {item.title}
+                {item.title[locale]}
               </p>
-              <p className="w-[255px] text-center">{item.desc}</p>
+              <p className="w-[255px] text-center">{item.desc[locale]}</p>
             </motion.div>
           ))}
         </motion.div>
