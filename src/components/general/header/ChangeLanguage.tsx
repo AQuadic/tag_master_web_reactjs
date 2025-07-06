@@ -20,7 +20,7 @@ const ChangeLanguage = () => {
     <select
       value={currentLocale}
       onChange={handleChange}
-      className="max-sm:min-w-full cursor-pointer flex items-center gap-2 justify-between border rounded px-2 py-1 bg-transparent text-inherit"
+      className="max-sm:min-w-full cursor-pointer flex items-center gap-2 justify-between px-2 py-1 bg-transparent text-inherit"
     >
       <option value="en">English</option>
       <option value="ar">العربية</option>
