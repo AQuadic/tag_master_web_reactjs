@@ -5,8 +5,10 @@ import React from "react";
 import Service1Icon from "../icons/home/Service1Icon";
 import Service2Icon from "../icons/home/Service2Icon";
 import Service3Icon from "../icons/home/Service3Icon";
+import { useTranslations } from "next-intl";
 
 const HomeServices = () => {
+  const t = useTranslations("homeServices");
   const containerVariants = {
     hidden: { opacity: 0 },
     show: {
@@ -122,13 +124,13 @@ const HomeServices = () => {
           variants={itemVariants}
           className="text-lg text-primary text-center"
         >
-          أبرز الخدمات
+          {t('topServices')}
         </motion.h2>
         <motion.h3
           variants={itemVariants}
           className="text-2xl sm:text-3xl lg:text-4xl font-bold text-center mt-2 mb-8 sm:mb-12"
         >
-          تعرف على المزيد حول حلنا
+          {t('knowMore')}
         </motion.h3>
 
         <div className="container mx-auto px-4">
@@ -145,10 +147,10 @@ const HomeServices = () => {
                 </motion.div>
                 <motion.div variants={textVariants}>
                   <h3 className="text-xl sm:text-2xl lg:text-3xl font-bold">
-                    إدارة التواصل
+                    {t('communicationManagement')}
                   </h3>
                   <p className="text-secondary-text text-base sm:text-lg">
-                    وصف الخدمة
+                    {t('serviceDescription')}
                   </p>
                 </motion.div>
               </div>
@@ -181,10 +183,10 @@ const HomeServices = () => {
                   </motion.div>
                   <motion.div variants={textVariants}>
                     <h3 className="text-lg sm:text-xl lg:text-2xl font-bold leading-tight">
-                      مسح الكتروني لبطاقات العمل
+                      {t('scanning')}
                     </h3>
                     <p className="text-secondary-text text-sm sm:text-base lg:text-lg">
-                      وصف الخدمة
+                      {t('serviceDescription')}
                     </p>
                   </motion.div>
                 </div>
@@ -215,10 +217,10 @@ const HomeServices = () => {
                   </motion.div>
                   <motion.div variants={textVariants}>
                     <h3 className="text-lg sm:text-xl lg:text-2xl font-bold">
-                      ملفات شخصية معدلة
+                      {t('modifiedProfiles')}
                     </h3>
                     <p className="text-secondary-text text-sm sm:text-base lg:text-lg">
-                      وصف الخدمة
+                      {t('serviceDescription')}
                     </p>
                   </motion.div>
                 </div>

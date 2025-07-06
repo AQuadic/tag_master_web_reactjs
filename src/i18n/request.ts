@@ -11,6 +11,9 @@ import enachievements from '../../messages/en/achievements.json'
 import arhomeAboutUs from '../../messages/ar/homeAboutUs.json'
 import enhomeAboutUs from '../../messages/en/homeAboutUs.json'
 
+import arhomeServices from '../../messages/ar/homeServices.json'
+import enhomeServices from '../../messages/en/homeServices.json'
+
 export default getRequestConfig(async ({ requestLocale }) => {
   // Typically corresponds to the `[locale]` segment
   const requested = await requestLocale;
@@ -23,7 +26,8 @@ export default getRequestConfig(async ({ requestLocale }) => {
     messages: {
       hero: locale === "ar" ? arHero : enHero,
       achievements: locale === "ar" ? arachievements : enachievements,
-      homeAboutUs: locale === "ar" ? arhomeAboutUs : enhomeAboutUs
+      homeAboutUs: locale === "ar" ? arhomeAboutUs : enhomeAboutUs,
+      homeServices: locale === "ar" ? arhomeServices : enhomeServices,
     }
   };
 });
