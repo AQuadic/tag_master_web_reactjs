@@ -3,6 +3,7 @@ export interface PostType {
   title: string;
   content: string;
   published_at: string;
+  is_favorite: boolean;
   image: {
     url: string;
     file_name: string;

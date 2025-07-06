@@ -1,11 +1,12 @@
 import { axios } from "@/lib/axios";
 import { ProductTypes } from "@/types/product";
+import { PostType } from "@/types/blogs";
 
 export interface FavoriteItem {
   id: number;
-  favorable_type: string;
+  favorable_type: "product" | "blog";
   favorable_id: number;
-  favorable: ProductTypes;
+  favorable: ProductTypes | PostType;
   created_at: string;
   updated_at: string;
 }
