@@ -50,7 +50,7 @@ const MainLogin = () => {
         <Image src="/images/logo.png" alt="Logo" width={155} height={54} className="mx-auto mb-4"/>
       <div className="flex flex-col gap-3">
         <h1 className="font-bold text-2xl text-center">تسجيل الدخول</h1>
-        <p className="text-lg text-secondary-text text-center">
+        <p className="text-lg text-secondary-text text-center my-4">
           أدخل البريد الاكتروني و كلمة المرور الخاصة بك لتسجيل الدخول إلى حسابك.
         </p>
       </div>
@@ -81,7 +81,7 @@ const MainLogin = () => {
           </button>
         </div>
 
-        <Button disabled={loading}>
+        <Button disabled={loading} className="mb-2">
           {loading ? 'جاري تسجيل الدخول...' : 'تسجيل الدخول'}
         </Button>
       </form>
