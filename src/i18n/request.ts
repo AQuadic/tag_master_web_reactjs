@@ -17,6 +17,9 @@ import enhomeServices from '../../messages/en/homeServices.json'
 import arhowItWorks from '../../messages/ar/howItWorks.json'
 import enhowItWorks from '../../messages/en/howItWorks.json'
 
+import arbestProducts from '../../messages/ar/bestProducts.json'
+import enbestProducts from '../../messages/en/bestProducts.json'
+
 export default getRequestConfig(async ({ requestLocale }) => {
   // Typically corresponds to the `[locale]` segment
   const requested = await requestLocale;
@@ -32,6 +35,7 @@ export default getRequestConfig(async ({ requestLocale }) => {
       homeAboutUs: locale === "ar" ? arhomeAboutUs : enhomeAboutUs,
       homeServices: locale === "ar" ? arhomeServices : enhomeServices,
       howItWorks: locale === "ar" ? arhowItWorks : enhowItWorks,
+      bestProducts: locale === "ar" ? arbestProducts : enbestProducts,
     }
   };
 });

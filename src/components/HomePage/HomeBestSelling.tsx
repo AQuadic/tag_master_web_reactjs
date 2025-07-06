@@ -5,8 +5,10 @@ import product2 from '../../../public/images/home/products/product2.png'
 import product3 from '../../../public/images/home/products/product3.png'
 import Image from "next/image";
 import Arrow from "../icons/home/Arrow";
+import { useTranslations } from "next-intl";
 
 const HomeBestSelling = () => {
+  const t = useTranslations("bestProducts");
   const productsData = [
     {
       image:product1,
@@ -30,11 +32,11 @@ const HomeBestSelling = () => {
       <div className="container">
         <div className="flex">
           <div className="mx-auto text-center">
-            <Link href='/' className="text-[#007CC2] text-[14px]">تصفح أفضل المنتجات</Link>
-            <h2 className="text-[#000000] text-[25px] font-bold">مجموعة منتجاتنا المميزة</h2>
+            <Link href='/' className="text-[#007CC2] text-[14px]">{t('bestProducts')}</Link>
+            <h2 className="text-[#000000] text-[25px] font-bold">{t('specialCollection')}</h2>
           </div>
           <div className="flex items-center gap-3">
-            <p className="text-[#000000] text-base font-semibold">رؤية المزيد</p>
+            <p className="text-[#000000] text-base font-semibold">{t('seeMore')}</p>
             <Arrow />
           </div>
         </div>
