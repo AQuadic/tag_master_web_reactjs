@@ -40,6 +40,40 @@ const queryClient = useQueryClient();
       toast.success("Failed to delete item")
   }
 };
+
+const updateQuantity = async (cartItemId: number, newQuantity: number) => {
+  if (newQuantity < 1) return;
+  
+  try {
+    queryClient.setQueryData(['cart', appliedCoupon], (oldData: any) => {
+      if (!oldData) return oldData;
+      
+      return {
+        ...oldData,
+        items: oldData.items.map((item: any) => 
+          item.id === cartItemId 
+            ? { ...item, quantity: newQuantity }
+            : item
+        )
+      };
+    });
+    
+    toast.success("Quantity updated successfully");
+  } catch {
+    toast.error("Failed to update quantity");
+    queryClient.invalidateQueries({ queryKey: ['cart', appliedCoupon] });
+  }
+};
+
+const handleIncreaseQuantity = (cartItemId: number, currentQuantity: number) => {
+  updateQuantity(cartItemId, currentQuantity + 1);
+};
+
+const handleDecreaseQuantity = (cartItemId: number, currentQuantity: number) => {
+  if (currentQuantity > 1) {
+    updateQuantity(cartItemId, currentQuantity - 1);
+  }
+};
   
 
 const totalItemsPrice = data.items.reduce((sum, item) => {
@@ -84,9 +118,20 @@ const totalItemsPrice = data.items.reduce((sum, item) => {
                       </div>
                   </div>
                   <div className='flex items-center gap-4'>
-                    <button className='w-6 h-6 border-2 border-[#007EC1] text-[#007EC1]'>+</button>
-                    <p className='text-[#000000] text-[22px]'>{item.quantity}</p>
-                    <button className='w-6 h-6 border-2 border-[#007EC1] text-[#007EC1]'>-</button>
+                    <button 
+                      className='w-6 h-6 border-2 border-[#007EC1] text-[#007EC1] flex items-center justify-center hover:bg-[#007EC1] hover:text-white transition-colors'
+                      onClick={() => handleIncreaseQuantity(item.id, item.quantity)}
+                    >
+                      +
+                    </button>
+                    <p className='text-[#000000] text-[22px] min-w-[30px] text-center'>{item.quantity}</p>
+                    <button 
+                      className='w-6 h-6 border-2 border-[#007EC1] text-[#007EC1] flex items-center justify-center hover:bg-[#007EC1] hover:text-white transition-colors disabled:opacity-50 disabled:cursor-not-allowed'
+                      onClick={() => handleDecreaseQuantity(item.id, item.quantity)}
+                      disabled={item.quantity <= 1}
+                    >
+                      -
+                    </button>
                   </div>
                 </div>
               </div>
