@@ -11,21 +11,21 @@ const Tracking = () => {
                      <div><BlueCircle /></div>
                 <div className='w-full h-[7px] bg-[#007EC1] rounded-[6px]'></div>
                 </div>
-                <p className='text-[#000000] text-xl mt-3 mx-8'>إضافة الطلب لعربة التسوق</p>
+                <p className='text-[#000000] md:text-xl text-xs mt-3 md:mx-8'>إضافة الطلب لعربة التسوق</p>
                </div>
                <div className='w-full'>
                 <div className='flex items-center gap-4'>
                      <div><BlueCircle /></div>
                 <div className='w-full h-[7px] bg-[#007EC1] rounded-[6px]'></div>
                 </div>
-                <p className='text-[#000000] text-xl mt-3 mx-8'>إضافة الطلب لعربة التسوق</p>
+                <p className='text-[#000000] md:text-xl text-xs mt-3 md:mx-8'>إضافة الطلب لعربة التسوق</p>
                </div>
                 <div className='w-full'>
                 <div className='flex items-center gap-4'>
                      <div><GrayCircle /></div>
                 <div className='w-full h-[7px] bg-[#D9D9D9] rounded-[6px]'></div>
                 </div>
-                <p className='text-[#000000] text-xl mt-3 mx-8'>إضافة الطلب لعربة التسوق</p>
+                <p className='text-[#000000] md:text-xl text-xs mt-3 md:mx-8'>إضافة الطلب لعربة التسوق</p>
                </div>
             </div>
         </section>
