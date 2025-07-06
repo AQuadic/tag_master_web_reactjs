@@ -1,6 +1,7 @@
 "use client";
 import { ProductsResponseTypes } from "@/types/product";
 import React, { useState } from "react";
+import EmptyState from "../general/EmptyState";
 import Pagination from "./Pagination";
 import ProductCard from "./ProductCard";
 import ProductsFilter from "./ProductsFilter";
@@ -26,11 +27,15 @@ const MainProducts = ({ data }: MainProductsProps) => {
         selectedFilter={selectedFilter}
         setSelectedFilter={setSelectedFilter}
       />
-      <div className="container grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 mt-8">
-        {data.data.map((product) => (
-          <ProductCard key={product.id} product={product} />
-        ))}
-      </div>
+      {data.data.length < 0 ? (
+        <div className="container grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 mt-8">
+          {data.data.map((product) => (
+            <ProductCard key={product.id} product={product} />
+          ))}
+        </div>
+      ) : (
+        <EmptyState />
+      )}
       <Pagination
         currentStep={currentStep}
         setCurrentStep={setCurrentStep}
