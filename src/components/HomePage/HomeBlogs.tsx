@@ -93,17 +93,18 @@ const HomeBlogs = () => {
                 </div>
             </div>
 
-            <div className='mt-12 flex flex-wrap gap-[21px]'>
+            <div className='mt-12 grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-[21px]'>
                 {BlogsSection.map((item,index) => (
                     <div
                         key={index}
-                        className='w-[387px] h-[376px] border border-[#B2B2B2] rounded-md bg-[#F6F7FB]'
+                        className='w-full border border-[#B2B2B2] rounded-md bg-[#F6F7FB] pb-5'
                     >
                         <Image
                             src={item.image}
                             alt='big blog image'
                             width={387}
                             height={212}
+                            className='w-full'
                         />
                         <div className='flex items-center justify-between mt-4 px-4'>
                             <h2 className='text-[#333333] text-[17px] font-bold'>{item.title}</h2>

@@ -29,7 +29,7 @@ const HomeBestSelling = () => {
     <section className="bg-[#F6F7FB] mt-[81px] py-[80px]">
       <div className="container">
         <div className="flex">
-          <div className="mx-auto">
+          <div className="mx-auto text-center">
             <Link href='/' className="text-[#007CC2] text-[14px]">تصفح أفضل المنتجات</Link>
             <h2 className="text-[#000000] text-[25px] font-bold">مجموعة منتجاتنا المميزة</h2>
           </div>
