@@ -1,5 +1,8 @@
 "use client";
 import CartIcon from "@/components/icons/general/CartIcon";
+import Profile from "@/components/icons/general/Profile";
+import { useCartStore } from "@/components/stores/cartStore";
+import { useAuthStore } from "@/components/stores/userStore";
 import { navbarLinks } from "@/constants/navbarLinks";
 import { AnimatePresence, motion } from "framer-motion";
 import { Menu, X } from "lucide-react";
@@ -10,18 +13,16 @@ import React, { useEffect, useState } from "react";
 import ChangeLanguage from "./ChangeLanguage";
 import Searchbar from "./Searchbar";
 import SignInButton from "./SignInButton";
-import { useAuthStore } from "@/components/stores/userStore";
-import Profile from "@/components/icons/general/Profile";
-import { useCartStore } from "@/components/stores/cartStore";
 
 const Header = () => {
+  const [hydrated, setHydrated] = useState(false);
   const pathname = usePathname();
   const user = useAuthStore((state) => state.user);
   const isSignedIn = !!user;
-const cart = useCartStore((state) => state.cart);
+  const cart = useCartStore((state) => state.cart);
 
-const itemsCount =
-  cart?.cart_items?.reduce((sum, item) => sum + item.quantity, 0) || 0;
+  const itemsCount =
+    cart?.cart_items?.reduce((sum, item) => sum + item.quantity, 0) || 0;
 
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
@@ -56,7 +57,7 @@ const itemsCount =
     setIsMobileMenuOpen(!isMobileMenuOpen);
   };
 
-    useEffect(() => {
+  useEffect(() => {
     setHydrated(true);
   }, []);
 
@@ -153,13 +154,12 @@ const itemsCount =
                   className=" rounded-xl hover:bg-gray-100 transition-all duration-200 relative group"
                 >
                   <CartIcon />
-          
-                {itemsCount > 0 && (
+
+                  {itemsCount > 0 && (
                     <div className="absolute w-5 h-5 rounded-full bg-[#FF3B30] text-[#FFFFFF] flex items-center justify-center -top-2 -left-1 text-xs">
                       <p>{itemsCount > 9 ? "9+" : itemsCount}</p>
                     </div>
                   )}
-
                 </Link>
               </motion.div>
             )}
@@ -169,15 +169,14 @@ const itemsCount =
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
                 >
-                {hydrated && (
-                  isSignedIn ? (
-                    <Link href='/profile' >
-                      <Profile />
-                    </Link>
-                  ) : (
-                    <SignInButton />
-                  )
-                )}
+                  {hydrated &&
+                    (isSignedIn ? (
+                      <Link href="/profile">
+                        <Profile />
+                      </Link>
+                    ) : (
+                      <SignInButton />
+                    ))}
                 </motion.div>
                 <motion.div
                   whileHover={{ scale: 1.02 }}
@@ -368,13 +367,13 @@ const itemsCount =
                       whileTap={{ scale: 0.98 }}
                       className="w-full"
                     >
-                          {isSignedIn ? (
-                          <Link href='/profile'>
-                            <Profile />
-                          </Link>
-                        ) : (
-                          <SignInButton />
-                        )}
+                      {isSignedIn ? (
+                        <Link href="/profile">
+                          <Profile />
+                        </Link>
+                      ) : (
+                        <SignInButton />
+                      )}
                     </motion.div>
                     <motion.div
                       whileHover={{ scale: 1.02 }}
