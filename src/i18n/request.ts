@@ -14,6 +14,9 @@ import enhomeAboutUs from '../../messages/en/homeAboutUs.json'
 import arhomeServices from '../../messages/ar/homeServices.json'
 import enhomeServices from '../../messages/en/homeServices.json'
 
+import arhowItWorks from '../../messages/ar/howItWorks.json'
+import enhowItWorks from '../../messages/en/howItWorks.json'
+
 export default getRequestConfig(async ({ requestLocale }) => {
   // Typically corresponds to the `[locale]` segment
   const requested = await requestLocale;
@@ -28,6 +31,7 @@ export default getRequestConfig(async ({ requestLocale }) => {
       achievements: locale === "ar" ? arachievements : enachievements,
       homeAboutUs: locale === "ar" ? arhomeAboutUs : enhomeAboutUs,
       homeServices: locale === "ar" ? arhomeServices : enhomeServices,
+      howItWorks: locale === "ar" ? arhowItWorks : enhowItWorks,
     }
   };
 });
