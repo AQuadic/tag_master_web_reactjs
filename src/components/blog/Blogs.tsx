@@ -41,7 +41,7 @@ const Blogs = () => {
 
             <div className='mt-12 grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 items-center justify-center gap-[21px]'>
                 {posts?.map((item,index) => (
-                    <Link href={`/blog/${item.id}`} key={item.id}>
+                    <Link href={`/src/app/%5Blocale%5D/blog/${item.id}`} key={item.id}>
                     <div
                         key={index}
                         className='relative w-full h-[376px] border border-[#B2B2B2] rounded-md bg-[#F6F7FB]'

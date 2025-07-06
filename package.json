@@ -21,6 +21,7 @@
     "js-cookie": "^3.0.5",
     "lucide-react": "^0.513.0",
     "next": "15.3.3",
+    "next-intl": "^4.3.4",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-fast-marquee": "^1.6.5",

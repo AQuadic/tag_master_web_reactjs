@@ -85,7 +85,7 @@ const MainLogin = () => {
           {loading ? 'جاري تسجيل الدخول...' : 'تسجيل الدخول'}
         </Button>
       </form>
-      <Link className="text-primary text-lg self-start" href="/auth/signup">
+      <Link className="text-primary text-lg self-start" href="/src/app/[locale]/auth/signup">
         ليس لديك حساب؟
       </Link>
       </div>

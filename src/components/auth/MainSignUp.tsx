@@ -122,7 +122,7 @@ const MainSignUp = () => {
         </div>
         <Button type="submit">إنشاء حساب</Button>
       </form>
-      <Link className="text-primary text-lg self-start" href="/auth/signup">
+      <Link className="text-primary text-lg self-start" href="/src/app/[locale]/auth/signup">
         شروط الخصوصية
       </Link>
       </div>
