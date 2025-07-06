@@ -100,7 +100,7 @@ const HomeUserPicks: React.FC = () => {
         ماذا قالوا عنا
       </motion.h3>
 
-      <div className="overflow-y-visible">
+      <div className="overflow-y-visible mt-[86px]">
         <Slider {...settings} ref={sliderRef} className="user-pick-slider">
           {cards.map((item: number, index: number) => (
             <div key={index} className="px-2 focus:outline-none">
