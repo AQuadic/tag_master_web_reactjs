@@ -66,7 +66,7 @@ const HomeBlogs = () => {
                     alt='blog banner'
                     width={729}
                     height={501}
-                    className='md:w-[729px] w-full'
+                    className='md:w-[829px] w-full'
                 />
                 <div className='mt-4 2xl:mt-0'>
                     <h2 className='text-[#000000] text-[25px] font-bold'>{t('latestArticles')}</h2>

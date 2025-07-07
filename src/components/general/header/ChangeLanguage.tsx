@@ -2,30 +2,54 @@
 
 import { usePathname, useRouter } from "@/i18n/navigation";
 import { useLocale } from "next-intl";
-import React from "react";
+import { Button } from "@/components/ui/button";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { ChevronDown } from "lucide-react";
 
-const ChangeLanguage = () => {
+const languages = [
+  { label: "English", code: "en" },
+  { label: "العربية", code: "ar" },
+];
+
+export default function ChangeLanguageDropdown() {
   const router = useRouter();
   const pathname = usePathname();
   const currentLocale = useLocale();
 
-  const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const newLocale = e.target.value;
-    if (newLocale !== currentLocale) {
-      router.push(pathname, { locale: newLocale });
+  const handleChange = (locale: string) => {
+    if (locale !== currentLocale) {
+      router.push(pathname, { locale });
     }
   };
 
-  return (
-    <select
-      value={currentLocale}
-      onChange={handleChange}
-      className="max-sm:min-w-full cursor-pointer flex items-center gap-2 justify-between px-2 py-1 bg-transparent text-inherit"
-    >
-      <option value="en">English</option>
-      <option value="ar">العربية</option>
-    </select>
-  );
-};
+  const currentLangLabel = languages.find((l) => l.code === currentLocale)?.label || "Language";
 
-export default ChangeLanguage;
+  return (
+    <DropdownMenu>
+      <DropdownMenuTrigger asChild className="border-none shadow-none">
+        <Button variant="outline" className="flex items-center gap-2">
+          {currentLangLabel}
+          <ChevronDown className="w-4 h-4" />
+        </Button>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent align="end" className="w-36">
+        {languages.map((lang) => (
+          <DropdownMenuItem
+            key={lang.code}
+            onClick={() => handleChange(lang.code)}
+            className={`cursor-pointer ${
+              lang.code === currentLocale ? "font-semibold text-blue-600" : ""
+            }`}
+          >
+            {lang.label}
+          </DropdownMenuItem>
+        ))}
+      </DropdownMenuContent>
+    </DropdownMenu>
+  );
+}
