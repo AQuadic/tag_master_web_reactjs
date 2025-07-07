@@ -1,10 +1,12 @@
+import { useTranslations } from 'next-intl';
 import Image from 'next/image'
 import React from 'react'
 
 const MainContent = () => {
+const t = useTranslations("homeblogs");
     return (
         <section className='mt-10'>
-            <h1 className='text-[#000000] text-[25px] font-bold flex justify-center'>المحتوى التعليمي</h1>
+            <h1 className='text-[#000000] text-[25px] font-bold flex justify-center'>{t('educational')}</h1>
             <div className='mt-12 grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 items-center justify-center gap-[19px]'>
                 <Image
                     src='/images/educational/video1.png'
