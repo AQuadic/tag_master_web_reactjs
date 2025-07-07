@@ -38,6 +38,9 @@ import enhomecontact from '../../messages/en/homecontact.json'
 import arfooter from '../../messages/ar/footer.json'
 import enfooter from '../../messages/en/footer.json'
 
+import arproducts from '../../messages/ar/products.json'
+import enproducts from '../../messages/en/products.json'
+
 export default getRequestConfig(async ({ requestLocale }) => {
   // Typically corresponds to the `[locale]` segment
   const requested = await requestLocale;
@@ -60,6 +63,7 @@ export default getRequestConfig(async ({ requestLocale }) => {
       faq: locale === "ar" ? arfaq : enfaq,
       homecontact: locale === "ar" ? arhomecontact : enhomecontact,
       footer: locale === "ar" ? arfooter : enfooter,
+      products: locale === "ar" ? arproducts : enproducts,
     }
   };
 });

@@ -12,6 +12,7 @@ import { toast } from "sonner";
 import { removeFromFavorite } from "@/api/favorite/removFromFav";
 import { useCartStore } from "../stores/cartStore";
 import { useQueryClient } from "@tanstack/react-query";
+import { useLocale, useTranslations } from "next-intl";
 
 interface ProductCardProps {
   product: ProductTypes;
@@ -20,6 +21,8 @@ interface ProductCardProps {
 const ProductCard = ({ product }: ProductCardProps) => {
   const [isFavorite, setIsFavorite] = useState(product.is_favorite);
   const addToCart = useCartStore((state) => state.addToCart);
+  const locale = useLocale();
+  const t = useTranslations("products");
 
   const isNew = true;
   const price = parseInt(product.price);
@@ -229,7 +232,7 @@ const handleAddToCart = async (e: React.MouseEvent<HTMLButtonElement>) => {
               variants={badgeVariants}
               whileHover="hover"
             >
-              مضاف حديثا
+              {t('recentlyAdded')}
             </motion.div>
           )}
 
@@ -281,7 +284,7 @@ const handleAddToCart = async (e: React.MouseEvent<HTMLButtonElement>) => {
               whileHover={{ scale: 1.05 }}
               transition={{ duration: 0.2 }}
             >
-              {price - discount} درهم{" "}
+              {price - discount}{" "}
               {discount > 0 && (
                 <motion.span
                   className="line-through text-gray-400 text-sm ml-2"
@@ -333,7 +336,7 @@ const handleAddToCart = async (e: React.MouseEvent<HTMLButtonElement>) => {
             className={`text-sm font-medium ${isAvailable ? "text-green-600" : "text-red-500"}`}
             variants={contentVariants}
           >
-            {isAvailable ? "متوفر" : "غير متوفر"}
+            {isAvailable ? t('inStock') : t('outOfStock')}
           </motion.div>
         </motion.div>
 
@@ -347,7 +350,7 @@ const handleAddToCart = async (e: React.MouseEvent<HTMLButtonElement>) => {
             transition: { duration: 0.2 },
           }}
         >
-          {product.name.ar}
+          {product.name[locale]}
         </motion.p>
 
         {/* Add to Cart Button */}
@@ -367,7 +370,7 @@ const handleAddToCart = async (e: React.MouseEvent<HTMLButtonElement>) => {
                 whileHover={{ opacity: 1 }}
                 transition={{ duration: 0.2 }}
               >
-                + إضافة سريعة
+                {t('quickAdd')}
               </motion.span>
             </motion.button>
           </Button>

@@ -1,4 +1,5 @@
 import { AnimatePresence, motion } from "framer-motion";
+import { useLocale } from "next-intl";
 import React from "react";
 
 const filters = [
@@ -43,6 +44,9 @@ const ProductsFilter = ({
   selectedFilter,
   setSelectedFilter,
 }: ProductsFilterProps) => {
+  
+  const locale = useLocale();
+  
   const containerVariants = {
     initial: { opacity: 0, y: -20 },
     animate: {
@@ -176,7 +180,7 @@ const ProductsFilter = ({
               animate={selectedFilter === filter.key ? "active" : "inactive"}
               whileHover={selectedFilter === filter.key ? "active" : "hover"}
             >
-              {filter.titleAr}
+              {locale === 'ar' ? filter.titleAr : filter.titleEn}
             </motion.span>
 
             {/* Selection indicator */}
