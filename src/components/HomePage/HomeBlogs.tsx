@@ -56,7 +56,7 @@ const HomeBlogs = () => {
     return (
         <section className='container mt-20'>
             <div className='flex flex-col items-center'>
-                <Link href='/' className='text-[#007CC2] text-[17px]'>{t('readMore')}</Link>
+                <Link href='/blog' className='text-[#007CC2] text-[17px]'>{t('readMore')}</Link>
                 <h2 className='text-[#000000] text-[25px] font-bold'>{t('blog')}</h2>
             </div>
 
