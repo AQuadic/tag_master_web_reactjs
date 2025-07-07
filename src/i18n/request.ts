@@ -29,6 +29,9 @@ import endownloadApp from '../../messages/en/downloadApp.json'
 import arhomeblogs from '../../messages/ar/homeblogs.json'
 import enhomeblogs from '../../messages/en/homeblogs.json'
 
+import arfaq from '../../messages/ar/faq.json'
+import enfaq from '../../messages/en/faq.json'
+
 export default getRequestConfig(async ({ requestLocale }) => {
   // Typically corresponds to the `[locale]` segment
   const requested = await requestLocale;
@@ -48,6 +51,7 @@ export default getRequestConfig(async ({ requestLocale }) => {
       userPickes: locale === "ar" ? aruserPickes : enuserPickes,
       downloadApp: locale === "ar" ? ardownloadApp : endownloadApp,
       homeblogs: locale === "ar" ? arhomeblogs : enhomeblogs,
+      faq: locale === "ar" ? arfaq : enfaq,
     }
   };
 });

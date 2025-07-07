@@ -2,6 +2,7 @@
 import React, { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import BlueArrow from '../icons/home/BlueArrow'
+import { useTranslations } from 'next-intl'
 
 const faqs = [
     {
@@ -32,6 +33,7 @@ const faqs = [
 ]
 
 const HomeFaq = () => {
+    const t = useTranslations("faq");
 const [openAccordion, setOpenAccordion] = useState<number | null>(null)
 
 const toggleAccordion = (id: number) => {
@@ -42,15 +44,13 @@ const toggleAccordion = (id: number) => {
         <section className='bg-[#F6F7FB] mt-20'>
             <div className='container md:py-40 py-10 flex lg:flex-row flex-col lg:items-start items-center justify-between gap-10'>
                 <div>
-                    <h2 className='text-[#000000] md:text-[50px] text-2xl font-bold'>هل لديك أية استفسارات؟</h2>
-                    <h2 className='text-[#000000] md:text-[50px] text-2xl font-bold'>نحن هنا لنجيب عليك...</h2>
+                    <h2 className='text-[#000000] rtl:md:text-[50px] ltr:md:text-[40px] text-2xl font-bold'>{t('anyQuestions')}</h2>
+                    <h2 className='text-[#000000] rtl:md:text-[50px] ltr:md:text-[40px] text-2xl font-bold'>{t('answer')}</h2>
                     <p className='md:w-[380px] text-[#525659] text-[17px] font-normal mt-[33px]'>
-                        في تاج ماستر، نهدف إلى تسهيل وصول العملاء إلى خدماتك ومعلوماتك بأكثر الطرق احترافية وسرعة.
-                        نقدم لك بطاقة إلكترونية ذكية تحتوي على كل ما يحتاجه العميل للتواصل معك، من روابط حساباتك،
-                        أرقام التواصل، البريد الإلكتروني، وحتى خدماتك وعروضك—all in one place!
+                        {t('faqDescription')}
                     </p>
                     <div className='flex items-center mt-20 gap-2.5'>
-                        <p className='text-[#000000] text-base font-normal'>رؤية المزيد</p>
+                        <p className='text-[#000000] text-base font-normal'>{t('seeMore')}</p>
                         <BlueArrow />
                     </div>
                 </div>
