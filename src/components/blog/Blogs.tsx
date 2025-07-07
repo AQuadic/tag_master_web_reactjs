@@ -10,9 +10,11 @@ import { removeFromFavorite } from '@/api/favorite/removFromFav'
 import { toast } from 'sonner'
 import { addToFavorite } from '@/api/favorite/addToFav'
 import FilledBookmarkIcon from '../icons/blogs/FilledBookmarkIcon'
+import { useTranslations } from 'next-intl'
 
 const Blogs = ({ post }: { post: PostType })  => {
 // const [isFavorite, setIsFavorite] = useState(post.is_favorite);
+  const t = useTranslations("homeblogs");
 
   const {
     data: posts,
@@ -63,10 +65,9 @@ const Blogs = ({ post }: { post: PostType })  => {
                 className='object-cover w-full'
             />
                 <div className='absolute bottom-4 right-8 md:p-6 text-white'>
-                    <h2 className='md:text-5xl text-xl font-bold'>أدوات تعريفية ذكية حديثة</h2>
-                    <p className='md:text-2xl text-base font-normal mt-4'>
-                        ميداليات وكروت بمظهر أنيق ووظائف ذكية متعددة. <br />
-                        تُستخدم في الفعاليات، الأعمال، أو حتى التعريف الشخصي.
+                    <h2 className='md:text-5xl text-xl font-bold'>{t('smartTools')}</h2>
+                    <p className='md:w-[570px] md:text-2xl text-base font-normal mt-4'>
+                        {t('description')}
                     </p>
                 </div>
             </div>

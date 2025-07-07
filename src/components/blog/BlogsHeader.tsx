@@ -4,18 +4,20 @@ import {
     TabsList,
     TabsTrigger,
 } from "@/components/ui/tabs"
+import { useTranslations } from 'next-intl';
 const BlogsHeader = () => {
+    const t = useTranslations("homeblogs");
     return (
         <div>
-            <h1 className='text-[#000000] text-[25px] font-bold flex justify-center'>المدونة</h1>  
+            <h1 className='text-[#000000] text-[25px] font-bold flex justify-center'>{t('blog')}</h1>  
                 <div className="flex w-full flex-col gap-6 mt-10">
-                    <Tabs defaultValue="account" dir='rtl'>
+                    <Tabs defaultValue="account">
                         <TabsList className='border-b pb-14'>
-                            <TabsTrigger className='w-32 lg:w-full md:w-40' value="allBlogs">كل المقالات</TabsTrigger>
-                            <TabsTrigger className='w-32 lg:w-full md:w-40' value="advices">نصائح التشبيك</TabsTrigger>
-                            <TabsTrigger className='w-32 lg:w-full md:w-40' value="tools">أدوات للتشبيك الفعّال</TabsTrigger>
-                            <TabsTrigger className='w-32 lg:w-full md:w-40' value="stories">قصص نجاح في التشبيك</TabsTrigger>
-                            <TabsTrigger className='w-32 lg:w-full md:w-40' value="directions">أحدث الاتجاهات في التشبيك</TabsTrigger>
+                            <TabsTrigger className='w-32 lg:w-full md:w-40' value="allBlogs">{t('all')}</TabsTrigger>
+                            <TabsTrigger className='w-32 lg:w-full md:w-40' value="advices">{t('advices')}</TabsTrigger>
+                            <TabsTrigger className='w-32 lg:w-full md:w-40' value="tools">{t('tools')}</TabsTrigger>
+                            <TabsTrigger className='w-32 lg:w-full md:w-40' value="stories">{t('stories')}</TabsTrigger>
+                            <TabsTrigger className='w-32 lg:w-full md:w-40' value="directions">{t('direction')}</TabsTrigger>
                         </TabsList>
                     </Tabs>
                 </div>
