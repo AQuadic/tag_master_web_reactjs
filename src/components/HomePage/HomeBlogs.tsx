@@ -7,8 +7,11 @@ import React from 'react'
 import Spinner from '../icons/general/Spinner'
 import { PostType } from '@/types/blogs'
 import Bookmark from '../icons/blogs/Bookmark'
+import { useTranslations } from 'next-intl'
 
 const HomeBlogs = () => {
+    const t = useTranslations("homeblogs");
+
     const BlogsData = [
         {
             image: '/images/home/blogs/blog1.png',
@@ -53,8 +56,8 @@ const HomeBlogs = () => {
     return (
         <section className='container mt-20'>
             <div className='flex flex-col items-center'>
-                <Link href='/' className='text-[#007CC2] text-[17px]'>اقرأ المزيد من الأفكار</Link>
-                <h2 className='text-[#000000] text-[25px] font-bold'>المدونة</h2>
+                <Link href='/' className='text-[#007CC2] text-[17px]'>{t('readMore')}</Link>
+                <h2 className='text-[#000000] text-[25px] font-bold'>{t('blog')}</h2>
             </div>
 
             <div className='mt-[46px] flex 2xl:flex-row flex-col items-center justify-between'>
@@ -66,7 +69,7 @@ const HomeBlogs = () => {
                     className='md:w-[729px] w-full'
                 />
                 <div className='mt-4 2xl:mt-0'>
-                    <h2 className='text-[#000000] text-[25px] font-bold'>أحدث المقالات</h2>
+                    <h2 className='text-[#000000] text-[25px] font-bold'>{t('latestArticles')}</h2>
                     {BlogsData.map((item, index) => (
                         <div
                             key={index}
