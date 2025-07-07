@@ -13,6 +13,7 @@ import React, { useEffect, useState } from "react";
 import ChangeLanguage from "./ChangeLanguage";
 import Searchbar from "./Searchbar";
 import SignInButton from "./SignInButton";
+import { useLocale } from "next-intl";
 
 const Header = () => {
   const [hydrated, setHydrated] = useState(false);
@@ -20,6 +21,7 @@ const Header = () => {
   const user = useAuthStore((state) => state.user);
   const isSignedIn = !!user;
   const cart = useCartStore((state) => state.cart);
+  const locale = useLocale();
 
   const itemsCount =
     cart?.cart_items?.reduce((sum, item) => sum + item.quantity, 0) || 0;
@@ -124,7 +126,7 @@ const Header = () => {
                         : "text-gray-700 hover:text-primary hover:bg-gray-50"
                     }`}
                   >
-                    {link.titleAr}
+                    {locale === 'ar' ? link.titleAr : link.titleEn}
                     <motion.div
                       className="absolute bottom-1 left-4 right-4 h-0.5 bg-gradient-to-r from-primary to-blue-600 rounded-full"
                       animate={{ scaleX: isActive ? 1 : 0 }}
