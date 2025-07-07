@@ -32,6 +32,9 @@ import enhomeblogs from '../../messages/en/homeblogs.json'
 import arfaq from '../../messages/ar/faq.json'
 import enfaq from '../../messages/en/faq.json'
 
+import arhomecontact from '../../messages/ar/homecontact.json'
+import enhomecontact from '../../messages/en/homecontact.json'
+
 export default getRequestConfig(async ({ requestLocale }) => {
   // Typically corresponds to the `[locale]` segment
   const requested = await requestLocale;
@@ -52,6 +55,7 @@ export default getRequestConfig(async ({ requestLocale }) => {
       downloadApp: locale === "ar" ? ardownloadApp : endownloadApp,
       homeblogs: locale === "ar" ? arhomeblogs : enhomeblogs,
       faq: locale === "ar" ? arfaq : enfaq,
+      homecontact: locale === "ar" ? arhomecontact : enhomecontact,
     }
   };
 });
