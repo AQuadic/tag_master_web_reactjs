@@ -21,9 +21,12 @@ const HomeBestSelling = ({ data }: HomeBestSellingProps) => {
   const t = useTranslations("bestProducts");
 
   if (!data || data.length === 0) {
-    return <div><EmptyState /></div>
+    return (
+      <div>
+        <EmptyState />
+      </div>
+    );
   }
-  
 
   return (
     <section className="bg-[#F6F7FB] mt-[81px] py-[80px]">
@@ -37,7 +40,7 @@ const HomeBestSelling = ({ data }: HomeBestSellingProps) => {
               {t("specialCollection")}
             </h2>
           </div>
-          <Link href='/products' className="flex items-center gap-3">
+          <Link href="/products" className="flex items-center gap-3">
             <p className="text-[#000000] text-base font-semibold">
               {t("seeMore")}
             </p>
@@ -46,7 +49,7 @@ const HomeBestSelling = ({ data }: HomeBestSellingProps) => {
         </div>
 
         <div className="mt-[50px]">
-          {data.slice(0,4).map((item, index) => {
+          {data.slice(0, 4).map((item, index) => {
             const isRightPosition = index % 2 === 1;
             const imageUrl = item.images?.[0]?.url;
 
@@ -56,7 +59,7 @@ const HomeBestSelling = ({ data }: HomeBestSellingProps) => {
                 className="flex md:flex-row flex-col items-center gap-4 mt-10"
               >
                 <Image
-                  src={imageUrl}
+                  src={imageUrl || null}
                   alt={item.name.ar}
                   width={184}
                   height={184}
@@ -93,7 +96,7 @@ const HomeBestSelling = ({ data }: HomeBestSellingProps) => {
                   </div>
                 </div>
               </div>
-            )
+            );
           })}
         </div>
       </div>
