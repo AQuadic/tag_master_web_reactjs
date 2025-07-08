@@ -32,7 +32,7 @@ const Blogs = () => {
           height={453} 
           className='object-cover w-full'
         />
-        <div className='absolute bottom-4 right-8 md:p-6 text-white'>
+        <div className='absolute bottom-4 rtl:right-8 ltr:left-8 md:p-6 text-white'>
           <h2 className='md:text-5xl text-xl font-bold'>{t('smartTools')}</h2>
           <p className='md:w-[570px] md:text-2xl text-base font-normal mt-4'>
             {t('description')}
