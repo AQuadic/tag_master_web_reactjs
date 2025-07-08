@@ -6,7 +6,12 @@
     "username": "Username",
     "email": "Email",
     "phone": "Phone number",
+    "city": "City",
+    "subject": "Subject",
     "message": "Message subject",
     "writeMsg": "Write your message here",
-    "sendMsg": "Send messgae"
+    "sendMsg": "Send messgae",
+    "pleaseFillRequiredFields": "Please fill required fields",
+    "formSubmittedSuccessfully": "Form submitted successfully",
+    "formSubmissionFailed": "Form submission failed"
 }

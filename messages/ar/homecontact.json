@@ -6,7 +6,12 @@
     "username": "اسم المستخدم",
     "email": "البريد الالكتروني",
     "phone": "رقم الهاتف",
+    "city": "المدينة",
+    "subject": "الموضوع",
     "message": "موضوع الرسالة",
     "writeMsg": "أكتب رسالتك هنا...",
-    "sendMsg": "ارسال الرسالة"
+    "sendMsg": "ارسال الرسالة",
+    "pleaseFillRequiredFields": "الرجاء ملء الحقول المطلوبة",
+    "formSubmittedSuccessfully": "تم إرسال النموذج بنجاح",
+    "formSubmissionFailed": "فشل إرسال النموذج"
 }
