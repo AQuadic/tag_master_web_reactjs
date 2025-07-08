@@ -11,8 +11,10 @@ import { toast } from "sonner";
 import { postSignUp } from "@/api/auth/signUp";
 import { useRouter } from "next/navigation";
 import {useAuthStore} from "@/components/stores/userStore";
+import { useTranslations } from "next-intl";
 
 const MainSignUp = () => {
+  const t = useTranslations("login");
   const [name, setName] = React.useState("");
   const [phone, setPhone] = React.useState("");
   const [email, setEmail] = React.useState("");
@@ -44,7 +46,7 @@ const MainSignUp = () => {
         setUser(newUser);
       }
 
-      toast.success("تم إنشاء الحساب بنجاح");
+      toast.success(t('createdSuccessfully'));
       router.push("/");
     } catch (err: any) {
       const errors = err?.response?.data?.errors;
@@ -53,7 +55,7 @@ const MainSignUp = () => {
           msgs.forEach((msg: string) => toast.error(msg));
         });
       } else {
-        toast.error("حدث خطأ أثناء إنشاء الحساب");
+        toast.error(t('errorCreatingAccount'));
       }
     }
   };
@@ -64,9 +66,9 @@ const MainSignUp = () => {
       <div>
         <Image src="/images/logo.png" alt="Logo" width={155} height={54} />
       <div className="flex flex-col gap-3">
-        <h1 className="font-bold text-2xl"> أهلا بك في Tag master</h1>
-        <p className="text-lg text-secondary-text ">
-          قم بإنشاء حساب جديد لتتمكن من استخدام جميع ميزات التطبيق.
+        <h1 className="font-bold text-2xl mt-2">{t('welcomeTo')}</h1>
+        <p className="text-lg text-secondary-text mb-4">
+          {t('createAcount')}
         </p>
       </div>
       <form onSubmit={handleSignUp} className=" w-full flex flex-col gap-5 sm:gap-8">
@@ -74,19 +76,19 @@ const MainSignUp = () => {
           className="border-neutral-700 w-full"
           value={name}
           onChange={(e) => setName(e.target.value)}
-          placeholder="الاسم الكامل"
+          placeholder={t('fullname')}
         />
         <Input
           className="border-neutral-700 w-full"
           value={phone}
           onChange={(e) => setPhone(e.target.value)}
-          placeholder="رقم الهاتف"
+          placeholder={t('phone')}
         />
         <Input
           className="border-neutral-700 w-full   "
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          placeholder="البريد الالكتروني"
+          placeholder={t('email')}
         />{" "}
         <div className="relative">
           <Input
@@ -94,14 +96,14 @@ const MainSignUp = () => {
             className="border-neutral-700 w-full rtl:pl-10 ltr:pr-10"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            placeholder="كلمة المرور"
+            placeholder={t('password')}
           />
           <button
             type="button"
-            className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-gray-700"
+            className="absolute rtl:left-3 ltr:right-3 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-gray-700"
             onClick={() => setShowPassword(!showPassword)}
           >
-            {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+            {showPassword ? <Eye size={20} /> : <EyeOff size={20} />}
           </button>
         </div>{" "}
         <div className="relative">
@@ -110,20 +112,20 @@ const MainSignUp = () => {
             className="border-neutral-700 w-full rtl:pl-10 ltr:pr-10"
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}
-            placeholder=" تأكيد كلمة المرور"
+            placeholder={t('confirmPassword')}
           />
           <button
             type="button"
-            className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500"
+            className="absolute rtl:left-3 ltr:right-3 top-1/2 transform -translate-y-1/2 text-gray-500"
             onClick={() => setShowConfirmPassword(!showConfirmPassword)}
           >
-            {showConfirmPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+            {showConfirmPassword ? <Eye size={20} /> : <EyeOff size={20} />}
           </button>
         </div>
-        <Button type="submit">إنشاء حساب</Button>
+        <Button type="submit">{t('create')}</Button>
       </form>
-      <Link className="text-primary text-lg self-start" href="/src/app/[locale]/auth/signup">
-        شروط الخصوصية
+      <Link className="text-primary text-lg self-start" href="/auth/signup">
+        {t('privacy')}
       </Link>
       </div>
     </section>

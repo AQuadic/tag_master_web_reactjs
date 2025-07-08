@@ -4,5 +4,14 @@
     "email": "البريد الالكتروني",
     "password": "كلمة المرور",
     "login..": "جاري تسجيل الدخول...",
-    "noAccount": "ليس لديك حساب؟"
+    "noAccount": "ليس لديك حساب؟",
+    "welcomeTo": "أهلا بك في Tag master",
+    "createAcount": "قم بإنشاء حساب جديد لتتمكن من استخدام جميع ميزات التطبيق.",
+    "fullname": "الاسم الكامل",
+    "phone": "رقم الهاتف",
+    "confirmPassword": "تأكيد كلمة المرور",
+    "create": "إنشاء حساب",
+    "privacy": "شروط الخصوصية",
+    "createdSuccessfully": "تم إنشاء الحساب بنجاح",
+    "errorCreatingAccount": "حدث خطأ أثناء إنشاء الحساب"
 }

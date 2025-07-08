@@ -4,5 +4,14 @@
     "email": "Email",
     "password": "Password",
     "logining": "Logging in...",
-    "noAccount": "Don't have an account?"
+    "noAccount": "Don't have an account?",
+    "welcomeTo": "Welcome to Tag master",
+    "createAcount": "Create a new account to be able to use all the app features.",
+    "fullname": "Full name",
+    "phone": "Phone",
+    "confirmPassword": "Confirm password",
+    "create": "Create account",
+    "privacy": "Privacy policy",
+    "createdSuccessfully": "Account created successfully",
+    "errorCreatingAccount": "An error occurred while creating the account."
 }
