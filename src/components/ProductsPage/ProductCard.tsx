@@ -13,6 +13,7 @@ import { removeFromFavorite } from "@/api/favorite/removFromFav";
 import { useCartStore } from "../stores/cartStore";
 import { useQueryClient } from "@tanstack/react-query";
 import { useLocale, useTranslations } from "next-intl";
+import { addToCart } from "@/api/cart/addToCart";
 
 interface ProductCardProps {
   product: ProductTypes;
@@ -20,7 +21,6 @@ interface ProductCardProps {
 
 const ProductCard = ({ product }: ProductCardProps) => {
   const [isFavorite, setIsFavorite] = useState(product.is_favorite);
-  const addToCart = useCartStore((state) => state.addToCart);
   const locale = useLocale();
   const t = useTranslations("products");
 
@@ -30,10 +30,9 @@ const ProductCard = ({ product }: ProductCardProps) => {
   const queryClient = useQueryClient();
   const isAvailable = product.types?.some((type) => type.in_stock);
 
-  const handleAddToCart = async (e: React.MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault();
+  const handleAddToCart = async () => {
     try {
-      await addToCart(product.id);
+      await addToCart("product", product.id);
       await queryClient.invalidateQueries(["cart"]);
       toast.success("تمت إضافة المنتج إلى السلة بنجاح");
     } catch (error: any) {
@@ -254,7 +253,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
           whileHover="hover"
         >
           <Image
-            src={product.images[0]?.responsive_urls[0] || null}
+            src={product.images[0]?.responsive_urls[0]}
             width={280}
             height={162}
             alt="product"
