@@ -31,13 +31,17 @@ const queryClient = useQueryClient();
     </div>;
   }
 
-  const handleRemoveItem = async (cartItemId: number) => {
+  const handleRemoveItem = async (
+  cartItemId: number,
+  itemableId: number,
+  itemableType: string
+) => {
   try {
-    await deleteCartItem(cartItemId);
+    await deleteCartItem(cartItemId, itemableId, itemableType);
     toast.success("Item deleted successfully")
     queryClient.invalidateQueries({ queryKey: ['cart', appliedCoupon] });
   } catch {
-      toast.success("Failed to delete item")
+    toast.error("Failed to delete item")
   }
 };
 
@@ -101,7 +105,7 @@ const totalItemsPrice = data.items.reduce((sum, item) => {
                   <h2 className="text-[#000000] text-[21px] font-bold">{item.itemable.name?.ar}</h2>
                   <button
                     className='text-[#CB0306] text-base font-bold'
-                    onClick={() => handleRemoveItem(item.id)}
+                    onClick={() => handleRemoveItem(item.id, item.itemable.id, item.itemable_type)}
                   >
                     إزالة
                   </button>
