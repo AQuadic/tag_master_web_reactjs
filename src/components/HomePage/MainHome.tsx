@@ -11,8 +11,14 @@ import HowItWorks from "./HowItWorks";
 import HomeBlogs from "./HomeBlogs";
 import HomeFaq from "./HomeFaq";
 import HomeContact from "../icons/home/HomeContact";
+import { ProductsResponseTypes } from "@/types/product";
 
-const MainHome = () => {
+interface MainHomeProps {
+  data: ProductsResponseTypes[];
+}
+
+const MainHome = ({ data }: MainHomeProps) => {
+  console.log(data);
   return (
     <div>
       <HomeHero />
