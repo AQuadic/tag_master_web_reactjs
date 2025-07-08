@@ -27,28 +27,28 @@ const ProductCard = ({ product }: ProductCardProps) => {
   const isNew = true;
   const price = parseInt(product.price);
   const discount = parseInt(product.discount);
-const queryClient = useQueryClient();
+  const queryClient = useQueryClient();
   const isAvailable = product.types?.some((type) => type.in_stock);
 
-const handleAddToCart = async (e: React.MouseEvent<HTMLButtonElement>) => {
-  e.preventDefault();
-  try {
-    await addToCart(product.id);
-    await queryClient.invalidateQueries(['cart']);
-    toast.success("تمت إضافة المنتج إلى السلة بنجاح");
-  } catch (error: any) {
-    const apiMessage =
-      error?.response?.data?.message ||
-      error?.message ||
-      "حدث خطأ أثناء إضافة المنتج إلى السلة";
+  const handleAddToCart = async (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    try {
+      await addToCart(product.id);
+      await queryClient.invalidateQueries(["cart"]);
+      toast.success("تمت إضافة المنتج إلى السلة بنجاح");
+    } catch (error: any) {
+      const apiMessage =
+        error?.response?.data?.message ||
+        error?.message ||
+        "حدث خطأ أثناء إضافة المنتج إلى السلة";
 
-    toast.error(apiMessage);
-    console.error("Add to cart error:", error);
-  }
-};
+      toast.error(apiMessage);
+      console.error("Add to cart error:", error);
+    }
+  };
 
   const handleToggleFavorite = async (
-    e: React.MouseEvent<HTMLButtonElement>
+    e: React.MouseEvent<HTMLButtonElement>,
   ) => {
     e.preventDefault();
     try {
@@ -58,14 +58,14 @@ const handleAddToCart = async (e: React.MouseEvent<HTMLButtonElement>) => {
           favorable_type: "product",
         });
         setIsFavorite(false);
-        toast.success("Removed from favorite successfully")
+        toast.success("Removed from favorite successfully");
       } else {
         await addToFavorite({
           favorable_id: product.id,
           favorable_type: "product",
         });
         setIsFavorite(true);
-        toast.success("Added to favorite successfully")
+        toast.success("Added to favorite successfully");
       }
     } catch (error) {
       toast.error("Error toggling favorite:", error);
@@ -213,7 +213,10 @@ const handleAddToCart = async (e: React.MouseEvent<HTMLButtonElement>) => {
   };
 
   return (
-    <Link href={`/src/app/%5Blocale%5D/products/${product.id}`} className="group">
+    <Link
+      href={`/src/app/%5Blocale%5D/products/${product.id}`}
+      className="group"
+    >
       <motion.div
         className="flex flex-col items-center gap-5 relative bg-white rounded-2xl p-6 shadow-sm border border-gray-100"
         variants={cardVariants}
@@ -221,7 +224,7 @@ const handleAddToCart = async (e: React.MouseEvent<HTMLButtonElement>) => {
         animate="animate"
         whileHover="hover"
         style={{
-          boxShadow: "0 4px 20px rgba(0, 0, 0, 0.08)"
+          boxShadow: "0 4px 20px rgba(0, 0, 0, 0.08)",
         }}
       >
         {/* Floating badges and favorite button */}
@@ -232,7 +235,7 @@ const handleAddToCart = async (e: React.MouseEvent<HTMLButtonElement>) => {
               variants={badgeVariants}
               whileHover="hover"
             >
-              {t('recentlyAdded')}
+              {t("recentlyAdded")}
             </motion.div>
           )}
 
@@ -245,7 +248,6 @@ const handleAddToCart = async (e: React.MouseEvent<HTMLButtonElement>) => {
           >
             {isFavorite ? <FavoriteIcon /> : <NotFavoriteIcon />}
           </motion.button>
-
         </div>
 
         {/* Product Image */}
@@ -255,7 +257,7 @@ const handleAddToCart = async (e: React.MouseEvent<HTMLButtonElement>) => {
           whileHover="hover"
         >
           <Image
-            src={product.images[0]?.responsive_urls[0]}
+            src={product.images[0]?.responsive_urls[0] || null}
             width={280}
             height={162}
             alt="product"
@@ -336,7 +338,7 @@ const handleAddToCart = async (e: React.MouseEvent<HTMLButtonElement>) => {
             className={`text-sm font-medium ${isAvailable ? "text-green-600" : "text-red-500"}`}
             variants={contentVariants}
           >
-            {isAvailable ? t('inStock') : t('outOfStock')}
+            {isAvailable ? t("inStock") : t("outOfStock")}
           </motion.div>
         </motion.div>
 
@@ -370,7 +372,7 @@ const handleAddToCart = async (e: React.MouseEvent<HTMLButtonElement>) => {
                 whileHover={{ opacity: 1 }}
                 transition={{ duration: 0.2 }}
               >
-                {t('quickAdd')}
+                {t("quickAdd")}
               </motion.span>
             </motion.button>
           </Button>
