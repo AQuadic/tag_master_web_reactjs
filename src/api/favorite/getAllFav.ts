@@ -4,7 +4,7 @@ import { PostType } from "@/types/blogs";
 
 export interface FavoriteItem {
   id: number;
-  favorable_type: "product" | "blog";
+  favorable_type: "product" | "post";
   favorable_id: number;
   favorable: ProductTypes | PostType;
   created_at: string;

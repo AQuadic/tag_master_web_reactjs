@@ -17,7 +17,7 @@ const BookmarksDetails = () => {
   });
 
   const blogFavorites = favorites.filter(
-    (fav) => fav.favorable_type === "blog"
+    (fav) => fav.favorable_type === "post"
   );
 
   const handleRemoveFavorite = async (id: number) => {
@@ -57,7 +57,7 @@ const BookmarksDetails = () => {
           return (
             <div
               key={index}
-              className="relative w-full h-full border border-[#B2B2B2] rounded-md bg-[#F6F7FB]"
+              className="relative w-full h-full border border-[#B2B2B2] rounded-md bg-[#F6F7FB] pb-4"
             >
               <div className="absolute top-4 right-4">
                 <button onClick={() => handleRemoveFavorite(blog.id)}>
