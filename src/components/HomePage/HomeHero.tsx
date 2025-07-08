@@ -6,18 +6,19 @@ const HomeHero = () => {
     const t = useTranslations("hero");
 
   return (
-    <section
-      style={{
-        backgroundImage: `url(/images/home/heroImage.jpg)`,
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-        backgroundRepeat: "no-repeat",
-      }}
-      className="bg-cover bg-center w-full min-h-[90dvh] mx-auto flex items-center relative"
-      dir="rtl"
-    >
-      <div className="container text-white ">
-        <p className="text-2xl md:text-[50px] font-bold max-w-[520px] ">
+    <section className="bg-cover bg-center w-full min-h-[90dvh] mx-auto flex items-center relative">
+      <div 
+        className="absolute inset-0 -z-10 ltr:scale-x-[-1]"
+        style={{
+          backgroundImage: `url(/images/home/heroImage.jpg)`,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          backgroundRepeat: "no-repeat",
+        }}
+      />
+
+      <div className="container text-white">
+        <p className="text-2xl md:text-[50px] font-bold max-w-[520px]">
           {t('title')}
         </p>
         <p className="text-lg max-w-[440px] my-2">
