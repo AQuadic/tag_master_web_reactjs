@@ -1,0 +1,8 @@
+{
+    "login": "Login",
+    "enterEmail": "Enter your email and password to log in to your account.",
+    "email": "Email",
+    "password": "Password",
+    "logining": "Logging in...",
+    "noAccount": "Don't have an account?"
+}

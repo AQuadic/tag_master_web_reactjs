@@ -10,8 +10,10 @@ import Cookies from 'js-cookie';
 import { toast } from 'sonner';
 import { postSignIn } from '@/api/auth';
 import { useAuthStore } from '../stores/userStore';
+import { useTranslations } from "next-intl";
 
 const MainLogin = () => {
+  const t = useTranslations("login");
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
   const [showPassword, setShowPassword] = React.useState(false);
@@ -49,9 +51,9 @@ const MainLogin = () => {
       <div>
         <Image src="/images/logo.png" alt="Logo" width={155} height={54} className="mx-auto mb-4"/>
       <div className="flex flex-col gap-3">
-        <h1 className="font-bold text-2xl text-center">تسجيل الدخول</h1>
+        <h1 className="font-bold text-2xl text-center">{t('login')}</h1>
         <p className="text-lg text-secondary-text text-center my-4">
-          أدخل البريد الاكتروني و كلمة المرور الخاصة بك لتسجيل الدخول إلى حسابك.
+          {t('enterEmail')}
         </p>
       </div>
       <form onSubmit={handleSubmit} className=" w-full flex flex-col gap-5 sm:gap-8">
@@ -60,7 +62,7 @@ const MainLogin = () => {
           type="email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          placeholder="البريد الالكتروني"
+          placeholder={t('email')}
           required
         />{" "}
         <div className="relative">
@@ -69,25 +71,26 @@ const MainLogin = () => {
             className="border-neutral-700 w-full rtl:pl-10 ltr:pr-10"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            placeholder="كلمة المرور"
+            placeholder={t('password')}
             required
           />
           <button
             type="button"
-            className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-gray-700"
+            className="absolute rtl:left-3 ltr:right-3 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-gray-700"
             onClick={() => setShowPassword(!showPassword)}
           >
-            {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+            {showPassword ? <Eye size={20} /> : <EyeOff size={20} />}
           </button>
         </div>
 
         <Button disabled={loading} className="mb-2">
-          {loading ? 'جاري تسجيل الدخول...' : 'تسجيل الدخول'}
+          {loading ? t('logining') : t('login')}
         </Button>
       </form>
-      <Link className="text-primary text-lg self-start" href="/src/app/[locale]/auth/signup">
-        ليس لديك حساب؟
+      <Link className="text-primary text-lg self-start" href="/auth/signup">
+        {t('noAccount')}
       </Link>
+
       </div>
     </section>
   );

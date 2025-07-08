@@ -12,33 +12,6 @@ import { useTranslations } from 'next-intl'
 const HomeBlogs = () => {
     const t = useTranslations("homeblogs");
 
-    const BlogsData = [
-        {
-            image: '/images/home/blogs/blog1.png',
-            title: 'عنوان المقال',
-            description: 'وصف صغير للمقال...',
-            date: '2,Jan 12:09PM'
-        },
-        {
-            image: '/images/home/blogs/blog2.png',
-            title: 'عنوان المقال',
-            description: 'وصف صغير للمقال...',
-            date: '2,Jan 12:09PM'
-        },
-        {
-            image: '/images/home/blogs/blog3.png',
-            title: 'عنوان المقال',
-            description: 'وصف صغير للمقال...',
-            date: '2,Jan 12:09PM'
-        },
-        {
-            image: '/images/home/blogs/blog4.png',
-            title: 'عنوان المقال',
-            description: 'وصف صغير للمقال...',
-            date: '2,Jan 12:09PM'
-        },
-    ]
-
     const {
     data: posts,
     isLoading,
@@ -60,7 +33,7 @@ const HomeBlogs = () => {
                 <h2 className='text-[#000000] text-[25px] font-bold'>{t('blog')}</h2>
             </div>
 
-            <div className='mt-[46px] flex 2xl:flex-row flex-col items-center justify-between'>
+            <div className='mt-[46px] flex 2xl:flex-row flex-col  justify-between'>
                 <Image 
                     src='/images/home/blog.png' 
                     alt='blog banner'
@@ -70,22 +43,25 @@ const HomeBlogs = () => {
                 />
                 <div className='mt-4 2xl:mt-0'>
                     <h2 className='text-[#000000] text-[25px] font-bold'>{t('latestArticles')}</h2>
-                    {BlogsData.map((item, index) => (
+                    {posts?.slice(0, 4).map((item, index) => (
                         <div
                             key={index}
                             className='md:w-[395px] w-full h-[98px] bg-[#F6F7FB] rounded-[12px] mt-4 flex items-center justify-between gap-[13px] py-4 px-4'
                         >
                             <Image
-                                src={item.image}
+                                src={item.image.url}
                                 alt='blog image'
                                 width={66}
                                 height={66}
                             />
                             <div>
                                 <h2 className='text-[#333333] text-[17px] font-bold'>{item.title}</h2>
-                                <p className='text-[#8B8282] text-[17px] font-normal mt-1.5'>{item.description}</p>
+                                <p
+                                    className='text-[#8B8282] text-base mt-3 line-clamp-2'
+                                    dangerouslySetInnerHTML={{ __html: item.content }}
+                                />                            
                             </div>
-                            <p className='text-[#787676] text-base'>{item.date}</p>
+                            <p className='text-[#787676] text-base'>{new Date(item.published_at).toLocaleDateString('ar-EG')}</p>
                         </div>
                     ))}
                 </div>
