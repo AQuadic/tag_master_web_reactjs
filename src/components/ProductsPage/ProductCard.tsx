@@ -213,10 +213,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
   };
 
   return (
-    <Link
-      href={`/src/app/%5Blocale%5D/products/${product.id}`}
-      className="group"
-    >
+    <Link href={`/products/${product.id}`} className="group">
       <motion.div
         className="flex flex-col items-center gap-5 relative bg-white rounded-2xl p-6 shadow-sm border border-gray-100"
         variants={cardVariants}
