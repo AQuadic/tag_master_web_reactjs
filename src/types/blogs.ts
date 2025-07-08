@@ -1,4 +1,5 @@
 export interface PostType {
+  is_featured: boolean;
   id: number;
   title: string;
   content: string;

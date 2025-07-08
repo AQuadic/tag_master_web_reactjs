@@ -26,6 +26,8 @@ const HomeBlogs = () => {
     if (isLoading) return <div className='flex justify-center my-10'>
         <Spinner />
     </div>
+    
+    const featuredPosts = posts?.filter(item => item.is_featured);
 
     return (
         <section className='container mt-20'>
@@ -77,7 +79,7 @@ const HomeBlogs = () => {
             </div>
 
             <div className='mt-12 grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 items-center justify-center gap-[21px]'>
-                {posts?.map((item,index) => (
+                {featuredPosts?.map((item,index) => (
                     <Link href={`/blog/${item.id}`} key={item.id}>
                     <div
                         key={index}
