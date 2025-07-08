@@ -7,8 +7,10 @@ import Spinner from "../icons/general/Spinner";
 import EmptyState from "../general/EmptyState";
 import { removeFromFavorite } from "@/api/favorite/removFromFav";
 import { toast } from "sonner";
+import { useTranslations } from "next-intl";
 
 const BookmarksDetails = () => {
+  const t = useTranslations("homeblogs");
   const [updating, setUpdating] = useState(false);
 
   const { data: favorites = [], isLoading, refetch } = useQuery<FavoriteItem[]>({
@@ -23,11 +25,11 @@ const BookmarksDetails = () => {
   const handleRemoveFavorite = async (id: number) => {
     try {
       setUpdating(true);
-      await removeFromFavorite({ favorable_id: id, favorable_type: "blog" });
-      toast.success("تمت إزالة المقال من المحفوظات");
+      await removeFromFavorite({ favorable_id: id, favorable_type: "post" });
+      toast.success(t('removedFromBookmarks'));
       await refetch();
     } catch {
-      toast.error("حدث خطأ أثناء إزالة المقال");
+      toast.error(t('errorRemoving'));
     } finally {
       setUpdating(false);
     }
