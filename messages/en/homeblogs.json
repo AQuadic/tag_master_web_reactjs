@@ -12,5 +12,6 @@
     "educational": "Educational content",
     "removedFromBookmarks": "Removed from bookmarks successfully",
     "addedToBookmarks": "Added to bookmarks successfully",
-    "errorRemoving": "An error occurred while removing the article."
+    "errorRemoving": "An error occurred while removing the article.",
+    "seeMore": "See more"
 }

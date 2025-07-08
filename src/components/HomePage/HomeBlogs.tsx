@@ -8,6 +8,7 @@ import Spinner from '../icons/general/Spinner'
 import { PostType } from '@/types/blogs'
 import Bookmark from '../icons/blogs/Bookmark'
 import { useTranslations } from 'next-intl'
+import Arrow from '../icons/home/Arrow'
 
 const HomeBlogs = () => {
     const t = useTranslations("homeblogs");
@@ -42,7 +43,15 @@ const HomeBlogs = () => {
                     className='md:w-[829px] w-full'
                 />
                 <div className='mt-4 2xl:mt-0'>
-                    <h2 className='text-[#000000] text-[25px] font-bold'>{t('latestArticles')}</h2>
+                    <div className='flex items-center justify-between'>
+                        <h2 className='text-[#000000] text-[25px] font-bold'>{t('latestArticles')}</h2>
+                        <Link href='/blog' className="flex items-center gap-3">
+                            <p className="text-[#000000] text-base font-semibold">
+                            {t("seeMore")}
+                            </p>
+                            <Arrow />
+                        </Link>
+                    </div>
                     {posts?.slice(0, 4).map((item, index) => (
                         <div
                             key={index}
