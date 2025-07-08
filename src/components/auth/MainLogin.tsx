@@ -84,7 +84,7 @@ const MainLogin = () => {
         </div>
 
         <Button disabled={loading} className="mb-2">
-          {loading ? t('logining') : t('login')}
+          {loading ? t('loggingIn') : t('login')}
         </Button>
       </form>
       <Link className="text-primary text-lg self-start" href="/auth/signup">
