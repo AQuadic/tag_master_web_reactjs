@@ -9,7 +9,7 @@ import ProductsSearchbar from "./ProductsSearchbar";
 import { useTranslations } from "next-intl";
 
 interface MainProductsProps {
-  data: ProductsResponseTypes;
+  data: ProductsResponseTypes[];
 }
 
 const MainProducts = ({ data }: MainProductsProps) => {
@@ -29,15 +29,16 @@ const MainProducts = ({ data }: MainProductsProps) => {
         selectedFilter={selectedFilter}
         setSelectedFilter={setSelectedFilter}
       />
-      {data.data.length > 0 ? (
-        <div className="container grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 mt-8">
-          {data.data.map((product) => (
-            <ProductCard key={product.id} product={product} />
-          ))}
-        </div>
-      ) : (
-        <EmptyState />
-      )}
+     {data.length > 0 ? (
+  <div className="container grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 mt-8">
+    {data.map((product) => (
+      <ProductCard key={product.id} product={product} />
+    ))}
+  </div>
+) : (
+  <EmptyState />
+)}
+
       <Pagination
         currentStep={currentStep}
         setCurrentStep={setCurrentStep}

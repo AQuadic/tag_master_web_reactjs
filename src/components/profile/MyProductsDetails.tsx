@@ -2,8 +2,10 @@ import React from "react";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { TabsContent } from "@radix-ui/react-tabs";
 import Image from "next/image";
+import { useTranslations } from "next-intl";
 
 const MyProductsDetails = () => {
+  const t = useTranslations("profile");
   const ProductsData = [
     {
       image: "/images/products/product1.png",
@@ -33,13 +35,13 @@ const MyProductsDetails = () => {
   return (
     <section className="mt-10">
       <div className="flex w-full flex-col gap-6 mt-10">
-        <Tabs defaultValue="products" dir="rtl">
+        <Tabs defaultValue="products" >
           <TabsList className="pb-5">
             <TabsTrigger className="w-32 lg:w-full md:w-40" value="products">
-              المنتجات
+              {t('theproducts')}
             </TabsTrigger>
             <TabsTrigger className="w-32 lg:w-full md:w-40" value="orders">
-              الطلبات
+              {t('orders')}
             </TabsTrigger>
           </TabsList>
           <TabsContent value="products" className="md:mt-[60px]">
@@ -134,31 +136,31 @@ const MyProductsDetails = () => {
                       scope="col"
                       className="px-6 py-3 text-[#000000] text-lg font-medium text-center"
                     >
-                      معرف الطلب
+                      {t('id')}
                     </th>
                     <th
                       scope="col"
                       className="px-6 py-3 text-[#000000] text-lg font-medium text-center"
                     >
-                      المنتج
+                      {t('product')}
                     </th>
                     <th
                       scope="col"
                       className="px-6 py-3 text-[#000000] text-lg font-medium text-center"
                     >
-                      التاريخ
+                      {t('date')}
                     </th>
                     <th
                       scope="col"
                       className="px-6 py-3 text-[#000000] text-lg font-medium text-center"
                     >
-                      القيمة
+                      {t('value')}
                     </th>
                     <th
                       scope="col"
                       className="px-6 py-3 text-[#000000] text-lg font-medium text-center"
                     >
-                      العنوان
+                      {t('address')}
                     </th>
                   </tr>
                 </thead>

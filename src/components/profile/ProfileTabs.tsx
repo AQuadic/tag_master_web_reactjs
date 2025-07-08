@@ -12,6 +12,7 @@ import { logOut } from "@/api/auth/logout";
 import { toast } from "sonner";
 import { useAuthStore } from "../stores/userStore";
 import { useRouter } from "next/navigation";
+import { useTranslations } from "next-intl";
 
 interface TabItem {
   key: string;
@@ -26,6 +27,7 @@ interface ProfileTabsProps {
 }
 
 const ProfileTabs: React.FC<ProfileTabsProps> = ({ activeTab, setActiveTab }) => {
+  const t  = useTranslations("profile");
   const clearUser = useAuthStore((state) => state.clearUser);
   const router = useRouter();
 
@@ -45,11 +47,11 @@ const ProfileTabs: React.FC<ProfileTabsProps> = ({ activeTab, setActiveTab }) =>
   };
 
   const tabs: TabItem[] = [
-    { key: "profile", icon: <Profile />, activeIcon: <ActiveProfile />, label: "الملف الشخصي" },
-    { key: "favorite", icon: <Favorite />, activeIcon: <ActiveFavorite />, label: "المفضلة" },
-    { key: "bookmarks", icon: <Bookmarks />, activeIcon: <ActiveBookmarks />, label: "المحفوظات" },
-    { key: "products", icon: <MyProducts />, activeIcon: <ActiveProducts />, label: "منتجاتي" },
-    { key: "logout", icon: <Logout />, label: "تسجيل الخروج" },
+    { key: "profile", icon: <Profile />, activeIcon: <ActiveProfile />, label: t('profile') },
+    { key: "favorite", icon: <Favorite />, activeIcon: <ActiveFavorite />, label: t("favorite") },
+    { key: "bookmarks", icon: <Bookmarks />, activeIcon: <ActiveBookmarks />, label: t('bookmarks') },
+    { key: "products", icon: <MyProducts />, activeIcon: <ActiveProducts />, label: t('products') },
+    { key: "logout", icon: <Logout />, label: t('logout') },
   ];
 
   return (

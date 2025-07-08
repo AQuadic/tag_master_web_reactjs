@@ -3,8 +3,10 @@ import React, { useEffect, useState } from "react";
 import { useAuthStore } from "../stores/userStore";
 import { updateUser } from "@/api/auth/updateUser";
 import { toast } from "sonner";
+import { useTranslations } from "next-intl";
 
 const ProfileDetails = () => {
+  const t = useTranslations("profile");
   const user = useAuthStore((state) => state.user);
   const setUser = useAuthStore((state) => state.setUser);
   const [formData, setFormData] = useState({
@@ -56,7 +58,7 @@ const handleUpdate = async () => {
               htmlFor="name"
               className="text-[#4A4A4A] text-base absolute -top-2 right-10 bg-white px-1 z-10"
             >
-              الاسم
+              {t('name')}
             </label>
             <input
               type="text"
@@ -74,7 +76,7 @@ const handleUpdate = async () => {
             htmlFor="phone"
             className="text-[#4A4A4A] text-base absolute -top-2 right-10 bg-white px-1 z-10"
           >
-            الهاتف
+            {t('phone')}
           </label>
           <input
             type="text"
@@ -91,7 +93,7 @@ const handleUpdate = async () => {
             htmlFor="name"
             className="text-[#4A4A4A] text-base absolute -top-2 right-10 bg-white px-1 z-10"
           >
-            الايميل
+            {t('email')}
           </label>
           <input
             type="email"
@@ -103,7 +105,7 @@ const handleUpdate = async () => {
             readOnly
           />
           <p className="text-[#4A4A4A] text-sm mt-2">
-            لا يمكن تغيير البريد الإلكتروني المستخدم لتسجيل الدخول
+            {t('emailNotChanged')}
           </p>
         </div>
         <div className="flex flex-col relative ">
@@ -111,7 +113,7 @@ const handleUpdate = async () => {
             htmlFor="name"
             className="text-[#4A4A4A] text-base absolute -top-2 right-10 bg-white px-1 z-10"
           >
-            الوظيفة
+            {t('job')}
           </label>
           <input
             type="text"
@@ -128,7 +130,7 @@ const handleUpdate = async () => {
       onClick={handleUpdate}
       className="w-[200px] h-12 bg-[#007EC1] hover:bg-[#005f95] transition-all duration-200 rounded-[39px] text-[#FFFFFF] text-lg flex items-center justify-center mx-auto mt-12"
     >
-      حفظ التعديلات
+      {t('save')}
     </button>
     </section>
   );

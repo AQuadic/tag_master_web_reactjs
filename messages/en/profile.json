@@ -1,0 +1,20 @@
+{
+    "profile": "Profile",
+    "favorite": "Favorites",
+    "bookmarks": "Bookmarks",
+    "products": "My products",
+    "logout": "Logout",
+    "name": "Name",
+    "phone": "Phone",
+    "email": "Email",
+    "emailNotChanged": "The email used to log in can't be changed.",
+    "job": "Job",
+    "save": "Save changes",
+    "theproducts": "Products",
+    "orders": "Orders",
+    "id": "ID",
+    "product": "Product",
+    "date": "Date",
+    "value": "Value",
+    "address": "Address"
+}
