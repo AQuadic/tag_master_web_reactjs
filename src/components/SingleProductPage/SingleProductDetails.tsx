@@ -4,12 +4,15 @@ import React from "react";
 import ReviewStarIcon from "../icons/general/ReviewStarIcon";
 import { Button } from "../ui/button";
 import SingleProductColorPicker from "./SingleProductColorPicker";
+import { useLocale, useTranslations } from "next-intl";
 
 interface SingleProductDetailsProps {
   product: ProductTypes;
 }
 
 const SingleProductDetails = ({ product }: SingleProductDetailsProps) => {
+  const t = useTranslations("products");
+  const locale = useLocale();
   const [selectedColor, setSelectedColor] = React.useState<string>("");
   const price = parseInt(product.price);
   const discount = parseInt(product.discount) || 10;
@@ -18,7 +21,7 @@ const SingleProductDetails = ({ product }: SingleProductDetailsProps) => {
     <section className="w-full flex flex-col ">
       <div className="flex flex-wrap justify-between">
         <h2 className="font-bold text-lg sm:text-2xl max-w-[400px]">
-          {product.name.ar}
+          {product.name[locale]}
         </h2>
         <div className="flex flex-col ">
           <span className="text-main-green text-lg sm:text-2xl font-bold">
@@ -31,7 +34,7 @@ const SingleProductDetails = ({ product }: SingleProductDetailsProps) => {
               </span>
               <span className="text-main-green">
                 {" "}
-                خصم {Math.round((discount * 100) / price)} %
+                {t('discount')} {Math.round((discount * 100) / price)} %
               </span>
             </span>
           )}
@@ -45,15 +48,15 @@ const SingleProductDetails = ({ product }: SingleProductDetailsProps) => {
         <ReviewStarIcon />
         (5)
       </div>
-      <p className="mb-5 sm:mb-8 text-lg">{product.description.ar}</p>
-      <p className="text-lg mb-2 sm:mb-4">لون المنتج الذي تفضله:</p>
+      <p className="mb-5 sm:mb-8 text-lg">{product.description[locale]}</p>
+      <p className="text-lg mb-2 sm:mb-4">{t('favColor')}</p>
       <SingleProductColorPicker
         options={product.options}
         selectedColor={selectedColor}
         setSelectedColor={setSelectedColor}
       />
       <Button className="px-20 rounded-full bg-primary cursor-pointer mt-5 md:self-start">
-        + إضافة سريعة
+        {t('quickAdd')}
       </Button>
     </section>
   );

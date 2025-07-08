@@ -4,5 +4,7 @@
     "quickAdd": "+ Quick add",
     "recentlyAdded": "Recently added",
     "inStock": "In stock",
-    "outOfStock": "Out of stock"
+    "outOfStock": "Out of stock",
+    "discount": "Discount",
+    "favColor": "Your preferred product color:"
 }
