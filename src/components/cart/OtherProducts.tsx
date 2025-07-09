@@ -47,7 +47,7 @@ const OtherProducts = () => {
 
   const handleAddToCart = async (productId: number) => {
     try {
-      await addToCart("product", productId);
+      await addToCart("product", productId, 1);
       toast.success("تمت إضافة المنتج إلى السلة");
     } catch (error) {
       toast.error("فشل في إضافة المنتج");

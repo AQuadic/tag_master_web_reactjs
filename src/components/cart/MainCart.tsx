@@ -11,6 +11,7 @@ import { toast } from 'sonner';
 import Spinner from '../icons/general/Spinner';
 import Tracking from '../general/Tracking';
 import { useLocale, useTranslations } from 'next-intl';
+import { addToCart } from '@/api/cart/addToCart';
 
 const MainCart = () => {
   const t = useTranslations("maincart");
@@ -73,16 +74,36 @@ const updateQuantity = async (cartItemId: number, newQuantity: number) => {
   }
 };
 
-const handleIncreaseQuantity = (cartItemId: number, currentQuantity: number) => {
-  updateQuantity(cartItemId, currentQuantity + 1);
-};
-
-const handleDecreaseQuantity = (cartItemId: number, currentQuantity: number) => {
-  if (currentQuantity > 1) {
-    updateQuantity(cartItemId, currentQuantity - 1);
+const handleIncreaseQuantity = async (
+  itemable_type: string,
+  itemable_id: number,
+  currentQuantity: number
+) => {
+  try {
+    await addToCart(itemable_type, itemable_id, currentQuantity + 1);
+    await refetch();
+    toast.success(t('quantityIncreased'));
+  } catch (error) {
+    toast.error("Failed to increase quantity");
+    console.error(error);
   }
 };
-  
+
+
+const handleDecreaseQuantity = async (
+  cartItemId: number,
+  itemableId: number,
+  itemableType: string
+) => {
+  try {
+    await deleteCartItem(cartItemId, itemableId, itemableType);
+    toast.success("Item quantity decreased");
+    await refetch();
+  } catch (error) {
+    toast.error("Failed to decrease quantity");
+    console.error(error);
+  }
+};
 
 const totalItemsPrice = data.items.reduce((sum, item) => {
   const itemTotal = parseFloat(item.itemable.price) * item.quantity;
@@ -128,14 +149,14 @@ const totalItemsPrice = data.items.reduce((sum, item) => {
                   <div className='flex items-center gap-4'>
                     <button 
                       className='w-6 h-6 border-2 border-[#007EC1] text-[#007EC1] flex items-center justify-center hover:bg-[#007EC1] hover:text-white transition-colors'
-                      onClick={() => handleIncreaseQuantity(item.id, item.quantity)}
+                      onClick={() => handleIncreaseQuantity(item.itemable_type, item.itemable.id, item.quantity)}
                     >
                       +
                     </button>
                     <p className='text-[#000000] text-[22px] min-w-[30px] text-center'>{item.quantity}</p>
                     <button 
                       className='w-6 h-6 border-2 border-[#007EC1] text-[#007EC1] flex items-center justify-center hover:bg-[#007EC1] hover:text-white transition-colors disabled:opacity-50 disabled:cursor-not-allowed'
-                      onClick={() => handleDecreaseQuantity(item.id, item.quantity)}
+                      onClick={() => handleDecreaseQuantity(item.id, item.itemable.id, item.itemable_type) }
                       disabled={item.quantity <= 1}
                     >
                       -

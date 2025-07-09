@@ -32,7 +32,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
 
   const handleAddToCart = async () => {
     try {
-      await addToCart("product", product.id);
+      await addToCart("product", product.id,1);
       await queryClient.invalidateQueries(["cart"]);
       toast.success(t('addedToCartSuccessfully'));
     } catch (error: any) {
