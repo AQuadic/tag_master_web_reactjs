@@ -93,10 +93,11 @@ const handleIncreaseQuantity = async (
 const handleDecreaseQuantity = async (
   cartItemId: number,
   itemableId: number,
-  itemableType: string
+  itemableType: string,
+  currentQuantity: number
 ) => {
   try {
-    await deleteCartItem(cartItemId, itemableId, itemableType);
+    await deleteCartItem(cartItemId, itemableId, itemableType, currentQuantity - 1);
     toast.success("Item quantity decreased");
     await refetch();
   } catch (error) {
@@ -156,7 +157,7 @@ const totalItemsPrice = data.items.reduce((sum, item) => {
                     <p className='text-[#000000] text-[22px] min-w-[30px] text-center'>{item.quantity}</p>
                     <button 
                       className='w-6 h-6 border-2 border-[#007EC1] text-[#007EC1] flex items-center justify-center hover:bg-[#007EC1] hover:text-white transition-colors disabled:opacity-50 disabled:cursor-not-allowed'
-                      onClick={() => handleDecreaseQuantity(item.id, item.itemable.id, item.itemable_type) }
+                      onClick={() => handleDecreaseQuantity(item.id, item.itemable.id, item.itemable_type, item.quantity) }
                       disabled={item.quantity <= 1}
                     >
                       -
