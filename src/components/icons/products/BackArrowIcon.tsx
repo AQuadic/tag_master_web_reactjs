@@ -2,7 +2,8 @@ import React from "react";
 
 const BackArrowIcon = () => {
   return (
-    <svg
+    <div className='transform rtl:scale-x-100 ltr:scale-x-[-1]'>
+      <svg
       width="35"
       height="35"
       viewBox="0 0 35 35"
@@ -21,6 +22,7 @@ const BackArrowIcon = () => {
         fill="black"
       />
     </svg>
+    </div>
   );
 };
 

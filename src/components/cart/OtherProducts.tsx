@@ -75,7 +75,7 @@ const OtherProducts = () => {
             >
               {t("recentlyAdded")}
             </div>
-            <button onClick={() => handleToggleFavorite(item, index)} className="absolute top-3 right-3">
+            <button onClick={() => handleToggleFavorite(item, index)} className="absolute top-3 rtl:right-3 ltr:right-8">
               {item.is_favorite ? <FavoriteIcon /> : <NotFavoriteIcon />}
             </button>
             </div>
