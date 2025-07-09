@@ -54,8 +54,9 @@ export const useCartStore = create<CartState>((set, get) => ({
     }
   },
 
-    getItemsCount: () => {
-        const { cart } = get();
-        return cart?.cart_items?.length || 0;
-      },
+   getItemsCount: () => {
+  const { cart } = get();
+  return cart?.cart_items?.reduce((sum, item) => sum + item.quantity, 0) || 0;
+},
+
 }));
