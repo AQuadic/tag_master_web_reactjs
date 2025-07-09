@@ -4,6 +4,7 @@ import { NextRequest, NextResponse } from "next/server";
 
 // Define protected routes that require authentication
 const protectedRoutes = ["/cart", "/profile"];
+const publicRoutes = ["/auth"];
 
 function isProtectedRoute(pathname: string): boolean {
   return protectedRoutes.some(
@@ -13,12 +14,12 @@ function isProtectedRoute(pathname: string): boolean {
       pathname.startsWith(`/ar${route}`),
   );
 }
-
 function isPublicRoute(pathname: string): boolean {
-  return (
-    pathname.startsWith("/auth") ||
-    pathname.startsWith("/en/auth") ||
-    pathname.startsWith("/ar/auth")
+  return publicRoutes.some(
+    (route) =>
+      pathname.startsWith(route) ||
+      pathname.startsWith(`/en${route}`) ||
+      pathname.startsWith(`/ar${route}`),
   );
 }
 
@@ -31,16 +32,14 @@ export default async function middleware(request: NextRequest) {
     if (!token) {
       // Redirect to auth login if no token
       const loginUrl = new URL("/auth/login", request.url);
-      loginUrl.searchParams.set("redirect", pathname);
       return NextResponse.redirect(loginUrl);
     }
   }
-
   if (isPublicRoute(pathname)) {
     if (token) {
-      const loginUrl = new URL("/auth/login", request.url);
-      loginUrl.searchParams.set("redirect", pathname);
-      return NextResponse.redirect(loginUrl);
+      // Redirect to auth login if no token
+      const homeUrl = new URL("/", request.url);
+      return NextResponse.redirect(homeUrl);
     }
   }
 
