@@ -1,9 +1,12 @@
+'use client'
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
 import Arrow from "../icons/home/Arrow";
 import { useTranslations } from "next-intl";
 import EmptyState from "../general/EmptyState";
+import { addToCart } from "@/api/cart/addToCart";
+import { toast } from "sonner";
 
 interface Product {
   id: number;
@@ -19,6 +22,20 @@ interface HomeBestSellingProps {
 
 const HomeBestSelling = ({ data }: HomeBestSellingProps) => {
   const t = useTranslations("bestProducts");
+
+  const handleAddToCart = async (productId: number) => {
+    try {
+      await addToCart("product", productId);
+      toast.success(t("addedToCartSuccessfully"))
+    } catch (error: any) {
+          const apiMessage =
+            error?.response?.data?.message ||
+            error?.message ||
+            "حدث خطأ أثناء إضافة المنتج إلى السلة";
+    
+          toast.error(apiMessage);
+        }
+  };
 
   if (!data || data.length === 0) {
     return (
@@ -90,7 +107,10 @@ const HomeBestSelling = ({ data }: HomeBestSellingProps) => {
                       ))}
                       <p className="ms-1 text-sm font-medium text-[#7B7E80]">(5)</p>
                     </div> */}
-                    <button className="w-[160px] h-11 bg-[#2F3437] text-white text-base rounded-[39px]">
+                    <button
+                      onClick={() => handleAddToCart(item.id)}
+                      className="w-[160px] h-11 bg-[#2F3437] text-white text-base rounded-[39px]"
+                    >
                       + إضافة سريعة
                     </button>
                   </div>
