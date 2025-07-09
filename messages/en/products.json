@@ -6,5 +6,6 @@
     "inStock": "In stock",
     "outOfStock": "Out of stock",
     "discount": "Discount",
-    "favColor": "Your preferred product color:"
+    "favColor": "Your preferred product color:",
+    "addedToCartSuccessfully": "Added to cart successfully "
 }

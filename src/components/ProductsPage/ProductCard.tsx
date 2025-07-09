@@ -34,7 +34,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
     try {
       await addToCart("product", product.id);
       await queryClient.invalidateQueries(["cart"]);
-      toast.success("تمت إضافة المنتج إلى السلة بنجاح");
+      toast.success(t('addedToCartSuccessfully'));
     } catch (error: any) {
       const apiMessage =
         error?.response?.data?.message ||
@@ -42,7 +42,6 @@ const ProductCard = ({ product }: ProductCardProps) => {
         "حدث خطأ أثناء إضافة المنتج إلى السلة";
 
       toast.error(apiMessage);
-      console.error("Add to cart error:", error);
     }
   };
 
