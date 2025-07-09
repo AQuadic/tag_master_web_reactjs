@@ -7,10 +7,13 @@ import Spinner from "../icons/general/Spinner";
 import { toast } from "sonner";
 import { removeFromFavorite } from "@/api/favorite/removFromFav";
 import EmptyState from "../general/EmptyState";
+import { useLocale } from "next-intl";
+import { useTranslations } from "use-intl";
 
 const FavoriteDetails = () => {
+  const t = useTranslations("products");
   const [updating, setUpdating] = useState(false);
-
+  const locale = useLocale ()
   const { data: favorites = [], isLoading, refetch } = useQuery<FavoriteItem[]>({
     queryKey: ["favorites"],
     queryFn: getFavorites,
@@ -72,20 +75,20 @@ const FavoriteDetails = () => {
               >
                 <FavoriteIcon />
               </button>
-              <div className="w-[87px] h-[33px] bg-[#2CF257] rounded-[28px] flex items-center justify-center absolute top-4 left-10">
+              <div className="w-[87px] h-[33px] bg-[#2CF257] rounded-[28px] flex items-center justify-center absolute top-4 rtl:left-10 ltr:left-4">
                 <p className="text-[#FFFFFF] text-base">مضاف حديثا</p>
               </div>
               <div className="mt-3 px-[18px] flex items-center justify-between">
                 <p className="text-[#000000] text-lg font-medium">
-                  {product.price} درهم
+                  {product.price}
                 </p>
               </div>
               <p className="text-[#4A4A4A] text-[17px] px-[18px] mt-3">
-                {product.description?.ar}
+                {product.description?.[locale]}
               </p>
               <div className="mt-4 flex justify-center">
                 <button className="w-[255px] h-11 bg-[#2F3437] text-white text-base rounded-[39px]">
-                  + إضافة سريعة
+                  {t('quickAdd')}
                 </button>
               </div>
             </div>
