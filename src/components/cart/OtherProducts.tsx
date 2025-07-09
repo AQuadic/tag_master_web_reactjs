@@ -1,83 +1,102 @@
-import Image from 'next/image'
-import React from 'react'
-import NotFavoriteIcon from '../icons/products/NotFavoriteIcon'
-import { useTranslations } from 'next-intl';
+"use client";
+import { useQuery } from "@tanstack/react-query"
+import { useTranslations, useLocale } from "next-intl"
+import { addToFavorite } from "@/api/favorite/addToFav"
+import { removeFromFavorite } from "@/api/favorite/removFromFav"
+import { addToCart } from "@/api/cart/addToCart"
+import { toast } from "sonner"
+import Image from "next/image"
+import React from "react"
+import FavoriteIcon from "../icons/products/FavoriteIcon"
+import NotFavoriteIcon from "../icons/products/NotFavoriteIcon"
+import { getCart } from "@/api/cart/getCart"
+import { getProductsByCategory } from "@/api/products/getCategories"
 
 const OtherProducts = () => {
-    const t = useTranslations("maincart");
-    const ProductsData = [
-        {
-            image: '/images/products/product1.png',
-            priceAfterDiscount: '204 درهم',
-            price: '520',
-            description: 'بطاقة تاج ستار  - قم بحفر الإسم مخصص على البطاقة'
-        },
-        {
-            image: '/images/products/product2.png',
-            priceAfterDiscount: '204 درهم',
-            price: '520',
-            description: 'بطاقة تاج ستار  - قم بحفر الإسم مخصص على البطاقة'
-        },
-        {
-            image: '/images/products/product3.png',
-            priceAfterDiscount: '204 درهم',
-            price: '520',
-            description: 'بطاقة تاج ستار  - قم بحفر الإسم مخصص على البطاقة'
-        },
-        {
-            image: '/images/products/product1.png',
-            priceAfterDiscount: '204 درهم',
-            price: '520',
-            description: 'بطاقة تاج ستار  - قم بحفر الإسم مخصص على البطاقة'
-        }
-        
-    ]
-    return (
-        <section className='mt-10'>
-            <h2 className='text-[#000000] text-[21px] font-medium'>{t('anotherProducts')}</h2>
-            <div className='mt-[22px] grid xl:grid-cols-4 md:grid-cols-2 grid-cols-1'>
-                {ProductsData.map((item, index) => (
-                <div key={index} className='relative w-[281px] h-[348px] rounded-md bg-[#F6F7FB] mt-4'>
-                    <Image src={item.image} alt='product' width={281} height={162} />
-                    <div className='absolute top-4 right-4'>
-                        <NotFavoriteIcon />
-                    </div>
-                    <div className='w-[87px] h-[33px] bg-[#2CF257] rounded-[28px] flex items-center justify-center absolute top-4 left-2'>
-                        <p className='text-[#FFFFFF] text-base'>مضاف حديثا</p>
-                    </div>
-                    <div className='mt-3 px-[18px] flex items-center justify-between'>
-                        <p className='text-[#000000] text-lg font-medium'>
-                            {item.priceAfterDiscount} 
-                            <span className='line-through text-[#4A4A4A] font-normal mx-2'>{item.price}</span>
-                        </p>
-                        <div className="flex items-center">
-                            <svg className="w-[10px] h-[10px] text-[#FFB74A] ms-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 20">
-                                <path d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z"/>
-                            </svg>
-                            <svg className="w-[10px] h-[10px] text-[#FFB74A] ms-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 20">
-                                <path d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z"/>
-                            </svg>
-                            <svg className="w-[10px] h-[10px] text-[#FFB74A] ms-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 20">
-                                <path d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z"/>
-                            </svg>
-                            <svg className="w-[10px] h-[10px] text-[#FFB74A] ms-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 20">
-                                <path d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z"/>
-                            </svg>
-                            <svg className="w-[10px] h-[10px] ms-1 text-[#FFB74A]" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 20">
-                                <path d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z"/>
-                            </svg>
-                            <p className='text-[#7B7E80] text-[10px] mx-2'>(5)</p>
-                        </div>
-                    </div>
-                        <p className='text-[#4A4A4A] text-[17px] px-[18px] mt-3'>{item.description}</p>
-                        <div className='mt-4 flex justify-center'>
-                            <button className='w-[255px] h-11 bg-[#2F3437] text-[#FFFFFF] text-base rounded-[39px]'>+ إضافة سريعة</button>
-                        </div>
-                </div>
-                ))}
+  const t = useTranslations("maincart");
+  const locale = useLocale();
+
+  const { data: cartData } = useQuery({
+    queryKey: ["cart"],
+    queryFn: () => getCart(""),
+  });
+
+  const firstCategoryId = cartData?.items?.[0]?.itemable?.category_id;
+
+  const { data: similarProducts, isLoading } = useQuery({
+    queryKey: ["similar-products", firstCategoryId],
+    queryFn: () => getProductsByCategory(firstCategoryId),
+    enabled: !!firstCategoryId,
+  });
+
+  const handleToggleFavorite = async (product: any, index: number) => {
+    try {
+      if (product.is_favorite) {
+        await removeFromFavorite({ favorable_id: product.id, favorable_type: "product" });
+        product.is_favorite = false;
+        toast.success("تم إزالة المنتج من المفضلة");
+      } else {
+        await addToFavorite({ favorable_id: product.id, favorable_type: "product" });
+        product.is_favorite = true;
+        toast.success("تم إضافة المنتج إلى المفضلة");
+      }
+    } catch (error) {
+      toast.error("حدث خطأ أثناء تعديل المفضلة");
+    }
+  };
+
+  const handleAddToCart = async (productId: number) => {
+    try {
+      await addToCart("product", productId);
+      toast.success("تمت إضافة المنتج إلى السلة");
+    } catch (error) {
+      toast.error("فشل في إضافة المنتج");
+    }
+  };
+
+  if (!firstCategoryId || isLoading || !similarProducts?.length) return null;
+
+  return (
+    <section className="mt-10">
+      <h2 className="text-[#000000] text-[21px] font-medium">{t("anotherProducts")}</h2>
+      <div className="mt-[22px] grid xl:grid-cols-4 md:grid-cols-2 grid-cols-1">
+        {similarProducts.map((item, index) => (
+          <div key={item.id} className="relative w-[281px] h-[348px] rounded-md bg-[#F6F7FB] mt-4 p-2">
+            <Image
+              src={item.images?.[0]?.responsive_urls?.[0] || "/placeholder.png"}
+              alt="product"
+              width={281}
+              height={162}
+              className="rounded-md w-[281px] h-[162px]"
+            />
+            <div className="absolute top-6 w-full flex justify-between items-center z-20">
+              <div
+              className="absolute top-2 left-5 bg-[#2CF257]  px-3 py-2 rounded-xl text-white font-semibold text-xs "
+            >
+              {t("recentlyAdded")}
             </div>
-        </section>
-    )
+            <button onClick={() => handleToggleFavorite(item, index)} className="absolute top-3 right-3">
+              {item.is_favorite ? <FavoriteIcon /> : <NotFavoriteIcon />}
+            </button>
+            </div>
+            <div className="mt-3 px-3">
+              <p className="text-[#000000] text-lg font-medium">
+                {parseInt(item.price) - parseInt(item.discount)}{" "}
+                <span className="line-through text-[#4A4A4A] font-normal mx-2">{item.price}</span>
+              </p>
+              <p className="text-[#4A4A4A] text-[17px] mt-2">{item.description?.[locale]}</p>
+              <button
+                onClick={() => handleAddToCart(item.id)}
+                className="w-full h-11 bg-[#2F3437] text-[#FFFFFF] text-base rounded-[39px] mt-4"
+              >
+                  {t("quickAdd")}
+              </button>
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
+  )
 }
 
 export default OtherProducts

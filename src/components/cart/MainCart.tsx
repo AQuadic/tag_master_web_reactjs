@@ -19,7 +19,7 @@ const [couponInput, setCouponInput] = React.useState('');
 const [appliedCoupon, setAppliedCoupon] = React.useState('');
 const queryClient = useQueryClient();
 
-  const { data, isLoading } = useQuery({
+  const { data, isLoading, refetch } = useQuery({
     queryKey: ['cart', appliedCoupon],
     queryFn: () => getCart(appliedCoupon),
   });
@@ -42,9 +42,10 @@ const queryClient = useQueryClient();
   try {
     await deleteCartItem(cartItemId, itemableId, itemableType);
     toast.success("Item deleted successfully")
-    queryClient.invalidateQueries({ queryKey: ['cart', appliedCoupon] });
+    // queryClient.invalidateQueries({ queryKey: ['cart', appliedCoupon] });
+    await refetch();
   } catch {
-    toast.error("Failed to delete item")
+    toast.error("Failed to delete item");
   }
 };
 
