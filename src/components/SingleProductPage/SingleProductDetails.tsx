@@ -5,6 +5,9 @@ import ReviewStarIcon from "../icons/general/ReviewStarIcon";
 import { Button } from "../ui/button";
 import SingleProductColorPicker from "./SingleProductColorPicker";
 import { useLocale, useTranslations } from "next-intl";
+import { addToCart } from "@/api/cart/addToCart";
+import { useQueryClient } from "@tanstack/react-query";
+import { toast } from "sonner";
 
 interface SingleProductDetailsProps {
   product: ProductTypes;
@@ -16,6 +19,21 @@ const SingleProductDetails = ({ product }: SingleProductDetailsProps) => {
   const [selectedColor, setSelectedColor] = React.useState<string>("");
   const price = parseInt(product.price);
   const discount = parseInt(product.discount) || 10;
+  const queryClient = useQueryClient();
+
+  const handleAddToCart = async () => {
+    try {
+      await addToCart("product", product.id, 1, selectedColor);
+      await queryClient.invalidateQueries(["cart"]);
+      toast.success(t('addedToCartSuccessfully'));
+    } catch (error: any) {
+      const apiMessage =
+        error?.response?.data?.message ||
+        error?.message ||
+        "حدث خطأ أثناء إضافة المنتج إلى السلة";
+      toast.error(apiMessage);
+    }
+  };
 
   return (
     <section className="w-full flex flex-col ">
@@ -55,7 +73,10 @@ const SingleProductDetails = ({ product }: SingleProductDetailsProps) => {
         selectedColor={selectedColor}
         setSelectedColor={setSelectedColor}
       />
-      <Button className="px-20 rounded-full bg-primary cursor-pointer mt-5 md:self-start">
+      <Button
+        onClick={handleAddToCart}
+        className="px-20 rounded-full bg-primary cursor-pointer mt-5 md:self-start"
+      >
         {t('quickAdd')}
       </Button>
     </section>

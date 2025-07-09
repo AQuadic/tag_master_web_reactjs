@@ -50,9 +50,9 @@ const HomeBestSelling = ({ data }: HomeBestSellingProps) => {
       <div className="container">
         <div className="flex justify-between items-center">
           <div className="text-center mx-auto">
-            <Link href="/" className="text-[#007CC2] text-[14px]">
+            <h2 className="text-[#007CC2] text-[14px]">
               {t("bestProducts")}
-            </Link>
+            </h2>
             <h2 className="text-[#000000] text-[25px] font-bold">
               {t("specialCollection")}
             </h2>
