@@ -1,8 +1,10 @@
 import Image from 'next/image'
 import React from 'react'
 import NotFavoriteIcon from '../icons/products/NotFavoriteIcon'
+import { useTranslations } from 'next-intl';
 
 const OtherProducts = () => {
+    const t = useTranslations("maincart");
     const ProductsData = [
         {
             image: '/images/products/product1.png',
@@ -32,7 +34,7 @@ const OtherProducts = () => {
     ]
     return (
         <section className='mt-10'>
-            <h2 className='text-[#000000] text-[21px] font-medium'>منتجات اخري مشابهة</h2>
+            <h2 className='text-[#000000] text-[21px] font-medium'>{t('anotherProducts')}</h2>
             <div className='mt-[22px] grid xl:grid-cols-4 md:grid-cols-2 grid-cols-1'>
                 {ProductsData.map((item, index) => (
                 <div key={index} className='relative w-[281px] h-[348px] rounded-md bg-[#F6F7FB] mt-4'>

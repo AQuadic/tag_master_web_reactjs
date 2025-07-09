@@ -10,8 +10,11 @@ import { deleteCartItem } from '@/api/cart/deleteFromCart';
 import { toast } from 'sonner';
 import Spinner from '../icons/general/Spinner';
 import Tracking from '../general/Tracking';
+import { useLocale, useTranslations } from 'next-intl';
 
 const MainCart = () => {
+  const t = useTranslations("maincart");
+  const locale = useLocale();
 const [couponInput, setCouponInput] = React.useState('');
 const [appliedCoupon, setAppliedCoupon] = React.useState('');
 const queryClient = useQueryClient();
@@ -27,7 +30,7 @@ const queryClient = useQueryClient();
 
   if (!data || data.items.length === 0) {
     return <div className='flex items-center justify-center'>
-      <p>لا توجد عناصر لعرضها حالياً</p>
+      <EmptyState />
     </div>;
   }
 
@@ -62,7 +65,7 @@ const updateQuantity = async (cartItemId: number, newQuantity: number) => {
       };
     });
     
-    toast.success("Quantity updated successfully");
+    toast.success(t('updateQuantity'));
   } catch {
     toast.error("Failed to update quantity");
     queryClient.invalidateQueries({ queryKey: ['cart', appliedCoupon] });
@@ -102,24 +105,24 @@ const totalItemsPrice = data.items.reduce((sum, item) => {
               />
               <div className="xl:w-[535px] w-full lg:h-[184px] border border-[#D9D9D9] rounded-md py-4 px-8">
                 <div className='flex items-center justify-between'>
-                  <h2 className="text-[#000000] text-[21px] font-bold">{item.itemable.name?.ar}</h2>
+                  <h2 className="text-[#000000] text-[21px] font-bold">{item.itemable.name?.[locale]}</h2>
                   <button
                     className='text-[#CB0306] text-base font-bold'
                     onClick={() => handleRemoveItem(item.id, item.itemable.id, item.itemable_type)}
                   >
-                    إزالة
+                    {t('remove')}
                   </button>
                 </div>
-                <p className="text-[#464B4E] text-[17px] mt-2.5">{item.itemable.description?.ar}</p>
+                <p className="text-[#464B4E] text-[17px] mt-2.5">{item.itemable.description?.[locale]}</p>
                 <div className='flex items-center justify-between mt-6'>
                   <div className="flex items-center gap-4">
-                    <p className='text-[#000000] text-base'>{item.itemable.price} درهم</p>
-                    <div className="flex items-center">
+                    <p className='text-[#000000] text-base'>{item.itemable.price} </p>
+                    {/* <div className="flex items-center">
                             <svg className="w-4 h-4 text-[#FFB74A] me-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 20">
                               <path d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z"/>
                             </svg>
                           <p className="ms-1 text-sm font-medium text-[#7B7E80]">(5)</p>
-                      </div>
+                      </div> */}
                   </div>
                   <div className='flex items-center gap-4'>
                     <button 
@@ -147,46 +150,46 @@ const totalItemsPrice = data.items.reduce((sum, item) => {
               <div className="flex w-full xl:max-w-sm flex-col gap-6">
                 <Tabs defaultValue="total" dir='rtl'>
                   <TabsList>
-                    <TabsTrigger value="address">العنوان</TabsTrigger>
-                    <TabsTrigger value="total">إجمالي الطلب</TabsTrigger>
+                    <TabsTrigger value="address">{t('address')}</TabsTrigger>
+                    <TabsTrigger value="total">{t('totalorder')}</TabsTrigger>
                   </TabsList>
                   <TabsContent value="address">
                     <div className='mt-9'>
                       <div className='flex flex-col'>
-                        <label htmlFor="country" className='text-[#000000] text-base'>البلد</label>
+                        <label htmlFor="country" className='text-[#000000] text-base'>{t('country')}</label>
                       <input 
                       type="text" 
                       name="country" 
                       id="country" 
                       className='md:w-[324px] w-full h-12 border border-[#4A4A4A] rounded-[8px] mt-2 px-3'
-                      placeholder='الإمارات العربية المتحده'
+                      placeholder={t('uae')}
                       />
                       </div>
 
                       <div className='mt-[14px] flex flex-col'>
-                        <label htmlFor="country" className='text-[#000000] text-base'>المدينة</label>
+                        <label htmlFor="country" className='text-[#000000] text-base'>{t('city')}</label>
                         <input 
                         type="text" 
                         name="country" 
                         id="country" 
                         className='md:w-[324px] w-full h-12 border border-[#4A4A4A] rounded-[8px] mt-2 px-3'
-                        placeholder='عجمان'
+                        placeholder= {t('ajman')}
                         />
                       </div>
 
                       <div className='mt-[14px] flex flex-col'>
-                        <label htmlFor="country" className='text-[#000000] text-base'>العنوان</label>
+                        <label htmlFor="country" className='text-[#000000] text-base'>{t('address')}</label>
                         <input 
                         type="text" 
                         name="country" 
                         id="country" 
                         className='md:w-[324px] w-full h-12 border border-[#4A4A4A] rounded-[8px] mt-2 px-3'
-                        placeholder='شارع الشيخ خليفة بن زايد،منطقة النعيمية'
+                        placeholder={t('addressDetails')}
                         />
                       </div>
 
                       <div className='mt-[14px] flex flex-col'>
-                        <label htmlFor="country" className='text-[#000000] text-base'>الكود البريدي</label>
+                        <label htmlFor="country" className='text-[#000000] text-base'>{t('zipcode')}</label>
                         <input 
                         type="text" 
                         name="country" 
@@ -197,43 +200,43 @@ const totalItemsPrice = data.items.reduce((sum, item) => {
                       </div>
 
                       <button className='w-full h-11 bg-[#007CC2] rounded-[8px] mt-7 text-[#FFFFFF] text-base'>
-                        متابعة
+                        {t('continue')}
                       </button>
                     </div>
                   </TabsContent>
                   <TabsContent value="total">
                       <div className='mt-[11px]'>
-                        <label htmlFor="code" className='text-[#000000] text-base'>كود الخصم</label>
+                        <label htmlFor="code" className='text-[#000000] text-base'>{t('coupon')}</label>
                       <div className='relative'>
                         <div className='relative'>
-                          <input type="text" className='xl:md:w-[324px] w-full w-full h-12 rounded-[8px] border border-[#000000] focus:outline-none mt-2 px-2' />
-                          <button className='w-[77px] h-[46px] bg-[#007EC1] rounded-[8px] text-[#FFFFFF] text-base font-medium absolute top-[9.4px] left-[1px]'>تطبيق</button>
+                          <input type="text" className='xl:md:w-[324px] w-full h-12 rounded-[8px] border border-[#000000] focus:outline-none mt-2 px-2' />
+                          <button className='w-[77px] h-[46px] bg-[#007EC1] rounded-[8px] text-[#FFFFFF] text-base font-medium absolute top-[9.4px] left-[1px]'>{t('apply')}</button>
                         </div>
                       </div>
                       </div>
 
                       <div className='mt-[28px]'>
-                        <h2 className='text-[#000000] text-base font-medium'>التكلفة الاجمالية</h2>
+                        <h2 className='text-[#000000] text-base font-medium'>{t('totalcost')}</h2>
                         
                         {data.items.map((item, index) => (
                           <div key={index} className='text-[#000000] text-base flex items-center justify-between mt-4'>
                             <h3>
-                              {item.itemable.name?.ar.length > 30
-                                  ? item.itemable.name.ar.slice(0, 35) + '...'
-                                  : item.itemable.name?.ar}
+                              {item.itemable.name?.ar.length > 10
+                                  ? item.itemable.name?.[locale].slice(0, 20) + '...'
+                                  : item.itemable.name?.[locale]}
                               </h3>
 
-                            <p>{item.itemable.price} درهم</p>
+                            <p>{item.itemable.price}</p>
                           </div>
                         ))}
 
                       <div className='text-[#000000] text-base flex items-center justify-between mt-4'>
-                          <h3>التوصيل</h3>
-                          <p>{data.delivery_fees} درهم</p>
+                          <h3>{t('delivery')}</h3>
+                          <p>{data.delivery_fees}</p>
                         </div>
 
                         <div className='text-[#000000] text-base flex items-center justify-between mt-4'>
-                          <h3>كود الخصم</h3>
+                          <h3>{t('coupon')}</h3>
                           <p>{data.discount} درهم</p>
                         </div>
 
@@ -241,15 +244,14 @@ const totalItemsPrice = data.items.reduce((sum, item) => {
 
                       <hr className='mt-7'/>
                       <div className='text-base font-bold flex items-center justify-between mt-4'>
-  <h3 className='text-[#000000]'>إجمالي</h3>
-  <p className='text-[#15B600]'>
-    {(totalItemsPrice + parseFloat(data.delivery_fees || 0) - parseFloat(data.discount || 0)).toFixed(2)} درهم
-  </p>
-</div>
-
+                        <h3 className='text-[#000000]'>{t('total')}</h3>
+                        <p className='text-[#15B600]'>
+                          {(totalItemsPrice + parseFloat(data.delivery_fees || 0) - parseFloat(data.discount || 0)).toFixed(2)}
+                        </p>
+                      </div>
 
                       <div className='flex items-center justify-center'>
-                        <button className='xl:w-[280px] w-full h-11 bg-[#007CC2] rounded-[8px] mt-4 text-[#FFFFFF] text-base'>دفع الآن</button>
+                        <button className='xl:w-[280px] w-full h-11 bg-[#007CC2] rounded-[8px] mt-4 text-[#FFFFFF] text-base'>{t('payNow')}</button>
                       </div>
                   </TabsContent>
                 </Tabs>

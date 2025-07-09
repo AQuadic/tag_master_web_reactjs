@@ -1,0 +1,24 @@
+{
+    "step1": "Add order to cart",
+    "step2": "Add order delivery address",
+    "step3": "Complete payment details",
+
+    "updateQuantity": "Quantity updated successfully",
+    "remove": "Remove",
+    "address": "Address",
+    "totalorder": "Total order",
+    "coupon": "Coupon",
+    "apply": "Apply",
+    "totalcost": "Total cost",
+    "delivery": "Delivery",
+    "total": "Total",
+    "payNow": "Pay now",
+    "country": "Country",
+    "uae": "United Arab Emirates",
+    "city": "City",
+    "ajman": "Ajman",
+    "addressDetails": "Sheikh Khalifa bin Zayed Street, Al Nuaimiya area",
+    "zipcode": "Zip code",
+    "continue": "Continue",
+    "anotherProducts": "Other similar products"
+}
