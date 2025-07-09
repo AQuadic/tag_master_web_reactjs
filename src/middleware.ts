@@ -22,19 +22,9 @@ function isPublicRoute(pathname: string): boolean {
   );
 }
 
-function getTokenFromCookies(request: NextRequest): string | null {
-  // Get token from cookies (adjust cookie name as needed)
-  const token =
-    request.cookies.get("tag-master-token")?.value ||
-    request.cookies.get("token")?.value ||
-    request.cookies.get("authToken")?.value;
-
-  return token || null;
-}
-
 export default async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
-  const token = getTokenFromCookies(request);
+  const token = request.cookies.get("tag-master-token")?.value;
 
   // Check if the route is protected
   if (isProtectedRoute(pathname)) {
