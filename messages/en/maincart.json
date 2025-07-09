@@ -22,5 +22,6 @@
     "continue": "Continue",
     "anotherProducts": "Other similar products",
     "recentlyAdded": "Recently added",
-    "quickAdd": "+ Quick add"
+    "quickAdd": "+ Quick add",
+    "quantityIncreased": "Quantity increased successfully"
 }

@@ -25,7 +25,7 @@ const HomeBestSelling = ({ data }: HomeBestSellingProps) => {
   const locale = useLocale ();
   const handleAddToCart = async (productId: number) => {
     try {
-      await addToCart("product", productId);
+      await addToCart("product", productId, 1);
       toast.success(t("addedToCartSuccessfully"))
     } catch (error: any) {
           const apiMessage =
