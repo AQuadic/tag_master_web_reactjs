@@ -6,7 +6,7 @@ import { removeFromFavorite } from "@/api/favorite/removFromFav"
 import { addToCart } from "@/api/cart/addToCart"
 import { toast } from "sonner"
 import Image from "next/image"
-import React from "react"
+import React, { useEffect, useState } from "react"
 import FavoriteIcon from "../icons/products/FavoriteIcon"
 import NotFavoriteIcon from "../icons/products/NotFavoriteIcon"
 import { getCart } from "@/api/cart/getCart"
@@ -23,23 +23,35 @@ const OtherProducts = () => {
 
   const firstCategoryId = cartData?.items?.[0]?.itemable?.category_id;
 
-  const { data: similarProducts, isLoading } = useQuery({
+  const { data, isLoading } = useQuery({
     queryKey: ["similar-products", firstCategoryId],
     queryFn: () => getProductsByCategory(firstCategoryId),
     enabled: !!firstCategoryId,
   });
 
+  const [similarProducts, setSimilarProducts] = useState<any[]>([]);
+  useEffect(() => {
+    if (data) {
+      setSimilarProducts(data);
+    }
+  }, [data]);
+
   const handleToggleFavorite = async (product: any, index: number) => {
     try {
       if (product.is_favorite) {
         await removeFromFavorite({ favorable_id: product.id, favorable_type: "product" });
-        product.is_favorite = false;
         toast.success("تم إزالة المنتج من المفضلة");
       } else {
         await addToFavorite({ favorable_id: product.id, favorable_type: "product" });
-        product.is_favorite = true;
         toast.success("تم إضافة المنتج إلى المفضلة");
       }
+
+      const updatedProducts = [...similarProducts];
+      updatedProducts[index] = {
+        ...product,
+        is_favorite: !product.is_favorite,
+      };
+      setSimilarProducts(updatedProducts);
     } catch (error) {
       toast.error("حدث خطأ أثناء تعديل المفضلة");
     }
@@ -59,7 +71,7 @@ const OtherProducts = () => {
   return (
     <section className="mt-10">
       <h2 className="text-[#000000] text-[21px] font-medium">{t("anotherProducts")}</h2>
-      <div className="mt-[22px] grid xl:grid-cols-4 md:grid-cols-2 grid-cols-1">
+      <div className="mt-[22px] grid xl:grid-cols-4 md:grid-cols-2 grid-cols-1 gap-4">
         {similarProducts.map((item, index) => (
           <div key={item.id} className="relative w-[281px] h-[348px] rounded-md bg-[#F6F7FB] mt-4 p-2">
             <Image
