@@ -1,9 +1,11 @@
+'use client'
 import { ProductTypes } from "@/types/product";
 import React from "react";
 import SingleProductBreadCrumb from "./SingleProductBreadCrumb";
 import SingleProductDetails from "./SingleProductDetails";
 import SingleProductGallery from "./SingleProductGallery";
 import OtherProducts from "../cart/OtherProducts";
+import SingleProductTutorials from "./SingleProductTutorials";
 
 interface MainSingleProductProps {
   product: ProductTypes;
@@ -19,6 +21,7 @@ const MainSingleProduct = ({ product }: MainSingleProductProps) => {
         <SingleProductDetails product={product} />
       </div>
       <div className="container">
+        <SingleProductTutorials />
         <OtherProducts />
       </div>
     </main>
