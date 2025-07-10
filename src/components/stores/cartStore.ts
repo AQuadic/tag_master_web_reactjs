@@ -11,19 +11,27 @@ interface CartItem {
 }
 
 interface Cart {
-  cart_items: CartItem[];
-  total_price?: number;
-  final_total?: number;
-  discount_amount?: number;
-  tax_value?: number;
+  items: CartItem[];
+  calculations: {
+    total: number;
+    subtotal: number;
+    tax: number;
+    discount: number;
+    delivery_fees: number;
+  };
+  session: {
+    session_id: number;
+    new_session: boolean;
+  };
 }
+
 
 interface CartState {
   cart: Cart | null;
   coupon: string;
   setCoupon: (coupon: string) => void;
   getCart: () => Promise<void>;
-  addToCart: (itemId: number) => Promise<void>;
+  addToCart: (itemable_type: string, itemable_id: number, quantity: number) => Promise<void>;
   getItemsCount: () => number;
 }
 
@@ -43,9 +51,9 @@ export const useCartStore = create<CartState>((set, get) => ({
     }
   },
 
-  addToCart: async (itemId: number) => {
+  addToCart: async (itemable_type: string, itemable_id: number, quantity: number) => {
     try {
-      const response = await addToCart(itemId);
+      const response = await addToCart(itemable_type, itemable_id, quantity);
       console.log("Added to cart:", response);
       await get().getCart()
     } catch (error) {
@@ -54,9 +62,9 @@ export const useCartStore = create<CartState>((set, get) => ({
     }
   },
 
-   getItemsCount: () => {
+getItemsCount: () => {
   const { cart } = get();
-  return cart?.cart_items?.reduce((sum, item) => sum + item.quantity, 0) || 0;
+  return cart?.items?.reduce((sum, item) => sum + item.quantity, 0) || 0;
 },
 
 }));

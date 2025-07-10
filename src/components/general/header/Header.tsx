@@ -20,11 +20,11 @@ const Header = () => {
   const pathname = usePathname();
   const user = useAuthStore((state) => state.user);
   const isSignedIn = !!user;
-  const cart = useCartStore((state) => state.cart);
+  const fetchCart = useCartStore((state) => state.getCart);
   const locale = useLocale();
 
   const itemsCount =
-    cart?.cart_items?.reduce((sum, item) => sum + item.quantity, 0) || 0;
+    useCartStore((state) => state.getItemsCount());
 
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
@@ -62,6 +62,11 @@ const Header = () => {
   useEffect(() => {
     setHydrated(true);
   }, []);
+
+ useEffect(() => {
+  fetchCart();
+}, []);
+
 
   return (
     <>
