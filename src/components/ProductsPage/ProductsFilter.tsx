@@ -1,4 +1,4 @@
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, motion, Variants } from "framer-motion";
 import { useLocale } from "next-intl";
 import React from "react";
 
@@ -37,31 +37,29 @@ const filters = [
 
 interface ProductsFilterProps {
   selectedFilter: string;
-  setSelectedFilter: React.Dispatch<React.SetStateAction<string>>;
+  onFilterChange: (filter: string) => void;
 }
 
 const ProductsFilter = ({
   selectedFilter,
-  setSelectedFilter,
+  onFilterChange,
 }: ProductsFilterProps) => {
-  
   const locale = useLocale();
-  
-  const containerVariants = {
+
+  const containerVariants: Variants = {
     initial: { opacity: 0, y: -20 },
     animate: {
       opacity: 1,
       y: 0,
       transition: {
         duration: 0.6,
-        ease: [0.4, 0, 0.2, 1],
         staggerChildren: 0.08,
         delayChildren: 0.1,
       },
     },
   };
 
-  const filterItemVariants = {
+  const filterItemVariants: Variants = {
     initial: {
       opacity: 0,
       y: 20,
@@ -73,7 +71,6 @@ const ProductsFilter = ({
       scale: 1,
       transition: {
         duration: 0.5,
-        ease: [0.4, 0, 0.2, 1],
       },
     },
     hover: {
@@ -90,21 +87,15 @@ const ProductsFilter = ({
     },
   };
 
-  const activeBackgroundVariants = {
+  const activeBackgroundVariants: Variants = {
     initial: { scale: 0, opacity: 0 },
     animate: {
       scale: 1,
       opacity: 1,
-      transition: {
-        type: "spring",
-        stiffness: 300,
-        damping: 20,
-      },
     },
     exit: {
       scale: 0.8,
       opacity: 0,
-      transition: { duration: 0.2 },
     },
   };
 
@@ -140,7 +131,7 @@ const ProductsFilter = ({
           custom={index}
         >
           <motion.button
-            onClick={() => setSelectedFilter(filter.key)}
+            onClick={() => onFilterChange(filter.key)}
             className="relative py-3 px-4 md:px-6 cursor-pointer font-medium text-xs md:text-sm rounded-full transition-colors duration-200 overflow-hidden border-2 border-transparent hover:border-slate-200"
             style={{
               boxShadow:
@@ -180,7 +171,7 @@ const ProductsFilter = ({
               animate={selectedFilter === filter.key ? "active" : "inactive"}
               whileHover={selectedFilter === filter.key ? "active" : "hover"}
             >
-              {locale === 'ar' ? filter.titleAr : filter.titleEn}
+              {locale === "ar" ? filter.titleAr : filter.titleEn}
             </motion.span>
 
             {/* Selection indicator */}
