@@ -84,7 +84,6 @@ const ProductCard = ({ product, onFavoriteToggle }: ProductCardProps) => {
       scale: 1,
       transition: {
         duration: 0.6,
-        ease: [0.4, 0, 0.2, 1],
         staggerChildren: 0.1,
       },
     },
@@ -93,7 +92,7 @@ const ProductCard = ({ product, onFavoriteToggle }: ProductCardProps) => {
       scale: 1.02,
       transition: {
         duration: 0.3,
-        ease: [0.4, 0, 0.2, 1],
+        duration: 0.3,
       },
     },
   };
@@ -103,11 +102,11 @@ const ProductCard = ({ product, onFavoriteToggle }: ProductCardProps) => {
     animate: {
       scale: 1,
       opacity: 1,
-      transition: { duration: 0.5, ease: "easeOut" },
+      transition: { duration: 0.5 },
     },
     hover: {
       scale: 1.08,
-      transition: { duration: 0.4, ease: "easeOut" },
+      transition: { duration: 0.4 },
     },
   };
 

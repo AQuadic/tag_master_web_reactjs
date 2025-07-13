@@ -1,11 +1,11 @@
 "use client";
 import { motion } from "framer-motion";
+import { useTranslations } from "next-intl";
 import React from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick-theme.css";
 import "slick-carousel/slick/slick.css";
 import UserPickCard from "./UserPickCard";
-import { useTranslations } from "next-intl";
 
 interface CustomDotsProps {
   dots: React.ReactNode[];
@@ -22,7 +22,7 @@ const HomeUserPicks: React.FC = () => {
     show: {
       opacity: 1,
       y: 0,
-      transition: { duration: 0.6, ease: "easeOut" },
+      transition: { duration: 0.6 },
     },
   };
 
@@ -90,7 +90,7 @@ const HomeUserPicks: React.FC = () => {
         viewport={{ once: true }}
         className="text-lg text-primary text-center"
       >
-        {t('userRecommendations')}
+        {t("userRecommendations")}
       </motion.h2>
       <motion.h3
         variants={itemVariants}
@@ -99,7 +99,7 @@ const HomeUserPicks: React.FC = () => {
         viewport={{ once: true }}
         className="text-2xl font-bold text-center mt-2 mb-8"
       >
-        {t('whatTheySay')}
+        {t("whatTheySay")}
       </motion.h3>
 
       <div className="overflow-y-visible mt-[86px]">
