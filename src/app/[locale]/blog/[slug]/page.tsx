@@ -1,18 +1,13 @@
-import BlogDetails from '@/components/blog/BlogDetails'
-import React from 'react'
+import BlogDetails from "@/components/blog/BlogDetails";
+import React from "react";
 
-type Props = {
-  params: {
-    slug: string;
-  };
-};
-
-const Page = ({ params }: Props) => {
+const page = async ({ params }: { params: Promise<{ slug: string }> }) => {
+  const resolvedParams = await params;
   return (
     <div>
-      <BlogDetails params={params} />
+      <BlogDetails params={resolvedParams} />
     </div>
-  )
-}
+  );
+};
 
-export default Page
+export default page;
