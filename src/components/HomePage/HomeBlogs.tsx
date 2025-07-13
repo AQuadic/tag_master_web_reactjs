@@ -39,7 +39,7 @@ const HomeBlogs = () => {
 
             <div className='mt-[46px] flex 2xl:flex-row flex-col  justify-between'>
                 <Image 
-                    src='/images/home/blog.png' 
+                    src='/images/home/blogs/blog.png' 
                     alt='blog banner'
                     width={729}
                     height={501}
