@@ -103,9 +103,9 @@ export const useCartStore = create<CartState>((set, get) => {
     ) => {
       try {
         await addToCart(itemable_type, itemable_id, quantity);
-        toast.success("Added to cart successfully")
 
         const currentCart = get().cart;
+        let isUpdate = false;
         if (currentCart) {
           const existingItemIndex = currentCart.items.findIndex(
             (item) => item.itemable_id === itemable_id
@@ -113,9 +113,10 @@ export const useCartStore = create<CartState>((set, get) => {
 
           let updatedItems;
           if (existingItemIndex >= 0) {
+            isUpdate = true;
             updatedItems = currentCart.items.map((item, index) =>
               index === existingItemIndex
-                ? { ...item, quantity: item.quantity + quantity }
+                ? { ...item, quantity: quantity }
                 : item
             );
           } else {
@@ -135,11 +136,10 @@ export const useCartStore = create<CartState>((set, get) => {
             items: updatedItems,
           };
 
-          // Update cart and counter immediately
           setCartAndUpdateCount(updatedCart);
         }
 
-        // Sync with server in the background
+        toast.success(isUpdate ? "Quantity updated successfully" : "Added to cart successfully");
         await get().getCart();
       } catch (error) {
         console.error("Failed to add product to cart", error);

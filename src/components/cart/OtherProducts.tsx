@@ -61,7 +61,7 @@ const OtherProducts = () => {
   const handleAddToCart = async (productId: number) => {
     try {
       await addToCart("product", productId, 1);
-      toast.success(t('addedToCartSuccessfully'));
+      // toast.success(t('addedToCartSuccessfully'));
     } catch (error: any) {
           const apiMessage =
             error?.response?.data?.message ||
