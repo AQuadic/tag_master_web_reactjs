@@ -2,12 +2,14 @@
 import { axios } from "@/lib/axios";
 
 export interface LoginResponse {
-    token: string;
-    user: {
-        id: number;
-        name: string;
-        email: string;
-    };
+  token: string;
+  user: {
+    id: number;
+    name: string;
+    email: string;
+    phone: string;
+    job: string;
+  };
 }
 
 export const postSignIn = async ({
