@@ -88,6 +88,9 @@ const MainProducts = ({
       <h1 className="font-bold text-2xl text-center mt-8 sm:mt-16">
         {t("products")}
       </h1>
+      <h1 className="font-bold text-2xl text-center mt-8 sm:mt-16">
+        {t("products")}
+      </h1>
       <ProductsSearchbar
         searchQuery={searchQuery}
         onSearchChange={handleSearchChange}
