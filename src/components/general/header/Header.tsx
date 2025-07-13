@@ -20,11 +20,13 @@ const Header = () => {
   const pathname = usePathname();
   const user = useAuthStore((state) => state.user);
   const isSignedIn = !!user;
-  const fetchCart = useCartStore((state) => state.getCart);
   const locale = useLocale();
 
-  const itemsCount =
-    useCartStore((state) => state.getItemsCount());
+const cart = useCartStore((state) => state.cart);
+const itemsCount = cart?.items?.reduce((sum, item) => sum + item.quantity, 0) || 0;
+
+const fetchInitialCart = useCartStore((state) => state.fetchInitialCart);
+
 
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
@@ -64,7 +66,7 @@ const Header = () => {
   }, []);
 
  useEffect(() => {
-  fetchCart();
+  fetchInitialCart();
 }, []);
 
 

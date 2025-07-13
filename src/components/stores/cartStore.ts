@@ -33,6 +33,7 @@ interface CartState {
   getCart: () => Promise<void>;
   addToCart: (itemable_type: string, itemable_id: number, quantity: number) => Promise<void>;
   getItemsCount: () => number;
+  fetchInitialCart: () => Promise<void>;
 }
 
 export const useCartStore = create<CartState>((set, get) => ({
@@ -66,5 +67,14 @@ getItemsCount: () => {
   const { cart } = get();
   return cart?.items?.reduce((sum, item) => sum + item.quantity, 0) || 0;
 },
+
+
+  fetchInitialCart: async () => {
+    try {
+      await get().getCart();
+    } catch (error) {
+      console.error("Failed to fetch initial cart", error);
+    }
+  },
 
 }));
