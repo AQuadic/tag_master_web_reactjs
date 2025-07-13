@@ -4,19 +4,27 @@ import { useAuthStore } from "../stores/userStore";
 import { updateUser } from "@/api/auth/updateUser";
 import { toast } from "sonner";
 import { useTranslations } from "next-intl";
+import MobileInput from "../general/MobileInput";
+import { ICountryData } from "countries-list";
 
 const ProfileDetails = () => {
   const t = useTranslations("profile");
   const user = useAuthStore((state) => state.user);
   const setUser = useAuthStore((state) => state.setUser);
+  const [selectedCountry, setSelectedCountry] = useState<ICountryData | null>(null);
   const [formData, setFormData] = useState({
     name: user?.name,
     email: user?.email,
     phone: user?.phone,
-    job: "",
+    job: user?.job,
   });
 
   console.log(user)
+
+  const defaultCountry: ICountryData = { name: "Egypt", iso2: "EG", phone: ["20"] };
+  if (!selectedCountry) {
+    setSelectedCountry(defaultCountry);
+  }
 
     useEffect(() => {
     if (user) {
@@ -34,7 +42,7 @@ const handleUpdate = async () => {
     const updatedUser = await updateUser({
       name: formData.name,
       phone: formData.phone,
-      phone_country: "EG",
+      phone_country: selectedCountry?.iso2 || "EG",
     });
 
     setUser(updatedUser.user);
@@ -65,7 +73,7 @@ const handleUpdate = async () => {
               name="name"
               id="name"
               placeholder="وليد السيد"
-              className="w-full h-16 border border-[#9C9C9C] rounded-[12px] px-4"
+              className="w-full h-16 border border-[#9C9C9C] rounded-[12px] px-4 focus:outline-none"
               value={formData.name}
               onChange={(e) => setFormData({ ...formData, name: e.target.value })}
             />
@@ -78,19 +86,19 @@ const handleUpdate = async () => {
           >
             {t('phone')}
           </label>
-          <input
-            type="text"
-            name="tel"
-            id="tel"
-            placeholder="123 4434 543"
-            className="lg:w-[358px] w-full h-16 border border-[#9C9C9C] rounded-[12px] px-4"
-            value={formData.phone}
-            onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+          <MobileInput
+            selectedCountry={selectedCountry!}
+            setSelectedCountry={setSelectedCountry}
+            phone={formData.phone}
+            setPhone={(newPhone: string) =>
+              setFormData({ ...formData, phone: newPhone }) // Update phone in formData
+            }
+            inputClassName="!h-16"
           />
         </div>
         <div className="flex flex-col relative ">
           <label
-            htmlFor="name"
+            htmlFor="email"
             className="text-[#4A4A4A] text-base absolute -top-2 right-10 bg-white px-1 z-10"
           >
             {t('email')}
@@ -100,7 +108,7 @@ const handleUpdate = async () => {
             name="email"
             id="email"
             placeholder="Walid Elsayed22@Gmail.com"
-            className="lg:w-[358px] w-full h-16 border border-[#9C9C9C] rounded-[12px] px-4"
+            className="lg:w-[358px] w-full h-16 border border-[#9C9C9C] rounded-[12px] px-4 focus:outline-none"
             value={formData.email}
             readOnly
           />
@@ -110,7 +118,7 @@ const handleUpdate = async () => {
         </div>
         <div className="flex flex-col relative ">
           <label
-            htmlFor="name"
+            htmlFor="job"
             className="text-[#4A4A4A] text-base absolute -top-2 right-10 bg-white px-1 z-10"
           >
             {t('job')}
@@ -120,7 +128,7 @@ const handleUpdate = async () => {
             name="job"
             id="job"
             placeholder="UI UX Designer"
-            className="lg:w-[358px] w-full h-16 border border-[#9C9C9C] rounded-[12px] px-4"
+            className="lg:w-[358px] w-full h-16 border border-[#9C9C9C] rounded-[12px] px-4 focus:outline-none"
             value={formData.job}
             onChange={(e) => setFormData({ ...formData, job: e.target.value })}
           />

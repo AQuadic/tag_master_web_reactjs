@@ -16,5 +16,6 @@
     "product": "المنتج",
     "date": "التاريخ",
     "value": "القيمة",
-    "address": "العنوان"
+    "address": "العنوان",
+    "searchCountryOrPhoneCode": "البحث عن الدولة أو رمز الهاتف"
 }
