@@ -1,12 +1,12 @@
-'use client'
-import React from "react";
-import Link from "next/link";
-import Image from "next/image";
-import Arrow from "../icons/home/Arrow";
-import { useLocale, useTranslations } from "next-intl";
-import EmptyState from "../general/EmptyState";
+"use client";
 import { addToCart } from "@/api/cart/addToCart";
+import { useLocale, useTranslations } from "next-intl";
+import Image from "next/image";
+import Link from "next/link";
+import React from "react";
 import { toast } from "sonner";
+import EmptyState from "../general/EmptyState";
+import Arrow from "../icons/home/Arrow";
 
 interface Product {
   id: number;
@@ -22,19 +22,19 @@ interface HomeBestSellingProps {
 
 const HomeBestSelling = ({ data }: HomeBestSellingProps) => {
   const t = useTranslations("bestProducts");
-  const locale = useLocale ();
+  const locale = useLocale();
   const handleAddToCart = async (productId: number) => {
     try {
       await addToCart("product", productId, 1);
-      toast.success(t("addedToCartSuccessfully"))
+      toast.success(t("addedToCartSuccessfully"));
     } catch (error: any) {
-          const apiMessage =
-            error?.response?.data?.message ||
-            error?.message ||
-            "حدث خطأ أثناء إضافة المنتج إلى السلة";
-    
-          toast.error(apiMessage);
-        }
+      const apiMessage =
+        error?.response?.data?.message ||
+        error?.message ||
+        "حدث خطأ أثناء إضافة المنتج إلى السلة";
+
+      toast.error(apiMessage);
+    }
   };
 
   if (!data || data.length === 0) {
@@ -50,9 +50,7 @@ const HomeBestSelling = ({ data }: HomeBestSellingProps) => {
       <div className="container">
         <div className="flex justify-between items-center">
           <div className="text-center mx-auto">
-            <h2 className="text-[#007CC2] text-[14px]">
-              {t("bestProducts")}
-            </h2>
+            <h2 className="text-[#007CC2] text-[14px]">{t("bestProducts")}</h2>
             <h2 className="text-[#000000] text-[25px] font-bold">
               {t("specialCollection")}
             </h2>
@@ -111,7 +109,7 @@ const HomeBestSelling = ({ data }: HomeBestSellingProps) => {
                       onClick={() => handleAddToCart(item.id)}
                       className="w-[160px] h-11 bg-[#2F3437] text-white text-base rounded-[39px]"
                     >
-                      {t('quickAdd')}
+                      {t("quickAdd")}
                     </button>
                   </div>
                 </div>
