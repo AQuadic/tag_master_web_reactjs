@@ -27,7 +27,7 @@ const MainHome = ({ data }: MainHomeProps) => {
       <HomeAboutUs />
       <HomeServices />
       <HowItWorks />
-      <HomeBestSelling data={data.data} />
+      <HomeBestSelling />
       <HomeUserPicks />
       <DownloadApp />
       <HomeBlogs />

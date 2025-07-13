@@ -3,7 +3,12 @@ import React from "react";
 import ProfileTabs from "./ProfileTabs";
 import { useAuthStore } from "../stores/userStore";
 
-const ProfileSidebar = ({ activeTab, setActiveTab }) => {
+interface ProfileSidebarProps {
+  activeTab: string;
+  setActiveTab: (tab: string) => void;
+}
+
+const ProfileSidebar: React.FC<ProfileSidebarProps> = ({ activeTab, setActiveTab }) => {
     const user = useAuthStore((state) => state.user);
   
   return (

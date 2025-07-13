@@ -5,7 +5,7 @@ import ReviewStarIcon from "../icons/general/ReviewStarIcon";
 import { Button } from "../ui/button";
 import SingleProductColorPicker from "./SingleProductColorPicker";
 import { useLocale, useTranslations } from "next-intl";
-import { addToCart } from "@/api/cart/addToCart";
+import { useCartStore } from "../stores/cartStore";
 import { useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 
@@ -20,11 +20,12 @@ const SingleProductDetails = ({ product }: SingleProductDetailsProps) => {
   const price = parseInt(product.price);
   const discount = parseInt(product.discount) || 10;
   const queryClient = useQueryClient();
+  const addToCart = useCartStore((state) => state.addToCart);
 
   const handleAddToCart = async () => {
     try {
-      await addToCart("product", product.id, 1, selectedColor);
-      await queryClient.invalidateQueries(["cart"]);
+      await addToCart("product", product.id, 1);
+      await queryClient.invalidateQueries({ queryKey: ["cart"] });
       toast.success(t('addedToCartSuccessfully'));
     } catch (error: any) {
       const apiMessage =
@@ -39,7 +40,7 @@ const SingleProductDetails = ({ product }: SingleProductDetailsProps) => {
     <section className="w-full flex flex-col ">
       <div className="flex flex-wrap justify-between">
         <h2 className="font-bold text-lg sm:text-2xl max-w-[400px]">
-          {product.name[locale]}
+            {product.name[locale as "ar" | "en"]}
         </h2>
         <div className="flex flex-col ">
           <span className="text-main-green text-lg sm:text-2xl font-bold">
@@ -66,7 +67,7 @@ const SingleProductDetails = ({ product }: SingleProductDetailsProps) => {
         <ReviewStarIcon />
         (5)
       </div>
-      <p className="mb-5 sm:mb-8 text-lg">{product.description[locale]}</p>
+      <p className="mb-5 sm:mb-8 text-lg">{product.description[locale as "ar" | "en"]}</p>
       <p className="text-lg mb-2 sm:mb-4">{t('favColor')}</p>
       <SingleProductColorPicker
         options={product.options}

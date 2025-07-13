@@ -6,6 +6,7 @@ import { useAuthStore } from "@/components/stores/userStore";
 import { navbarLinks } from "@/constants/navbarLinks";
 import { AnimatePresence, motion } from "framer-motion";
 import { Menu, X } from "lucide-react";
+import { useLocale } from "next-intl";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -13,18 +14,15 @@ import React, { useEffect, useState } from "react";
 import ChangeLanguage from "./ChangeLanguage";
 import Searchbar from "./Searchbar";
 import SignInButton from "./SignInButton";
-import { useLocale } from "next-intl";
 
 const Header = () => {
   const [hydrated, setHydrated] = useState(false);
   const pathname = usePathname();
   const user = useAuthStore((state) => state.user);
   const isSignedIn = !!user;
-  const fetchCart = useCartStore((state) => state.getCart);
   const locale = useLocale();
 
-  const itemsCount =
-    useCartStore((state) => state.getItemsCount());
+  const itemsCount = useCartStore((state) => state.itemsCount);
 
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
@@ -63,10 +61,9 @@ const Header = () => {
     setHydrated(true);
   }, []);
 
- useEffect(() => {
-  fetchCart();
-}, []);
-
+  useEffect(() => {
+    useCartStore.getState().initializeCart();
+  }, []);
 
   return (
     <>
@@ -131,7 +128,7 @@ const Header = () => {
                         : "text-gray-700 hover:text-primary hover:bg-gray-50"
                     }`}
                   >
-                    {locale === 'ar' ? link.titleAr : link.titleEn}
+                    {locale === "ar" ? link.titleAr : link.titleEn}
                     <motion.div
                       className="absolute bottom-1 left-4 right-4 h-0.5 bg-gradient-to-r from-primary to-blue-600 rounded-full"
                       animate={{ scaleX: isActive ? 1 : 0 }}
@@ -160,37 +157,16 @@ const Header = () => {
                   href="/cart"
                   className=" rounded-xl hover:bg-gray-100 transition-all duration-200 relative group"
                 >
-                    <div className="relative flex items-center justify-center w-10 h-10 rounded-lg bg-primary/10 group-hover:bg-primary/20 transition-colors flex-shrink-0">
-                          {isSignedIn && (
-                              <motion.div
-                                whileHover={{ scale: 1.05 }}
-                                whileTap={{ scale: 0.95 }}
-                              >
-                                <Link
-                                  href="/cart"
-                                  className=" rounded-xl hover:bg-gray-100 transition-all duration-200 relative group"
-                                >
-                                  <CartIcon />
+                <div className="relative flex items-center justify-center w-10 h-10 rounded-lg bg-primary/10 group-hover:bg-primary/20 transition-colors flex-shrink-0">
+                  <CartIcon />
 
-                                  {itemsCount > 0 && (
-                                    <div className="absolute w-5 h-5 rounded-full bg-[#FF3B30] text-[#FFFFFF] flex items-center justify-center -top-2 -left-1 text-xs">
-                                      <p>{itemsCount > 9 ? "9+" : itemsCount}</p>
-                                    </div>
-                                  )}
-                                </Link>
-                              </motion.div>
-                            )}
-                          <div className="absolute w-5 h-5 rounded-full bg-[#FF3B30] text-[#FFFFFF] flex items-center justify-center -top-2 -left-1">
-                            <p>{itemsCount}</p>
-                          </div>
-                        </div>
-
-                        {itemsCount > 0 && (
-                          <div className="absolute w-5 h-5 rounded-full bg-[#FF3B30] text-[#FFFFFF] flex items-center justify-center -top-2 -left-1 text-xs">
-                            <p>{itemsCount > 9 ? "9+" : itemsCount}</p>
-                          </div>
-                        )}
-                </Link>
+                  {itemsCount > 0 && (
+                    <div className="absolute w-5 h-5 rounded-full bg-[#FF3B30] text-[#FFFFFF] flex items-center justify-center -top-2 -left-1 text-xs">
+                      <p>{itemsCount > 9 ? "9+" : itemsCount}</p>
+                    </div>
+                  )}
+                </div>
+              </Link>
               </motion.div>
             )}
             <div className="flex items-center gap-4">
@@ -374,38 +350,23 @@ const Header = () => {
                       whileHover={{ scale: 1.02 }}
                       whileTap={{ scale: 0.98 }}
                     >
-                      <Link
-                        href="/cart"
+                    <Link
+                      href="/cart"
                         className="flex items-center gap-4 py-4 px-4 rounded-xl hover:bg-gray-50 transition-all duration-200 group w-full"
                       >
-                        <div className="relative flex items-center justify-center w-10 h-10 rounded-lg bg-primary/10 group-hover:bg-primary/20 transition-colors flex-shrink-0">
-                          {isSignedIn && (
-                              <motion.div
-                                whileHover={{ scale: 1.05 }}
-                                whileTap={{ scale: 0.95 }}
-                              >
-                                <Link
-                                  href="/cart"
-                                  className=" rounded-xl hover:bg-gray-100 transition-all duration-200 relative group"
-                                >
-                                  <CartIcon />
+                      <div className="relative flex items-center justify-center w-10 h-10 rounded-lg bg-primary/10 group-hover:bg-primary/20 transition-colors flex-shrink-0">
+                        <CartIcon />
 
-                                  {itemsCount > 0 && (
-                                  <div className="absolute w-5 h-5 rounded-full bg-[#FF3B30] text-[#FFFFFF] flex items-center justify-center -top-2 -left-1 text-xs">
-                                    <p>{itemsCount > 9 ? "9+" : itemsCount}</p> 
-                                  </div>
-                                )}
-                                </Link>
-                              </motion.div>
-                            )}
-                          <div className="absolute w-5 h-5 rounded-full bg-[#FF3B30] text-[#FFFFFF] flex items-center justify-center -top-2 -left-1">
-                            <p>{itemsCount}</p>
-                          </div>
-                        </div>
-                        <span className="text-gray-700 font-medium flex-1 text-right">
+                          {itemsCount > 0 && (
+                            <div className="absolute w-5 h-5 rounded-full bg-[#FF3B30] text-[#FFFFFF] flex items-center justify-center -top-2 -left-1 text-xs">
+                              <p>{itemsCount > 9 ? "9+" : itemsCount}</p>
+                            </div>
+                          )}
+                      </div>
+                          <span className="text-gray-700 font-medium text-right">
                           السلة
                         </span>
-                      </Link>
+                    </Link>
                     </motion.div>
                   )}
 

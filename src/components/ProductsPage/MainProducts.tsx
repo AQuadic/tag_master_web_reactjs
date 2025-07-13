@@ -1,40 +1,132 @@
 "use client";
-import { ProductsResponseTypes } from "@/types/product";
-import { useTranslations } from "next-intl";
-import React, { useState } from "react";
+import { ProductTypes } from "@/types/product";
+import React, { useEffect, useState } from "react";
 import EmptyState from "../general/EmptyState";
 import Pagination from "./Pagination";
 import ProductCard from "./ProductCard";
+// import { useCartStore } from "../stores/cartStore";
+import { useTranslations } from "next-intl";
+import { useRouter, useSearchParams } from "next/navigation";
 import ProductsFilter from "./ProductsFilter";
 import ProductsSearchbar from "./ProductsSearchbar";
 
 interface MainProductsProps {
-  data: ProductsResponseTypes;
+  data: ProductTypes[];
+  totalPages?: number;
+  initialSearch?: string;
+  initialPage?: number;
+  initialFilter?: string;
 }
 
-const MainProducts = ({ data }: MainProductsProps) => {
+const MainProducts = ({
+  data,
+  totalPages = 1,
+  initialSearch = "",
+  initialPage = 1,
+  initialFilter = "",
+}: MainProductsProps) => {
   const t = useTranslations("products");
-  const [searchQuery, setSearchQuery] = useState<string>("");
-  const [currentStep, setCurrentStep] = useState<number>(1);
-  console.log("data", data);
-  const [selectedFilter, setSelectedFilter] = useState<string>("");
+  const router = useRouter();
+  const searchParams = useSearchParams();
+
+  // Local state to manage products data for immediate UI updates
+  const [products, setProducts] = useState(data);
+
+  // Update local state when data prop changes (e.g., from pagination/filtering)
+  useEffect(() => {
+    setProducts(data);
+  }, [data]);
+
+  // Use URL params as source of truth, fallback to initial values
+  const searchQuery = searchParams.get("search") || initialSearch;
+  const currentStep = parseInt(
+    searchParams.get("page") || initialPage.toString()
+  );
+  const selectedFilter = searchParams.get("filter") || initialFilter;
+
+  // Function to update URL with new search params
+  const updateSearchParams = (newParams: Record<string, string>) => {
+    const params = new URLSearchParams(searchParams.toString());
+
+    Object.entries(newParams).forEach(([key, value]) => {
+      if (value) {
+        params.set(key, value);
+      } else {
+        params.delete(key);
+      }
+    });
+
+    // Reset page to 1 when search or filter changes
+    if (newParams.search !== undefined || newParams.filter !== undefined) {
+      params.delete("page");
+    }
+
+    const newUrl = params.toString() ? `?${params.toString()}` : "/products";
+
+    // Use replace for search to avoid cluttering browser history
+    if (newParams.search !== undefined) {
+      router.replace(newUrl);
+    } else {
+      router.push(newUrl);
+    }
+  };
+
+  const handleSearchChange = (newSearch: string) => {
+    // Only update if the search value actually changed
+    if (newSearch !== searchQuery) {
+      updateSearchParams({ search: newSearch });
+    }
+  };
+
+  const handleFilterChange = (newFilter: string) => {
+    // Only update if the filter value actually changed
+    if (newFilter !== selectedFilter) {
+      updateSearchParams({ filter: newFilter });
+    }
+  };
+
+  const handlePageChange = (newPage: number) => {
+    updateSearchParams({ page: newPage.toString() });
+  };
+
+  // Handle favorite toggle to update local state
+  const handleFavoriteToggle = (
+    productId: number,
+    newFavoriteStatus: boolean
+  ) => {
+    setProducts((prevProducts) =>
+      prevProducts.map((product) =>
+        product.id === productId
+          ? { ...product, is_favorite: newFavoriteStatus }
+          : product
+      )
+    );
+  };
+
+  // const { addToCart } = useCartStore();
+  // Removed unused handleAddToCart
   return (
     <main>
       <h1 className="font-bold text-2xl text-center mt-8 sm:mt-16">
         {t("products")}
       </h1>
+
       <ProductsSearchbar
         searchQuery={searchQuery}
-        setSearchQuery={setSearchQuery}
+        onSearchChange={handleSearchChange}
       />
       <ProductsFilter
         selectedFilter={selectedFilter}
-        setSelectedFilter={setSelectedFilter}
+        onFilterChange={handleFilterChange}
       />
-      {data.data.length > 0 ? (
+      {products.length > 0 ? (
         <div className="container grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 mt-8">
-          {data.data.map((product) => (
-            <ProductCard key={product.id} product={product} />
+          {products.map((product) => (
+            <ProductCard
+              key={product.id}
+              product={product}
+              onFavoriteToggle={handleFavoriteToggle}
+            />
           ))}
         </div>
       ) : (
@@ -43,8 +135,8 @@ const MainProducts = ({ data }: MainProductsProps) => {
 
       <Pagination
         currentStep={currentStep}
-        setCurrentStep={setCurrentStep}
-        totalSteps={3}
+        onPageChange={handlePageChange}
+        totalSteps={totalPages}
       />
     </main>
   );

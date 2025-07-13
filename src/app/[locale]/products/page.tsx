@@ -3,10 +3,44 @@ import { getProducts } from "@/api/products/getProducts";
 import MainProducts from "@/components/ProductsPage/MainProducts";
 import React from "react";
 
-const ProductsPage = async () => {
-  const data = await getProducts(1);
+interface ProductsPageProps {
+  searchParams: Promise<{
+    search?: string;
+    page?: string;
+    filter?: string;
+  }>;
+}
 
-  return <MainProducts data={data} />;
+const ProductsPage = async ({ searchParams }: ProductsPageProps) => {
+  const resolvedSearchParams = await searchParams;
+  const search = resolvedSearchParams.search || "";
+  const page = parseInt(resolvedSearchParams.page || "1");
+  const filter = resolvedSearchParams.filter || "";
+
+  try {
+    const response = await getProducts(page, search, filter);
+
+    return (
+      <MainProducts
+        data={response.data || []}
+        totalPages={response.last_page || 1}
+        initialSearch={search}
+        initialPage={page}
+        initialFilter={filter}
+      />
+    );
+  } catch (error) {
+    console.error("Error fetching products:", error);
+    return (
+      <MainProducts
+        data={[]}
+        totalPages={1}
+        initialSearch={search}
+        initialPage={page}
+        initialFilter={filter}
+      />
+    );
+  }
 };
 
 export default ProductsPage;

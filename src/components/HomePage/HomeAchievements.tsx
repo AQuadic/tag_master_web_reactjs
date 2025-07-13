@@ -17,7 +17,7 @@ const containerVariants = {
 
 const itemVariants = {
   hidden: { opacity: 0, y: 30 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } },
+  show: { opacity: 1, y: 0, transition: { duration: 0.6 } },
 };
 
 const HomeAchievementsSection = () => {
@@ -35,13 +35,13 @@ const HomeAchievementsSection = () => {
           variants={itemVariants}
           className="text-lg text-primary text-center"
         >
-          {t('bePart')}
+          {t("bePart")}
         </motion.h2>
         <motion.h3
           variants={itemVariants}
           className="text-2xl font-bold text-center mt-2 mb-8"
         >
-          {t('trust')}
+          {t("trust")}
         </motion.h3>
 
         <motion.div
@@ -58,14 +58,16 @@ const HomeAchievementsSection = () => {
                 width={68}
                 height={68}
                 src={item.image}
-                alt={item.title}
+                alt={item.title[locale as "ar" | "en"]}
                 className=" h-[68px] object-contain"
               />
               <p className="text-primary font-bold text-4xl">+{item.number}</p>
               <p className="text-center w-[92px] text-white bg-black rounded-full p-1">
-                {item.title[locale]}
+                {item.title[locale as "ar" | "en"]}
               </p>
-              <p className="w-[255px] text-center">{item.desc[locale]}</p>
+              <p className="w-[255px] text-center">
+                {item.desc[locale as "ar" | "en"]}
+              </p>
             </motion.div>
           ))}
         </motion.div>

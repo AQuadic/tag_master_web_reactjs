@@ -1,11 +1,11 @@
 "use client";
 import { motion } from "framer-motion";
+import { useTranslations } from "next-intl";
 import Image from "next/image";
 import React from "react";
 import Service1Icon from "../icons/home/Service1Icon";
 import Service2Icon from "../icons/home/Service2Icon";
 import Service3Icon from "../icons/home/Service3Icon";
-import { useTranslations } from "next-intl";
 
 const HomeServices = () => {
   const t = useTranslations("homeServices");
@@ -27,7 +27,6 @@ const HomeServices = () => {
       y: 0,
       transition: {
         duration: 0.6,
-        ease: "easeOut",
       },
     },
   };
@@ -40,7 +39,6 @@ const HomeServices = () => {
       scale: 1,
       transition: {
         duration: 0.7,
-        ease: "easeOut",
       },
     },
     hover: {
@@ -48,7 +46,6 @@ const HomeServices = () => {
       scale: 1.02,
       transition: {
         duration: 0.3,
-        ease: "easeInOut",
       },
     },
   };
@@ -62,7 +59,6 @@ const HomeServices = () => {
       transition: {
         duration: 0.8,
         delay: 0.3,
-        ease: "easeOut",
       },
     },
     hover: {
@@ -70,7 +66,6 @@ const HomeServices = () => {
       rotate: 2,
       transition: {
         duration: 0.3,
-        ease: "easeInOut",
       },
     },
   };
@@ -84,8 +79,6 @@ const HomeServices = () => {
       transition: {
         duration: 0.6,
         delay: 0.2,
-        ease: "easeOut",
-        type: "spring",
         stiffness: 200,
       },
     },
@@ -94,7 +87,6 @@ const HomeServices = () => {
       rotate: 5,
       transition: {
         duration: 0.2,
-        ease: "easeInOut",
       },
     },
   };
@@ -107,7 +99,6 @@ const HomeServices = () => {
       transition: {
         duration: 0.5,
         delay: 0.4,
-        ease: "easeOut",
       },
     },
   };
@@ -124,13 +115,13 @@ const HomeServices = () => {
           variants={itemVariants}
           className="text-lg text-primary text-center"
         >
-          {t('topServices')}
+          {t("topServices")}
         </motion.h2>
         <motion.h3
           variants={itemVariants}
           className="text-2xl sm:text-3xl lg:text-4xl font-bold text-center mt-2 mb-8 sm:mb-12"
         >
-          {t('knowMore')}
+          {t("knowMore")}
         </motion.h3>
 
         <div className="container mx-auto px-4">
@@ -147,10 +138,10 @@ const HomeServices = () => {
                 </motion.div>
                 <motion.div variants={textVariants}>
                   <h3 className="text-xl sm:text-2xl lg:text-3xl font-bold">
-                    {t('communicationManagement')}
+                    {t("communicationManagement")}
                   </h3>
                   <p className="text-secondary-text text-base sm:text-lg">
-                    {t('serviceDescription')}
+                    {t("serviceDescription")}
                   </p>
                 </motion.div>
               </div>
@@ -183,10 +174,10 @@ const HomeServices = () => {
                   </motion.div>
                   <motion.div variants={textVariants}>
                     <h3 className="text-lg sm:text-xl lg:text-2xl font-bold leading-tight">
-                      {t('scanning')}
+                      {t("scanning")}
                     </h3>
                     <p className="text-secondary-text text-sm sm:text-base lg:text-lg">
-                      {t('serviceDescription')}
+                      {t("serviceDescription")}
                     </p>
                   </motion.div>
                 </div>
@@ -217,10 +208,10 @@ const HomeServices = () => {
                   </motion.div>
                   <motion.div variants={textVariants}>
                     <h3 className="text-lg sm:text-xl lg:text-2xl font-bold">
-                      {t('modifiedProfiles')}
+                      {t("modifiedProfiles")}
                     </h3>
                     <p className="text-secondary-text text-sm sm:text-base lg:text-lg">
-                      {t('serviceDescription')}
+                      {t("serviceDescription")}
                     </p>
                   </motion.div>
                 </div>

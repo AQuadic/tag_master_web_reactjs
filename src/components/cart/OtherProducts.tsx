@@ -1,9 +1,9 @@
 "use client";
-import { useQuery } from "@tanstack/react-query"
+import { useQuery, useQueryClient } from "@tanstack/react-query"
 import { useTranslations, useLocale } from "next-intl"
 import { addToFavorite } from "@/api/favorite/addToFav"
 import { removeFromFavorite } from "@/api/favorite/removFromFav"
-import { addToCart } from "@/api/cart/addToCart"
+import { useCartStore } from "../stores/cartStore";
 import { toast } from "sonner"
 import Image from "next/image"
 import React, { useEffect, useState } from "react"
@@ -15,6 +15,8 @@ import { getProductsByCategory } from "@/api/products/getCategories"
 const OtherProducts = () => {
   const t = useTranslations("maincart");
   const locale = useLocale();
+  const addToCart = useCartStore((state) => state.addToCart);
+  const queryClient = useQueryClient();
 
   const { data: cartData } = useQuery({
     queryKey: ["cart"],
@@ -52,7 +54,7 @@ const OtherProducts = () => {
         is_favorite: !product.is_favorite,
       };
       setSimilarProducts(updatedProducts);
-    } catch (error) {
+    } catch {
       toast.error("حدث خطأ أثناء تعديل المفضلة");
     }
   };
@@ -60,10 +62,15 @@ const OtherProducts = () => {
   const handleAddToCart = async (productId: number) => {
     try {
       await addToCart("product", productId, 1);
-      toast.success("تمت إضافة المنتج إلى السلة");
-    } catch (error) {
-      toast.error("فشل في إضافة المنتج");
-    }
+      // toast.success(t('addedToCartSuccessfully'));
+      queryClient.invalidateQueries({ queryKey: ["cart"] });
+    } catch (error: any) {
+          const apiMessage =
+            error?.response?.data?.message ||
+            error?.message ||
+            "حدث خطأ أثناء إضافة المنتج إلى السلة";
+          toast.error(apiMessage);
+        }
   };
 
   if (!firstCategoryId || isLoading || !similarProducts?.length) return null;

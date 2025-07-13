@@ -1,40 +1,39 @@
+import { addToFavorite } from "@/api/favorite/addToFav";
+import { removeFromFavorite } from "@/api/favorite/removFromFav";
 import { ProductTypes } from "@/types/product";
+import { useQueryClient } from "@tanstack/react-query";
 import { motion } from "framer-motion";
+import { useLocale, useTranslations } from "next-intl";
 import Image from "next/image";
 import Link from "next/link";
-import React, { useState } from "react";
-import ReviewStarIcon from "../icons/general/ReviewStarIcon";
-import NotFavoriteIcon from "../icons/products/NotFavoriteIcon";
-import FavoriteIcon from "../icons/products/FavoriteIcon";
-import { Button } from "../ui/button";
-import { addToFavorite } from "@/api/favorite/addToFav";
+import React from "react";
 import { toast } from "sonner";
-import { removeFromFavorite } from "@/api/favorite/removFromFav";
+import FavoriteIcon from "../icons/products/FavoriteIcon";
+import NotFavoriteIcon from "../icons/products/NotFavoriteIcon";
 import { useCartStore } from "../stores/cartStore";
-import { useQueryClient } from "@tanstack/react-query";
-import { useLocale, useTranslations } from "next-intl";
-import { addToCart } from "@/api/cart/addToCart";
+import { Button } from "../ui/button";
 
 interface ProductCardProps {
   product: ProductTypes;
+  onFavoriteToggle?: (productId: number, newFavoriteStatus: boolean) => void;
 }
 
-const ProductCard = ({ product }: ProductCardProps) => {
-  const [isFavorite, setIsFavorite] = useState(product.is_favorite);
+const ProductCard = ({ product, onFavoriteToggle }: ProductCardProps) => {
   const locale = useLocale();
   const t = useTranslations("products");
+  const queryClient = useQueryClient();
+
+  const addToCart = useCartStore((state) => state.addToCart);
 
   const isNew = true;
   const price = parseInt(product.price);
   const discount = parseInt(product.discount);
-  const queryClient = useQueryClient();
   const isAvailable = product.types?.some((type) => type.in_stock);
 
-  const handleAddToCart = async () => {
+  const handleAddToCart = async (e: any) => {
+    e.preventDefault();
     try {
-      await addToCart("product", product.id,1);
-      await queryClient.invalidateQueries(["cart"]);
-      toast.success(t('addedToCartSuccessfully'));
+      await addToCart("product", product.id, 1);
     } catch (error: any) {
       const apiMessage =
         error?.response?.data?.message ||
@@ -46,26 +45,29 @@ const ProductCard = ({ product }: ProductCardProps) => {
   };
 
   const handleToggleFavorite = async (
-    e: React.MouseEvent<HTMLButtonElement>,
+    e: React.MouseEvent<HTMLButtonElement>
   ) => {
     e.preventDefault();
     try {
-      if (isFavorite) {
+      if (product.is_favorite) {
         await removeFromFavorite({
           favorable_id: product.id,
           favorable_type: "product",
         });
-        setIsFavorite(false);
         toast.success("Removed from favorite successfully");
+        onFavoriteToggle?.(product.id, false);
       } else {
         await addToFavorite({
           favorable_id: product.id,
           favorable_type: "product",
         });
-        setIsFavorite(true);
         toast.success("Added to favorite successfully");
+        onFavoriteToggle?.(product.id, true);
       }
-    } catch (error) {
+      // Invalidate multiple relevant queries
+      queryClient.invalidateQueries({ queryKey: ["favorites"] });
+      queryClient.invalidateQueries({ queryKey: ["similar-products"] });
+    } catch (error: any) {
       toast.error("Error toggling favorite:", error);
     }
   };
@@ -82,7 +84,6 @@ const ProductCard = ({ product }: ProductCardProps) => {
       scale: 1,
       transition: {
         duration: 0.6,
-        ease: [0.4, 0, 0.2, 1],
         staggerChildren: 0.1,
       },
     },
@@ -91,7 +92,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
       scale: 1.02,
       transition: {
         duration: 0.3,
-        ease: [0.4, 0, 0.2, 1],
+        duration: 0.3,
       },
     },
   };
@@ -101,11 +102,11 @@ const ProductCard = ({ product }: ProductCardProps) => {
     animate: {
       scale: 1,
       opacity: 1,
-      transition: { duration: 0.5, ease: "easeOut" },
+      transition: { duration: 0.5 },
     },
     hover: {
       scale: 1.08,
-      transition: { duration: 0.4, ease: "easeOut" },
+      transition: { duration: 0.4 },
     },
   };
 
@@ -241,7 +242,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
             whileHover="hover"
             whileTap="tap"
           >
-            {isFavorite ? <FavoriteIcon /> : <NotFavoriteIcon />}
+            {product.is_favorite ? <FavoriteIcon /> : <NotFavoriteIcon />}
           </motion.button>
         </div>
 
@@ -252,7 +253,10 @@ const ProductCard = ({ product }: ProductCardProps) => {
           whileHover="hover"
         >
           <Image
-            src={product.images[0]?.responsive_urls[0]}
+            src={
+              product.images[0]?.responsive_urls[0] ||
+              "/images/products/placeholder.webp"
+            }
             width={280}
             height={162}
             alt="product"
@@ -330,7 +334,9 @@ const ProductCard = ({ product }: ProductCardProps) => {
             </motion.span>
           </motion.div> */}
           <motion.div
-            className={`text-sm font-medium ${isAvailable ? "text-green-600" : "text-red-500"}`}
+            className={`text-sm font-medium ${
+              isAvailable ? "text-green-600" : "text-red-500"
+            }`}
             variants={contentVariants}
           >
             {isAvailable ? t("inStock") : t("outOfStock")}
@@ -347,7 +353,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
             transition: { duration: 0.2 },
           }}
         >
-          {product.name[locale]}
+          {product.name[locale as "ar" | "en"]}
         </motion.p>
 
         {/* Add to Cart Button */}
