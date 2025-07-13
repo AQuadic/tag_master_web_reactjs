@@ -1,11 +1,12 @@
 import { addToFavorite } from "@/api/favorite/addToFav";
 import { removeFromFavorite } from "@/api/favorite/removFromFav";
 import { ProductTypes } from "@/types/product";
+import { useQueryClient } from "@tanstack/react-query";
 import { motion } from "framer-motion";
 import { useLocale, useTranslations } from "next-intl";
 import Image from "next/image";
 import Link from "next/link";
-import React, { useState } from "react";
+import React from "react";
 import { toast } from "sonner";
 import FavoriteIcon from "../icons/products/FavoriteIcon";
 import NotFavoriteIcon from "../icons/products/NotFavoriteIcon";
@@ -14,12 +15,13 @@ import { Button } from "../ui/button";
 
 interface ProductCardProps {
   product: ProductTypes;
+  onFavoriteToggle?: (productId: number, newFavoriteStatus: boolean) => void;
 }
 
-const ProductCard = ({ product }: ProductCardProps) => {
-  const [isFavorite, setIsFavorite] = useState(product.is_favorite);
+const ProductCard = ({ product, onFavoriteToggle }: ProductCardProps) => {
   const locale = useLocale();
   const t = useTranslations("products");
+  const queryClient = useQueryClient();
 
   const addToCart = useCartStore((state) => state.addToCart);
 
@@ -47,21 +49,24 @@ const ProductCard = ({ product }: ProductCardProps) => {
   ) => {
     e.preventDefault();
     try {
-      if (isFavorite) {
+      if (product.is_favorite) {
         await removeFromFavorite({
           favorable_id: product.id,
           favorable_type: "product",
         });
-        setIsFavorite(false);
         toast.success("Removed from favorite successfully");
+        onFavoriteToggle?.(product.id, false);
       } else {
         await addToFavorite({
           favorable_id: product.id,
           favorable_type: "product",
         });
-        setIsFavorite(true);
         toast.success("Added to favorite successfully");
+        onFavoriteToggle?.(product.id, true);
       }
+      // Invalidate multiple relevant queries
+      queryClient.invalidateQueries({ queryKey: ["favorites"] });
+      queryClient.invalidateQueries({ queryKey: ["similar-products"] });
     } catch (error: any) {
       toast.error("Error toggling favorite:", error);
     }
@@ -238,7 +243,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
             whileHover="hover"
             whileTap="tap"
           >
-            {isFavorite ? <FavoriteIcon /> : <NotFavoriteIcon />}
+            {product.is_favorite ? <FavoriteIcon /> : <NotFavoriteIcon />}
           </motion.button>
         </div>
 
@@ -249,7 +254,10 @@ const ProductCard = ({ product }: ProductCardProps) => {
           whileHover="hover"
         >
           <Image
-            src={product.images[0]?.responsive_urls[0] || "/images/products/placeholder.webp"}
+            src={
+              product.images[0]?.responsive_urls[0] ||
+              "/images/products/placeholder.webp"
+            }
             width={280}
             height={162}
             alt="product"

@@ -1,6 +1,6 @@
 "use client";
 import { ProductTypes } from "@/types/product";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import EmptyState from "../general/EmptyState";
 import Pagination from "./Pagination";
 import ProductCard from "./ProductCard";
@@ -28,6 +28,14 @@ const MainProducts = ({
   const t = useTranslations("products");
   const router = useRouter();
   const searchParams = useSearchParams();
+
+  // Local state to manage products data for immediate UI updates
+  const [products, setProducts] = useState(data);
+
+  // Update local state when data prop changes (e.g., from pagination/filtering)
+  useEffect(() => {
+    setProducts(data);
+  }, [data]);
 
   // Use URL params as source of truth, fallback to initial values
   const searchQuery = searchParams.get("search") || initialSearch;
@@ -81,6 +89,20 @@ const MainProducts = ({
     updateSearchParams({ page: newPage.toString() });
   };
 
+  // Handle favorite toggle to update local state
+  const handleFavoriteToggle = (
+    productId: number,
+    newFavoriteStatus: boolean
+  ) => {
+    setProducts((prevProducts) =>
+      prevProducts.map((product) =>
+        product.id === productId
+          ? { ...product, is_favorite: newFavoriteStatus }
+          : product
+      )
+    );
+  };
+
   // const { addToCart } = useCartStore();
   // Removed unused handleAddToCart
   return (
@@ -97,10 +119,14 @@ const MainProducts = ({
         selectedFilter={selectedFilter}
         onFilterChange={handleFilterChange}
       />
-      {data.length > 0 ? (
+      {products.length > 0 ? (
         <div className="container grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 mt-8">
-          {data.map((product) => (
-            <ProductCard key={product.id} product={product} />
+          {products.map((product) => (
+            <ProductCard
+              key={product.id}
+              product={product}
+              onFavoriteToggle={handleFavoriteToggle}
+            />
           ))}
         </div>
       ) : (
