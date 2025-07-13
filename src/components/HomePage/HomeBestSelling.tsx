@@ -5,7 +5,7 @@ import Image from "next/image";
 import Arrow from "../icons/home/Arrow";
 import { useLocale, useTranslations } from "next-intl";
 import EmptyState from "../general/EmptyState";
-import { addToCart } from "@/api/cart/addToCart";
+import { useCartStore } from "../stores/cartStore";
 import { toast } from "sonner";
 
 interface Product {
@@ -23,6 +23,7 @@ interface HomeBestSellingProps {
 const HomeBestSelling = ({ data }: HomeBestSellingProps) => {
   const t = useTranslations("bestProducts");
   const locale = useLocale ();
+  const addToCart = useCartStore((state) => state.addToCart);
   const handleAddToCart = async (productId: number) => {
     try {
       await addToCart("product", productId, 1);
