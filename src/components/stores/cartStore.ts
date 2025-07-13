@@ -103,6 +103,7 @@ export const useCartStore = create<CartState>((set, get) => {
     ) => {
       try {
         await addToCart(itemable_type, itemable_id, quantity);
+        toast.success("Added to cart successfully")
 
         const currentCart = get().cart;
         if (currentCart) {

@@ -11,13 +11,12 @@ import { toast } from 'sonner';
 import Spinner from '../icons/general/Spinner';
 import Tracking from '../general/Tracking';
 import { useLocale, useTranslations } from 'next-intl';
-import { addToCart } from '@/api/cart/addToCart';
 import { useCartStore } from '@/components/stores/cartStore';
 
 const MainCart = () => {
   const t = useTranslations("maincart");
   const locale = useLocale();
-  const { removeFromCart } = useCartStore();
+const { addToCart, removeFromCart } = useCartStore();
 const [couponInput, setCouponInput] = React.useState('');
 const [appliedCoupon, setAppliedCoupon] = React.useState('');
 const queryClient = useQueryClient();
