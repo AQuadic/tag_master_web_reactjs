@@ -3,29 +3,29 @@ import React from "react";
 
 interface PaginationProps {
   currentStep: number;
-  setCurrentStep: React.Dispatch<React.SetStateAction<number>>;
+  onPageChange: (page: number) => void;
   totalSteps: number;
 }
 
 const Pagination = ({
   currentStep,
-  setCurrentStep,
+  onPageChange,
   totalSteps,
 }: PaginationProps) => {
   const handlePrevious = () => {
     if (currentStep > 1) {
-      setCurrentStep(currentStep - 1);
+      onPageChange(currentStep - 1);
     }
   };
 
   const handleNext = () => {
     if (currentStep < totalSteps) {
-      setCurrentStep(currentStep + 1);
+      onPageChange(currentStep + 1);
     }
   };
 
   const handleStepClick = (step: number) => {
-    setCurrentStep(step);
+    onPageChange(step);
   };
 
   // Calculate which steps to show (minimum 3 steps with sliding window)

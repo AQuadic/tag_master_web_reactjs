@@ -64,5 +64,7 @@ export interface ProductTypes {
 export interface ProductsResponseTypes {
   current_page: number;
   to: number;
+  last_page?: number;
+  total?: number;
   data: ProductTypes[];
 }
