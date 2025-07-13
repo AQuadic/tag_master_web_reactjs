@@ -1,12 +1,12 @@
 'use client';
 import React from 'react';
 import Image from 'next/image';
-import { useQuery, useQueryClient } from '@tanstack/react-query';
+import { useQuery } from '@tanstack/react-query';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import OtherProducts from './OtherProducts';
 import { getCart } from '@/api/cart/getCart';
 import EmptyState from '../general/EmptyState';
-import { deleteCartItem } from '@/api/cart/deleteFromCart';
+// import { deleteCartItem } from '@/api/cart/deleteFromCart';
 import { toast } from 'sonner';
 import Spinner from '../icons/general/Spinner';
 import Tracking from '../general/Tracking';
@@ -19,7 +19,7 @@ const MainCart = () => {
 const { addToCart, removeFromCart } = useCartStore();
 const [couponInput, setCouponInput] = React.useState('');
 const [appliedCoupon, setAppliedCoupon] = React.useState('');
-const queryClient = useQueryClient();
+// const queryClient = useQueryClient();
 
   const { data, isLoading, refetch } = useQuery({
     queryKey: ['cart', appliedCoupon],
@@ -45,29 +45,29 @@ const queryClient = useQueryClient();
   await refetch();
 };
 
-const updateQuantity = async (cartItemId: number, newQuantity: number) => {
-  if (newQuantity < 1) return;
+// const updateQuantity = async (cartItemId: number, newQuantity: number) => {
+//   if (newQuantity < 1) return;
   
-  try {
-    queryClient.setQueryData(['cart', appliedCoupon], (oldData: any) => {
-      if (!oldData) return oldData;
+//   try {
+//     queryClient.setQueryData(['cart', appliedCoupon], (oldData: any) => {
+//       if (!oldData) return oldData;
       
-      return {
-        ...oldData,
-        items: oldData.items.map((item: any) => 
-          item.id === cartItemId 
-            ? { ...item, quantity: newQuantity }
-            : item
-        )
-      };
-    });
+//       return {
+//         ...oldData,
+//         items: oldData.items.map((item: any) => 
+//           item.id === cartItemId 
+//             ? { ...item, quantity: newQuantity }
+//             : item
+//         )
+//       };
+//     });
     
-    toast.success(t('updateQuantity'));
-  } catch {
-    toast.error("Failed to update quantity");
-    queryClient.invalidateQueries({ queryKey: ['cart', appliedCoupon] });
-  }
-};
+//     toast.success(t('updateQuantity'));
+//   } catch {
+//     toast.error("Failed to update quantity");
+//     queryClient.invalidateQueries({ queryKey: ['cart', appliedCoupon] });
+//   }
+// };
 
 const updateCartQuantity = async (
   itemable_type: string,

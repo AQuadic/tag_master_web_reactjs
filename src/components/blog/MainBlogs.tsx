@@ -7,13 +7,18 @@ import Pagination from "../ProductsPage/Pagination";
 
 const MainBlogs = () => {
     const [currentStep, setCurrentStep] = useState<number>(1);
+
+    const handlePageChange = (page: number) => {
+        setCurrentStep(page);
+    };
+
     return (
         <div>
             <BlogsHeader />
             <Blogs />
             <Pagination
                 currentStep={currentStep}
-                setCurrentStep={setCurrentStep}
+                onPageChange={handlePageChange}
                 totalSteps={3}
             />
         </div>

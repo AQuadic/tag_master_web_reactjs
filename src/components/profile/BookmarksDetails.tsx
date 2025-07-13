@@ -8,6 +8,11 @@ import EmptyState from "../general/EmptyState";
 import { removeFromFavorite } from "@/api/favorite/removFromFav";
 import { toast } from "sonner";
 import { useTranslations } from "next-intl";
+import { PostType } from "@/types/blogs";
+
+const isPostType = (blog: any): blog is PostType => {
+  return blog && blog.title !== undefined && blog.image !== undefined;
+};
 
 const BookmarksDetails = () => {
   const t = useTranslations("homeblogs");
@@ -66,27 +71,35 @@ const BookmarksDetails = () => {
                   <Booked />
                 </button>
               </div>
-              <Image
-                src={blog.image?.url || "/placeholder.jpg"}
-                alt={blog.title}
-                width={387}
-                height={212}
-                className="w-full"
-              />
-              <div className="flex items-center justify-between mt-4 px-4">
-                <h2 className="text-[#333333] text-[17px] font-bold">{blog.title}</h2>
-                <h2 className="text-[#787676] text-base font-normal">5 دقائق</h2>
-              </div>
-              <p
-                className="text-[#8B8282] text-base mt-3 px-4 line-clamp-2"
-                dangerouslySetInnerHTML={{ __html: blog.content }}
-              />
-              <p className="text-[#8B8282] text-base mt-3 px-4 justify-end flex">
-                {new Date(blog.published_at).toLocaleString("ar-EG", {
-                  dateStyle: "medium",
-                  timeStyle: "short",
-                })}
-              </p>
+              
+              {isPostType(blog) && (
+                <Image
+                  src={blog.image?.url || "/placeholder.jpg"}
+                  alt={blog.title}
+                  width={387}
+                  height={212}
+                  className="w-full"
+                />
+              )}
+
+              {isPostType(blog) && (
+                <>
+                  <div className="flex items-center justify-between mt-4 px-4">
+                    <h2 className="text-[#333333] text-[17px] font-bold">{blog.title}</h2>
+                    <h2 className="text-[#787676] text-base font-normal">5 دقائق</h2>
+                  </div>
+                  <p
+                    className="text-[#8B8282] text-base mt-3 px-4 line-clamp-2"
+                    dangerouslySetInnerHTML={{ __html: blog.content }}
+                  />
+                  <p className="text-[#8B8282] text-base mt-3 px-4 justify-end flex">
+                    {new Date(blog.published_at).toLocaleString("ar-EG", {
+                      dateStyle: "medium",
+                      timeStyle: "short",
+                    })}
+                  </p>
+                </>
+              )}
             </div>
           );
         })}

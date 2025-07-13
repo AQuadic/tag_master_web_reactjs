@@ -354,7 +354,7 @@ const ProductCard = ({ product, onFavoriteToggle }: ProductCardProps) => {
             transition: { duration: 0.2 },
           }}
         >
-          {product.name[locale]}
+          {product.name[locale as "ar" | "en"]}
         </motion.p>
 
         {/* Add to Cart Button */}

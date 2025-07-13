@@ -58,14 +58,14 @@ const HomeAchievementsSection = () => {
                 width={68}
                 height={68}
                 src={item.image}
-                alt={item.title}
+                alt={item.title[locale as "ar" | "en"]}
                 className=" h-[68px] object-contain"
               />
               <p className="text-primary font-bold text-4xl">+{item.number}</p>
               <p className="text-center w-[92px] text-white bg-black rounded-full p-1">
-                {item.title[locale]}
+                {item.title[locale as "ar" | "en"]}
               </p>
-              <p className="w-[255px] text-center">{item.desc[locale]}</p>
+              <p className="w-[255px] text-center">{item.desc[locale as "ar" | "en"]}</p>
             </motion.div>
           ))}
         </motion.div>

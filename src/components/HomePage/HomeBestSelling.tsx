@@ -76,7 +76,7 @@ const HomeBestSelling = ({ data }: HomeBestSellingProps) => {
                 className="flex md:flex-row flex-col items-center gap-4 mt-10"
               >
                 <Image
-                  src={imageUrl || null}
+                  src={imageUrl}
                   alt={item.name.ar}
                   width={184}
                   height={184}
@@ -86,10 +86,10 @@ const HomeBestSelling = ({ data }: HomeBestSellingProps) => {
                 />
                 <div className="w-full h-full border border-[#D9D9D9] rounded-md py-4 px-8">
                   <h2 className="text-[#000000] text-[21px] font-bold">
-                    {item.name?.[locale]}
+                    {item.name?.[locale as "ar" | "en"]}
                   </h2>
                   <p className="lg:w-[731px] text-[#464B4E] text-[17px] mt-2.5">
-                    {item.description?.[locale]}
+                    {item.description?.[locale as "ar" | "en"]}
                   </p>
                   <p className="mt-4">{item.price}</p>
                   <div className="flex items-center justify-end mt-4">
