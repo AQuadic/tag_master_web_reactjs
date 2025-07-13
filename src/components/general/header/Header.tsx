@@ -6,6 +6,7 @@ import { useAuthStore } from "@/components/stores/userStore";
 import { navbarLinks } from "@/constants/navbarLinks";
 import { AnimatePresence, motion } from "framer-motion";
 import { Menu, X } from "lucide-react";
+import { useLocale } from "next-intl";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -13,7 +14,6 @@ import React, { useEffect, useState } from "react";
 import ChangeLanguage from "./ChangeLanguage";
 import Searchbar from "./Searchbar";
 import SignInButton from "./SignInButton";
-import { useLocale } from "next-intl";
 
 const Header = () => {
   const [hydrated, setHydrated] = useState(false);
@@ -22,11 +22,7 @@ const Header = () => {
   const isSignedIn = !!user;
   const locale = useLocale();
 
-const cart = useCartStore((state) => state.cart);
-const itemsCount = cart?.items?.reduce((sum, item) => sum + item.quantity, 0) || 0;
-
-const fetchInitialCart = useCartStore((state) => state.fetchInitialCart);
-
+  const itemsCount = useCartStore((state) => state.itemsCount);
 
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
@@ -65,10 +61,9 @@ const fetchInitialCart = useCartStore((state) => state.fetchInitialCart);
     setHydrated(true);
   }, []);
 
- useEffect(() => {
-  fetchInitialCart();
-}, []);
-
+  useEffect(() => {
+    useCartStore.getState().initializeCart();
+  }, []);
 
   return (
     <>
@@ -133,7 +128,7 @@ const fetchInitialCart = useCartStore((state) => state.fetchInitialCart);
                         : "text-gray-700 hover:text-primary hover:bg-gray-50"
                     }`}
                   >
-                    {locale === 'ar' ? link.titleAr : link.titleEn}
+                    {locale === "ar" ? link.titleAr : link.titleEn}
                     <motion.div
                       className="absolute bottom-1 left-4 right-4 h-0.5 bg-gradient-to-r from-primary to-blue-600 rounded-full"
                       animate={{ scaleX: isActive ? 1 : 0 }}
@@ -162,36 +157,36 @@ const fetchInitialCart = useCartStore((state) => state.fetchInitialCart);
                   href="/cart"
                   className=" rounded-xl hover:bg-gray-100 transition-all duration-200 relative group"
                 >
-                    <div className="relative flex items-center justify-center w-10 h-10 rounded-lg bg-primary/10 group-hover:bg-primary/20 transition-colors flex-shrink-0">
-                          {isSignedIn && (
-                              <motion.div
-                                whileHover={{ scale: 1.05 }}
-                                whileTap={{ scale: 0.95 }}
-                              >
-                                <Link
-                                  href="/cart"
-                                  className=" rounded-xl hover:bg-gray-100 transition-all duration-200 relative group"
-                                >
-                                  <CartIcon />
+                  <div className="relative flex items-center justify-center w-10 h-10 rounded-lg bg-primary/10 group-hover:bg-primary/20 transition-colors flex-shrink-0">
+                    {isSignedIn && (
+                      <motion.div
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
+                      >
+                        <Link
+                          href="/cart"
+                          className=" rounded-xl hover:bg-gray-100 transition-all duration-200 relative group"
+                        >
+                          <CartIcon />
 
-                                  {itemsCount > 0 && (
-                                    <div className="absolute w-5 h-5 rounded-full bg-[#FF3B30] text-[#FFFFFF] flex items-center justify-center -top-2 -left-1 text-xs">
-                                      <p>{itemsCount > 9 ? "9+" : itemsCount}</p>
-                                    </div>
-                                  )}
-                                </Link>
-                              </motion.div>
-                            )}
-                          <div className="absolute w-5 h-5 rounded-full bg-[#FF3B30] text-[#FFFFFF] flex items-center justify-center -top-2 -left-1">
-                            <p>{itemsCount}</p>
-                          </div>
-                        </div>
+                          {itemsCount > 0 && (
+                            <div className="absolute w-5 h-5 rounded-full bg-[#FF3B30] text-[#FFFFFF] flex items-center justify-center -top-2 -left-1 text-xs">
+                              <p>{itemsCount > 9 ? "9+" : itemsCount}</p>
+                            </div>
+                          )}
+                        </Link>
+                      </motion.div>
+                    )}
+                    <div className="absolute w-5 h-5 rounded-full bg-[#FF3B30] text-[#FFFFFF] flex items-center justify-center -top-2 -left-1">
+                      <p>{itemsCount}</p>
+                    </div>
+                  </div>
 
-                        {itemsCount > 0 && (
-                          <div className="absolute w-5 h-5 rounded-full bg-[#FF3B30] text-[#FFFFFF] flex items-center justify-center -top-2 -left-1 text-xs">
-                            <p>{itemsCount > 9 ? "9+" : itemsCount}</p>
-                          </div>
-                        )}
+                  {itemsCount > 0 && (
+                    <div className="absolute w-5 h-5 rounded-full bg-[#FF3B30] text-[#FFFFFF] flex items-center justify-center -top-2 -left-1 text-xs">
+                      <p>{itemsCount > 9 ? "9+" : itemsCount}</p>
+                    </div>
+                  )}
                 </Link>
               </motion.div>
             )}
@@ -382,24 +377,24 @@ const fetchInitialCart = useCartStore((state) => state.fetchInitialCart);
                       >
                         <div className="relative flex items-center justify-center w-10 h-10 rounded-lg bg-primary/10 group-hover:bg-primary/20 transition-colors flex-shrink-0">
                           {isSignedIn && (
-                              <motion.div
-                                whileHover={{ scale: 1.05 }}
-                                whileTap={{ scale: 0.95 }}
+                            <motion.div
+                              whileHover={{ scale: 1.05 }}
+                              whileTap={{ scale: 0.95 }}
+                            >
+                              <Link
+                                href="/cart"
+                                className=" rounded-xl hover:bg-gray-100 transition-all duration-200 relative group"
                               >
-                                <Link
-                                  href="/cart"
-                                  className=" rounded-xl hover:bg-gray-100 transition-all duration-200 relative group"
-                                >
-                                  <CartIcon />
+                                <CartIcon />
 
-                                  {itemsCount > 0 && (
+                                {itemsCount > 0 && (
                                   <div className="absolute w-5 h-5 rounded-full bg-[#FF3B30] text-[#FFFFFF] flex items-center justify-center -top-2 -left-1 text-xs">
-                                    <p>{itemsCount > 9 ? "9+" : itemsCount}</p> 
+                                    <p>{itemsCount > 9 ? "9+" : itemsCount}</p>
                                   </div>
                                 )}
-                                </Link>
-                              </motion.div>
-                            )}
+                              </Link>
+                            </motion.div>
+                          )}
                           <div className="absolute w-5 h-5 rounded-full bg-[#FF3B30] text-[#FFFFFF] flex items-center justify-center -top-2 -left-1">
                             <p>{itemsCount}</p>
                           </div>
