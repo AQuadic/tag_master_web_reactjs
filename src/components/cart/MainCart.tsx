@@ -12,10 +12,12 @@ import Spinner from '../icons/general/Spinner';
 import Tracking from '../general/Tracking';
 import { useLocale, useTranslations } from 'next-intl';
 import { addToCart } from '@/api/cart/addToCart';
+import { useCartStore } from '@/components/stores/cartStore';
 
 const MainCart = () => {
   const t = useTranslations("maincart");
   const locale = useLocale();
+  const { removeFromCart } = useCartStore();
 const [couponInput, setCouponInput] = React.useState('');
 const [appliedCoupon, setAppliedCoupon] = React.useState('');
 const queryClient = useQueryClient();
@@ -40,14 +42,8 @@ const queryClient = useQueryClient();
   itemableId: number,
   itemableType: string
 ) => {
-  try {
-    await deleteCartItem(cartItemId, itemableId, itemableType);
-    toast.success("Item deleted successfully")
-    // queryClient.invalidateQueries({ queryKey: ['cart', appliedCoupon] });
-    await refetch();
-  } catch {
-    toast.error("Failed to delete item");
-  }
+  await removeFromCart(cartItemId, itemableId, itemableType, 0);
+  await refetch();
 };
 
 const updateQuantity = async (cartItemId: number, newQuantity: number) => {
