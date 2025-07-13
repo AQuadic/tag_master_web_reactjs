@@ -4,17 +4,18 @@ import MainProducts from "@/components/ProductsPage/MainProducts";
 import React from "react";
 
 interface ProductsPageProps {
-  searchParams: {
+  searchParams: Promise<{
     search?: string;
     page?: string;
     filter?: string;
-  };
+  }>;
 }
 
 const ProductsPage = async ({ searchParams }: ProductsPageProps) => {
-  const search = searchParams.search || "";
-  const page = parseInt(searchParams.page || "1");
-  const filter = searchParams.filter || "";
+  const resolvedSearchParams = await searchParams;
+  const search = resolvedSearchParams.search || "";
+  const page = parseInt(resolvedSearchParams.page || "1");
+  const filter = resolvedSearchParams.filter || "";
 
   try {
     const response = await getProducts(page, search, filter);

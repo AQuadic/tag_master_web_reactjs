@@ -11,7 +11,7 @@ const DownloadApp = () => {
     show: {
       opacity: 1,
       y: 0,
-      transition: { duration: 0.6, ease: "easeOut" },
+      transition: { duration: 0.6 },
     },
   };
 
@@ -24,7 +24,7 @@ const DownloadApp = () => {
         viewport={{ once: true }}
         className="text-lg text-primary text-center"
       >
-        {t('appOnStore')}
+        {t("appOnStore")}
       </motion.h2>
 
       <motion.h3
@@ -34,7 +34,7 @@ const DownloadApp = () => {
         viewport={{ once: true }}
         className="text-2xl font-bold text-center mt-2 mb-8"
       >
-        {t('downloadNow')}
+        {t("downloadNow")}
       </motion.h3>
 
       <div className="rounded-md border flex flex-col md:flex-row items-center justify-between p-4 sm:p-10 gap-10">
@@ -46,7 +46,7 @@ const DownloadApp = () => {
           className="flex-1 flex flex-col justify-center gap-6"
         >
           <p className="max-w-[480px] text-center md:text-start">
-            {t('downloadDescription')}
+            {t("downloadDescription")}
           </p>
 
           <div className="flex flex-col sm:flex-row items-center gap-4">
