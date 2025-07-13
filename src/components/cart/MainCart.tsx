@@ -11,11 +11,12 @@ import { toast } from 'sonner';
 import Spinner from '../icons/general/Spinner';
 import Tracking from '../general/Tracking';
 import { useLocale, useTranslations } from 'next-intl';
-import { addToCart } from '@/api/cart/addToCart';
+import { useCartStore } from '@/components/stores/cartStore';
 
 const MainCart = () => {
   const t = useTranslations("maincart");
   const locale = useLocale();
+const { addToCart, removeFromCart } = useCartStore();
 const [couponInput, setCouponInput] = React.useState('');
 const [appliedCoupon, setAppliedCoupon] = React.useState('');
 const queryClient = useQueryClient();
@@ -40,14 +41,8 @@ const queryClient = useQueryClient();
   itemableId: number,
   itemableType: string
 ) => {
-  try {
-    await deleteCartItem(cartItemId, itemableId, itemableType);
-    toast.success("Item deleted successfully")
-    // queryClient.invalidateQueries({ queryKey: ['cart', appliedCoupon] });
-    await refetch();
-  } catch {
-    toast.error("Failed to delete item");
-  }
+  await removeFromCart(cartItemId, itemableId, itemableType, 0);
+  await refetch();
 };
 
 const updateQuantity = async (cartItemId: number, newQuantity: number) => {
@@ -74,37 +69,22 @@ const updateQuantity = async (cartItemId: number, newQuantity: number) => {
   }
 };
 
-const handleIncreaseQuantity = async (
+const updateCartQuantity = async (
   itemable_type: string,
   itemable_id: number,
-  currentQuantity: number
+  newQuantity: number
 ) => {
   try {
-    await addToCart(itemable_type, itemable_id, currentQuantity + 1);
+    if (newQuantity < 1) return;
+
+    await addToCart(itemable_type, itemable_id, newQuantity);
     await refetch();
-    toast.success(t('quantityIncreased'));
   } catch (error) {
     toast.error("Failed to increase quantity");
     console.error(error);
   }
 };
 
-
-const handleDecreaseQuantity = async (
-  cartItemId: number,
-  itemableId: number,
-  itemableType: string,
-  currentQuantity: number
-) => {
-  try {
-    await deleteCartItem(cartItemId, itemableId, itemableType, currentQuantity - 1);
-    toast.success("Item quantity decreased");
-    await refetch();
-  } catch (error) {
-    toast.error("Failed to decrease quantity");
-    console.error(error);
-  }
-};
 
 const totalItemsPrice = data.items.reduce((sum, item) => {
   const itemTotal = parseFloat(item.itemable.price) * item.quantity;
@@ -150,14 +130,14 @@ const totalItemsPrice = data.items.reduce((sum, item) => {
                   <div className='flex items-center gap-4'>
                     <button 
                       className='w-6 h-6 border-2 border-[#007EC1] text-[#007EC1] flex items-center justify-center hover:bg-[#007EC1] hover:text-white transition-colors'
-                      onClick={() => handleIncreaseQuantity(item.itemable_type, item.itemable.id, item.quantity)}
+                      onClick={() => updateCartQuantity(item.itemable_type, item.itemable.id, item.quantity + 1)}
                     >
                       +
                     </button>
                     <p className='text-[#000000] text-[22px] min-w-[30px] text-center'>{item.quantity}</p>
                     <button 
                       className='w-6 h-6 border-2 border-[#007EC1] text-[#007EC1] flex items-center justify-center hover:bg-[#007EC1] hover:text-white transition-colors disabled:opacity-50 disabled:cursor-not-allowed'
-                      onClick={() => handleDecreaseQuantity(item.id, item.itemable.id, item.itemable_type, item.quantity) }
+                      onClick={() => updateCartQuantity(item.itemable_type, item.itemable.id, item.quantity - 1)}
                       disabled={item.quantity <= 1}
                     >
                       -

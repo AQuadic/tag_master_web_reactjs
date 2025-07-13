@@ -1,4 +1,5 @@
 import { addToCart } from "@/api/cart/addToCart";
+import { deleteCartItem } from "@/api/cart/deleteFromCart";
 import { getCart } from "@/api/cart/getCart";
 import { toast } from "sonner";
 import { create } from "zustand";
@@ -38,7 +39,12 @@ interface CartState {
     itemable_id: number,
     quantity: number
   ) => Promise<void>;
-  removeFromCart: (itemable_id: number) => void;
+  removeFromCart: (
+    cartItemId: number,
+    itemableId: number,
+    itemableType: string,
+    newQuantity?: number
+  ) => Promise<void>;
   getItemsCount: () => number;
   fetchInitialCart: () => Promise<void>;
   initializeCart: () => Promise<void>;
@@ -90,14 +96,14 @@ export const useCartStore = create<CartState>((set, get) => {
       }
     },
 
-    addToCart: async (
+  addToCart: async (
       itemable_type: string,
       itemable_id: number,
       quantity: number
     ) => {
       try {
         await addToCart(itemable_type, itemable_id, quantity);
-
+        toast.success("Added to cart successfully")
         const currentCart = get().cart;
         if (currentCart) {
           const existingItemIndex = currentCart.items.findIndex(
@@ -128,11 +134,9 @@ export const useCartStore = create<CartState>((set, get) => {
             items: updatedItems,
           };
 
-          // Update cart and counter immediately
           setCartAndUpdateCount(updatedCart);
         }
 
-        // Sync with server in the background
         await get().getCart();
       } catch (error) {
         console.error("Failed to add product to cart", error);
@@ -142,30 +146,15 @@ export const useCartStore = create<CartState>((set, get) => {
       }
     },
 
-    removeFromCart: async (itemable_id: number) => {
-      const currentCart = get().cart;
-      if (!currentCart) return;
-
-      // Optimistically update the UI
-      const updatedItems = currentCart.items.filter(
-        (item) => item.itemable_id !== itemable_id
-      );
-
-      const updatedCart = {
-        ...currentCart,
-        items: updatedItems,
-      };
-
-      // Update cart and counter immediately
-      setCartAndUpdateCount(updatedCart);
-
-      // Sync with server in the background
+    removeFromCart: async (cartItemId: number, itemableId: number, itemableType: string, newQuantity = 0) => {
       try {
+        await deleteCartItem(cartItemId, itemableId, itemableType, newQuantity);
+
         await get().getCart();
+        toast.success("Item removed from cart");
       } catch (error) {
-        console.error("Failed to refetch cart after removal", error);
-        // Optionally revert the optimistic update here
-        await get().getCart();
+        console.error("Failed to remove item from cart", error);
+        toast.error("فشل في إزالة المنتج من السلة");
       }
     },
 

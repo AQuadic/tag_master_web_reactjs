@@ -157,37 +157,16 @@ const Header = () => {
                   href="/cart"
                   className=" rounded-xl hover:bg-gray-100 transition-all duration-200 relative group"
                 >
-                  <div className="relative flex items-center justify-center w-10 h-10 rounded-lg bg-primary/10 group-hover:bg-primary/20 transition-colors flex-shrink-0">
-                    {isSignedIn && (
-                      <motion.div
-                        whileHover={{ scale: 1.05 }}
-                        whileTap={{ scale: 0.95 }}
-                      >
-                        <Link
-                          href="/cart"
-                          className=" rounded-xl hover:bg-gray-100 transition-all duration-200 relative group"
-                        >
-                          <CartIcon />
-
-                          {itemsCount > 0 && (
-                            <div className="absolute w-5 h-5 rounded-full bg-[#FF3B30] text-[#FFFFFF] flex items-center justify-center -top-2 -left-1 text-xs">
-                              <p>{itemsCount > 9 ? "9+" : itemsCount}</p>
-                            </div>
-                          )}
-                        </Link>
-                      </motion.div>
-                    )}
-                    <div className="absolute w-5 h-5 rounded-full bg-[#FF3B30] text-[#FFFFFF] flex items-center justify-center -top-2 -left-1">
-                      <p>{itemsCount}</p>
-                    </div>
-                  </div>
+                <div className="relative flex items-center justify-center w-10 h-10 rounded-lg bg-primary/10 group-hover:bg-primary/20 transition-colors flex-shrink-0">
+                  <CartIcon />
 
                   {itemsCount > 0 && (
                     <div className="absolute w-5 h-5 rounded-full bg-[#FF3B30] text-[#FFFFFF] flex items-center justify-center -top-2 -left-1 text-xs">
                       <p>{itemsCount > 9 ? "9+" : itemsCount}</p>
                     </div>
                   )}
-                </Link>
+                </div>
+              </Link>
               </motion.div>
             )}
             <div className="flex items-center gap-4">
@@ -371,38 +350,23 @@ const Header = () => {
                       whileHover={{ scale: 1.02 }}
                       whileTap={{ scale: 0.98 }}
                     >
-                      <Link
-                        href="/cart"
+                    <Link
+                      href="/cart"
                         className="flex items-center gap-4 py-4 px-4 rounded-xl hover:bg-gray-50 transition-all duration-200 group w-full"
                       >
-                        <div className="relative flex items-center justify-center w-10 h-10 rounded-lg bg-primary/10 group-hover:bg-primary/20 transition-colors flex-shrink-0">
-                          {isSignedIn && (
-                            <motion.div
-                              whileHover={{ scale: 1.05 }}
-                              whileTap={{ scale: 0.95 }}
-                            >
-                              <Link
-                                href="/cart"
-                                className=" rounded-xl hover:bg-gray-100 transition-all duration-200 relative group"
-                              >
-                                <CartIcon />
+                      <div className="relative flex items-center justify-center w-10 h-10 rounded-lg bg-primary/10 group-hover:bg-primary/20 transition-colors flex-shrink-0">
+                        <CartIcon />
 
-                                {itemsCount > 0 && (
-                                  <div className="absolute w-5 h-5 rounded-full bg-[#FF3B30] text-[#FFFFFF] flex items-center justify-center -top-2 -left-1 text-xs">
-                                    <p>{itemsCount > 9 ? "9+" : itemsCount}</p>
-                                  </div>
-                                )}
-                              </Link>
-                            </motion.div>
+                          {itemsCount > 0 && (
+                            <div className="absolute w-5 h-5 rounded-full bg-[#FF3B30] text-[#FFFFFF] flex items-center justify-center -top-2 -left-1 text-xs">
+                              <p>{itemsCount > 9 ? "9+" : itemsCount}</p>
+                            </div>
                           )}
-                          <div className="absolute w-5 h-5 rounded-full bg-[#FF3B30] text-[#FFFFFF] flex items-center justify-center -top-2 -left-1">
-                            <p>{itemsCount}</p>
-                          </div>
-                        </div>
-                        <span className="text-gray-700 font-medium flex-1 text-right">
+                      </div>
+                          <span className="text-gray-700 font-medium text-right">
                           السلة
                         </span>
-                      </Link>
+                    </Link>
                     </motion.div>
                   )}
 
