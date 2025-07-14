@@ -10,5 +10,13 @@
     "addedToCartSuccessfully": "تمت إضافة المنتج إلى السلة بنجاح",
     "addedToFav": "تم إضافة المنتج إلى المفضلة",
     "removedFromFav": "تم إزالة المنتج من المفضلة",
-    "anotherProducts": "منتجات اخري مشابهة"
+    "anotherProducts": "منتجات اخري مشابهة",
+    "userReviews": "مراجعات المستخدمين",
+    "review": "تقييم",
+    "reviewRate": "4.0 من أصل 5",
+    "rateProduct": "قيم هذا المنتج",
+    "addRate": "إضافة التقييم",
+    "rateFrom": "قيم من 1 الي 5",
+    "youRated": "لقد قيمت 3 من أصل 5",
+    "addPhoto": "إضافة صورة"
 }
