@@ -4,7 +4,8 @@ import { ProductsResponseTypes } from "@/types/product";
 export const getProducts = async (
   page: number = 1,
   search: string = "",
-  filter: string = ""
+  filter: string = "",
+  token?: string
 ): Promise<ProductsResponseTypes & { total_pages: number }> => {
   const params: Record<string, string | number> = {
     page,
@@ -20,9 +21,10 @@ export const getProducts = async (
   }
 
   try {
-  const response = await axios.get("/products", {
-    params,
-  });
+    const response = await axios.get("/products", {
+      params,
+      headers: token ? { Authorization: `Bearer ${token}` } : {},
+    });
 
     const hasNextPage = response.data.next_page_url !== null;
     const currentPage = response.data.current_page;
