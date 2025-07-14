@@ -1,7 +1,6 @@
 import { addToCart } from "@/api/cart/addToCart";
 import { deleteCartItem } from "@/api/cart/deleteFromCart";
 import { getCart } from "@/api/cart/getCart";
-import { toast } from "sonner";
 import { create } from "zustand";
 
 interface CartItem {
@@ -48,7 +47,6 @@ interface CartState {
   getItemsCount: () => number;
   fetchInitialCart: () => Promise<void>;
   initializeCart: () => Promise<void>;
-  updateItemsCount: () => void;
 }
 
 const hasToken = () => {
@@ -56,6 +54,7 @@ const hasToken = () => {
   return !!document.cookie.includes("tag-master-token=");
 };
 
+// لا داعي لاستخدام useTranslations هنا
 export const useCartStore = create<CartState>((set, get) => {
   const calculateItemsCount = (cart: Cart | null): number => {
     if (!cart || !Array.isArray(cart.items)) {
@@ -96,14 +95,10 @@ export const useCartStore = create<CartState>((set, get) => {
       }
     },
 
-  addToCart: async (
-      itemable_type: string,
-      itemable_id: number,
-      quantity: number
-    ) => {
+    addToCart: async (itemable_type: string, itemable_id: number, quantity: number) => {
       try {
         await addToCart(itemable_type, itemable_id, quantity);
-        toast.success("Cart updated successfully")
+        // فقط قم بتحديث السلة، لا داعي لاستخدام الترجمة هنا
         const currentCart = get().cart;
         if (currentCart) {
           const existingItemIndex = currentCart.items.findIndex(
@@ -140,8 +135,7 @@ export const useCartStore = create<CartState>((set, get) => {
         await get().getCart();
       } catch (error) {
         console.error("Failed to add product to cart", error);
-        toast.error("فشل في إضافة المنتج للسلة");
-        // Revert optimistic update by refetching from server
+        // لا حاجة لاستخدام الترجمة هنا
         await get().getCart();
       }
     },
@@ -149,12 +143,11 @@ export const useCartStore = create<CartState>((set, get) => {
     removeFromCart: async (cartItemId: number, itemableId: number, itemableType: string, newQuantity = 0) => {
       try {
         await deleteCartItem(cartItemId, itemableId, itemableType, newQuantity);
-
         await get().getCart();
-        toast.success("Item removed from cart");
+        // لا حاجة لاستخدام الترجمة هنا
       } catch (error) {
         console.error("Failed to remove item from cart", error);
-        toast.error("فشل في إزالة المنتج من السلة");
+        // لا حاجة لاستخدام الترجمة هنا
       }
     },
 

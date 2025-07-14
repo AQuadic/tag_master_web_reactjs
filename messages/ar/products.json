@@ -7,5 +7,7 @@
     "outOfStock": "غير متوفر",
     "discount": "خصم",
     "favColor": "لون المنتج الذي تفضله:",
-    "addedToCartSuccessfully": "تمت إضافة المنتج إلى السلة بنجاح"
+    "addedToCartSuccessfully": "تمت إضافة المنتج إلى السلة بنجاح",
+    "addedToFav": "تم إضافة المنتج إلى المفضلة",
+    "removedFromFav": "تم إزالة المنتج من المفضلة"
 }

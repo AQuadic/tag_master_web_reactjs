@@ -7,5 +7,7 @@
     "outOfStock": "Out of stock",
     "discount": "Discount",
     "favColor": "Your preferred product color:",
-    "addedToCartSuccessfully": "Added to cart successfully "
+    "addedToCartSuccessfully": "Added to cart successfully ",
+    "addedToFav": "Product added to favorites successfully",
+    "removedFromFav": "Removed from favorites successfully"
 }

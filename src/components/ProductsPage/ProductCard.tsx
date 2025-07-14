@@ -34,6 +34,7 @@ const ProductCard = ({ product, onFavoriteToggle }: ProductCardProps) => {
     e.preventDefault();
     try {
       await addToCart("product", product.id, 1);
+      toast.success(t("addedToCartSuccessfully"))
     } catch (error: any) {
       const apiMessage =
         error?.response?.data?.message ||
@@ -54,14 +55,14 @@ const ProductCard = ({ product, onFavoriteToggle }: ProductCardProps) => {
           favorable_id: product.id,
           favorable_type: "product",
         });
-        toast.success("Removed from favorite successfully");
+        toast.success(t("removedFromFav"));
         onFavoriteToggle?.(product.id, false);
       } else {
         await addToFavorite({
           favorable_id: product.id,
           favorable_type: "product",
         });
-        toast.success("Added to favorite successfully");
+        toast.success(t("addedToFav"));
         onFavoriteToggle?.(product.id, true);
       }
       // Invalidate multiple relevant queries

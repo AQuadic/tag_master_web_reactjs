@@ -103,6 +103,7 @@ const MainCart = () => {
       if (newQuantity < 1) return;
 
       await addToCart(itemable_type, itemable_id, newQuantity);
+      toast.success(t("cartUpdated"))
       await refetch();
     } catch (error) {
       toast.error("Failed to increase quantity");

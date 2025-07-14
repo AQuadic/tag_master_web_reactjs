@@ -13,7 +13,7 @@ import { getCart } from "@/api/cart/getCart"
 import { getProductsByCategory } from "@/api/products/getCategories"
 
 const OtherProducts = () => {
-  const t = useTranslations("maincart");
+  const t = useTranslations("products");
   const locale = useLocale();
   const addToCart = useCartStore((state) => state.addToCart);
   const queryClient = useQueryClient();
@@ -42,10 +42,10 @@ const OtherProducts = () => {
     try {
       if (product.is_favorite) {
         await removeFromFavorite({ favorable_id: product.id, favorable_type: "product" });
-        toast.success("تم إزالة المنتج من المفضلة");
+        toast.success(t("removedFromFav"));
       } else {
         await addToFavorite({ favorable_id: product.id, favorable_type: "product" });
-        toast.success("تم إضافة المنتج إلى المفضلة");
+        toast.success(t("addedToFav"));
       }
 
       const updatedProducts = [...similarProducts];
@@ -62,7 +62,7 @@ const OtherProducts = () => {
   const handleAddToCart = async (productId: number) => {
     try {
       await addToCart("product", productId, 1);
-      // toast.success(t('addedToCartSuccessfully'));
+      toast.success(t('addedToCartSuccessfully'));
       queryClient.invalidateQueries({ queryKey: ["cart"] });
     } catch (error: any) {
           const apiMessage =
