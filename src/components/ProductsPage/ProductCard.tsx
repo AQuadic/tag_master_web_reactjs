@@ -12,6 +12,7 @@ import FavoriteIcon from "../icons/products/FavoriteIcon";
 import NotFavoriteIcon from "../icons/products/NotFavoriteIcon";
 import { useCartStore } from "../stores/cartStore";
 import { Button } from "../ui/button";
+import type { Variants } from "framer-motion";
 
 interface ProductCardProps {
   product: ProductTypes;
@@ -93,7 +94,6 @@ const ProductCard = ({ product, onFavoriteToggle }: ProductCardProps) => {
       scale: 1.02,
       transition: {
         duration: 0.3,
-        duration: 0.3,
       },
     },
   };
@@ -111,7 +111,7 @@ const ProductCard = ({ product, onFavoriteToggle }: ProductCardProps) => {
     },
   };
 
-  const badgeVariants = {
+  const badgeVariants: Variants = {
     initial: { scale: 0, rotate: -10, opacity: 0 },
     animate: {
       scale: 1,
@@ -119,7 +119,7 @@ const ProductCard = ({ product, onFavoriteToggle }: ProductCardProps) => {
       opacity: 1,
       transition: {
         delay: 0.3,
-        type: "spring",
+        type: "spring" as const,
         stiffness: 300,
         damping: 20,
       },
@@ -131,30 +131,38 @@ const ProductCard = ({ product, onFavoriteToggle }: ProductCardProps) => {
     },
   };
 
-  const favoriteVariants = {
+  const favoriteVariants: Variants = {
     initial: { scale: 1, rotate: 0 },
     hover: {
       scale: 1.2,
       rotate: 12,
-      transition: { duration: 0.2, ease: "easeOut" },
+      transition: {
+        duration: 0.2,
+        ease: "easeOut" as const,
+      },
     },
     tap: {
       scale: 0.9,
       rotate: -5,
-      transition: { duration: 0.1 },
+      transition: {
+        duration: 0.1,
+      },
     },
   };
 
-  const contentVariants = {
+  const contentVariants: Variants = {
     initial: { opacity: 0, y: 10 },
     animate: {
       opacity: 1,
       y: 0,
-      transition: { duration: 0.4, ease: "easeOut" },
+      transition: {
+        duration: 0.4,
+        ease: "easeOut" as const,
+      },
     },
   };
 
-  const buttonVariants = {
+  const buttonVariants: Variants = {
     initial: {
       opacity: 0,
       y: 20,
@@ -167,13 +175,12 @@ const ProductCard = ({ product, onFavoriteToggle }: ProductCardProps) => {
       transition: {
         delay: 0.4,
         duration: 0.4,
-        ease: "easeOut",
+        ease: "easeOut" as const,
       },
     },
     hover: {
       scale: 1.05,
       y: -2,
-      boxShadow: "0 10px 25px rgba(0, 0, 0, 0.15)",
       transition: { duration: 0.2 },
     },
     tap: {
@@ -183,34 +190,34 @@ const ProductCard = ({ product, onFavoriteToggle }: ProductCardProps) => {
     },
   };
 
-  const starsVariants = {
-    initial: { opacity: 0 },
-    animate: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.1,
-        delayChildren: 0.2,
-      },
-    },
-  };
+  // const starsVariants = {
+  //   initial: { opacity: 0 },
+  //   animate: {
+  //     opacity: 1,
+  //     transition: {
+  //       staggerChildren: 0.1,
+  //       delayChildren: 0.2,
+  //     },
+  //   },
+  // };
 
-  const starItemVariants = {
-    initial: { scale: 0, rotate: -180 },
-    animate: {
-      scale: 1,
-      rotate: 0,
-      transition: {
-        type: "spring",
-        stiffness: 300,
-        damping: 20,
-      },
-    },
-    hover: {
-      scale: 1.2,
-      rotate: 10,
-      transition: { duration: 0.2 },
-    },
-  };
+  // const starItemVariants = {
+  //   initial: { scale: 0, rotate: -180 },
+  //   animate: {
+  //     scale: 1,
+  //     rotate: 0,
+  //     transition: {
+  //       type: "spring",
+  //       stiffness: 300,
+  //       damping: 20,
+  //     },
+  //   },
+  //   hover: {
+  //     scale: 1.2,
+  //     rotate: 10,
+  //     transition: { duration: 0.2 },
+  //   },
+  // };
 
   return (
     <Link href={`/products/${product.id}`} className="group">

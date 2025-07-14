@@ -22,16 +22,16 @@ interface CartItem {
   itemable: ProductTypes;
 }
 
-interface CartData {
-  items: CartItem[];
-  calculations: {
-    total: number;
-    subtotal: number;
-    tax: number;
-    discount: number;
-    delivery_fees: number;
-  };
-}
+// interface CartData {
+//   items: CartItem[];
+//   calculations: {
+//     total: number;
+//     subtotal: number;
+//     tax: number;
+//     discount: number;
+//     delivery_fees: number;
+//   };
+// }
 
 const MainCart = () => {
   const t = useTranslations("maincart");
