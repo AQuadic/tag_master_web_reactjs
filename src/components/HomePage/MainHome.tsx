@@ -19,6 +19,7 @@ interface MainHomeProps {
 
 const MainHome = ({ data }: MainHomeProps) => {
   console.log(data);
+  const products = data?.data || [];
   return (
     <div>
       <HomeHero />
@@ -27,7 +28,7 @@ const MainHome = ({ data }: MainHomeProps) => {
       <HomeAboutUs />
       <HomeServices />
       <HowItWorks />
-      <HomeBestSelling />
+      <HomeBestSelling data={products} />
       <HomeUserPicks />
       <DownloadApp />
       <HomeBlogs />
