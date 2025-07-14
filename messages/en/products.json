@@ -9,5 +9,6 @@
     "favColor": "Your preferred product color:",
     "addedToCartSuccessfully": "Added to cart successfully ",
     "addedToFav": "Product added to favorites successfully",
-    "removedFromFav": "Removed from favorites successfully"
+    "removedFromFav": "Removed from favorites successfully",
+    "anotherProducts": "Other similar products"
 }

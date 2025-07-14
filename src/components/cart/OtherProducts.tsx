@@ -82,7 +82,7 @@ const OtherProducts = () => {
         {similarProducts.map((item, index) => (
           <div key={item.id} className="relative w-[281px] h-[348px] rounded-md bg-[#F6F7FB] mt-4 p-2">
             <Image
-              src={item.images?.[0]?.responsive_urls?.[0] || "/placeholder.png"}
+              src={item.images?.[0]?.responsive_urls?.[0] || "/images/products/placeholder.webp"}
               alt="product"
               width={281}
               height={162}

@@ -68,6 +68,7 @@ const HomeBestSelling = ({ data }: HomeBestSellingProps) => {
           {data.slice(0, 4).map((item, index) => {
             const isRightPosition = index % 2 === 1;
             const imageUrl = item.images?.[0]?.url;
+            if (!imageUrl) return null;
 
             return (
               <div

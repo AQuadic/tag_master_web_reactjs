@@ -132,7 +132,7 @@ const MainCart = () => {
                 height={184}
                 src={
                   item.itemable.images?.[0]?.responsive_urls?.[0] ||
-                  "/placeholder.png"
+                  "/images/products/placeholder.webp"
                 }
                 alt="cart image"
               />
