@@ -2,6 +2,7 @@ import { addToFavorite } from "@/api/favorite/addToFav";
 import { removeFromFavorite } from "@/api/favorite/removFromFav";
 import { ProductTypes } from "@/types/product";
 import { useQueryClient } from "@tanstack/react-query";
+import type { Variants } from "framer-motion";
 import { motion } from "framer-motion";
 import { useLocale, useTranslations } from "next-intl";
 import Image from "next/image";
@@ -12,7 +13,6 @@ import FavoriteIcon from "../icons/products/FavoriteIcon";
 import NotFavoriteIcon from "../icons/products/NotFavoriteIcon";
 import { useCartStore } from "../stores/cartStore";
 import { Button } from "../ui/button";
-import type { Variants } from "framer-motion";
 
 interface ProductCardProps {
   product: ProductTypes;
@@ -20,6 +20,7 @@ interface ProductCardProps {
 }
 
 const ProductCard = ({ product, onFavoriteToggle }: ProductCardProps) => {
+  console.log(product);
   const locale = useLocale();
   const t = useTranslations("products");
   const queryClient = useQueryClient();
@@ -35,7 +36,7 @@ const ProductCard = ({ product, onFavoriteToggle }: ProductCardProps) => {
     e.preventDefault();
     try {
       await addToCart("product", product.id, 1);
-      toast.success(t("addedToCartSuccessfully"))
+      toast.success(t("addedToCartSuccessfully"));
     } catch (error: any) {
       const apiMessage =
         error?.response?.data?.message ||

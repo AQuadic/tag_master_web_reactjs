@@ -10,6 +10,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import ProductsFilter from "./ProductsFilter";
 import ProductsSearchbar from "./ProductsSearchbar";
 
+
 interface MainProductsProps {
   data: ProductTypes[];
   totalPages?: number;
@@ -121,7 +122,7 @@ const MainProducts = ({
       />
       {products.length > 0 ? (
         <div className="container grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 mt-8">
-          {products.map((product) => (
+          {products.slice(0, 1).map((product) => (
             <ProductCard
               key={product.id}
               product={product}

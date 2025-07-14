@@ -2,6 +2,7 @@
 import { getProducts } from "@/api/products/getProducts";
 import MainProducts from "@/components/ProductsPage/MainProducts";
 import React from "react";
+import { cookies } from "next/headers";
 
 interface ProductsPageProps {
   searchParams: Promise<{
@@ -17,13 +18,16 @@ const ProductsPage = async ({ searchParams }: ProductsPageProps) => {
   const page = parseInt(resolvedSearchParams.page || "1");
   const filter = resolvedSearchParams.filter || "";
 
-  try {
-    const response = await getProducts(page, search, filter);
+  // Fetch token from cookies
+  const cookieStore = await cookies();
+  const token = cookieStore.get("tag-master-token")?.value;
 
+  try {
+    const response = await getProducts(page, search, filter, token);
     return (
       <MainProducts
         data={response.data || []}
-        totalPages={response.total_pages} 
+        totalPages={response.total_pages}
         initialSearch={search}
         initialPage={page}
         initialFilter={filter}
