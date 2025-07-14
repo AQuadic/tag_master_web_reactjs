@@ -11,9 +11,9 @@ import ActiveProfile from "../icons/profile/ActiveProfile";
 import { logOut } from "@/api/auth/logout";
 import { toast } from "sonner";
 import { useAuthStore } from "../stores/userStore";
-import { useRouter } from "next/navigation";
+// import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
-
+import Cookies from "js-cookie";
 interface TabItem {
   key: string;
   icon: React.ReactNode;
@@ -29,15 +29,16 @@ interface ProfileTabsProps {
 const ProfileTabs: React.FC<ProfileTabsProps> = ({ activeTab, setActiveTab }) => {
   const t  = useTranslations("profile");
   const clearUser = useAuthStore((state) => state.clearUser);
-  const router = useRouter();
+  // const router = useRouter();
 
   const handleTabClick = async (tabKey: string): Promise<void> => {
     if (tabKey === "logout") {
       try {
         await logOut();
         clearUser();
+        Cookies.remove("tag-master-token");
         toast.success("Logged out successfully");
-        router.push("/");
+        window.location.reload();
       } catch {
         toast.error("Logout failed");
       }
