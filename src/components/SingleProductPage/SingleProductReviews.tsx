@@ -1,5 +1,5 @@
 import { useTranslations } from "next-intl";
-import React from "react";
+import React, { useState } from "react";
 import ReviewStarIcon from "../icons/general/ReviewStarIcon";
 import { Button } from "@/components/ui/button"
 import {
@@ -18,6 +18,8 @@ import productReview from '../../../public/images/products/productReview.svg'
 
 const SingleProductReviews = () => {
   const t = useTranslations("products");
+    const [rating, setRating] = useState(0);
+
 
   return <section className="flex justify-between">
     <div>
@@ -36,7 +38,7 @@ const SingleProductReviews = () => {
 
       <p className="text-[#9C9C9C] text-base">{t("reviewRate")}</p>
 
-      <Dialog>
+   <Dialog>
       <form>
         <DialogTrigger asChild>
           <button className="w-[203px] h-12 border-2 border-[#007CC2] mt-7 rounded-[39px]">
@@ -45,30 +47,44 @@ const SingleProductReviews = () => {
         </DialogTrigger>
         <DialogContent className="sm:max-w-[800px]">
           <DialogHeader className="flex flex-col items-center">
-            <DialogTitle>{t('rateFrom')}</DialogTitle>
+            <DialogTitle>{t("rateFrom")}</DialogTitle>
             <DialogDescription>
               <div className="flex items-center gap-2.5 mt-2">
-                <ReviewStarIcon />
-                <ReviewStarIcon />
-                <ReviewStarIcon />
-                <ReviewStarIcon />
-                <ReviewStarIcon />
+                {[1, 2, 3, 4, 5].map((i) => (
+                  <div
+                    key={i}
+                    className={`cursor-pointer transition-opacity ${
+                      i <= rating ? "opacity-100" : "opacity-30"
+                    }`}
+                    onClick={() => setRating(i)}
+                  >
+                    <ReviewStarIcon />
+                  </div>
+                ))}
               </div>
-            <p className="text-[#9C9C9C] text-lg mt-2">{t("youRated")}</p>
+              <p className="text-[#9C9C9C] text-lg mt-2">
+                {t("youRated")} {rating} / 5
+              </p>
             </DialogDescription>
           </DialogHeader>
-          <div className="">
-            <div className="mt-5 flex items-center gap-4">
+          <div className="mt-5">
+            <div className="flex items-center gap-4">
               <p className="text-[#4A4A4A] text-lg">{t("addPhoto")}</p>
               <UplaodImage />
             </div>
-            <textarea 
-              name="comment" 
-              id="comment" 
-              className="w-full h-[157px] border border-[#9C9C9C] mt-5 rounded-[12px] p-8"></textarea>
+            <textarea
+              name="comment"
+              id="comment"
+              className="w-full h-[157px] border border-[#9C9C9C] mt-5 rounded-[12px] p-8"
+            />
           </div>
           <DialogFooter className="mx-auto">
-            <Button type="submit" className="rounded-[39px] bg-[#007CC2] px-14">{t('addRate')}</Button>
+            <Button
+              type="submit"
+              className="rounded-[39px] bg-[#007CC2] px-14"
+            >
+              {t("addRate")}
+            </Button>
           </DialogFooter>
         </DialogContent>
       </form>
