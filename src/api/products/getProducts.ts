@@ -18,9 +18,14 @@ export const getProducts = async (
     params.category = filter;
   }
 
+  try {
   const response = await axios.get("/products", {
     params,
   });
   console.log(response);
   return response.data;
+  } catch (error) {
+    console.error("Error fetching products:", error);
+    throw new Error("Failed to fetch products");
+  }
 };
