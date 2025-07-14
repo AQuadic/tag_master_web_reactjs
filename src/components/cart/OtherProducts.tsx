@@ -11,6 +11,7 @@ import FavoriteIcon from "../icons/products/FavoriteIcon"
 import NotFavoriteIcon from "../icons/products/NotFavoriteIcon"
 import { getCart } from "@/api/cart/getCart"
 import { getProductsByCategory } from "@/api/products/getCategories"
+import Link from "next/link";
 
 const OtherProducts = () => {
   const t = useTranslations("products");
@@ -80,7 +81,7 @@ const OtherProducts = () => {
       <h2 className="text-[#000000] text-[21px] font-medium">{t("anotherProducts")}</h2>
       <div className="mt-[22px] grid xl:grid-cols-4 md:grid-cols-2 grid-cols-1 gap-4">
         {similarProducts.map((item, index) => (
-          <div key={item.id} className="relative w-[281px] h-[348px] rounded-md bg-[#F6F7FB] mt-4 p-2">
+          <Link href={`/products/${item.id}`} key={item.id} className="relative w-[281px] h-[348px] rounded-md bg-[#F6F7FB] mt-4 p-2">
             <Image
               src={item.images?.[0]?.responsive_urls?.[0] || "/images/products/placeholder.webp"}
               alt="product"
@@ -111,7 +112,7 @@ const OtherProducts = () => {
                   {t("quickAdd")}
               </button>
             </div>
-          </div>
+          </Link>
         ))}
       </div>
     </section>
