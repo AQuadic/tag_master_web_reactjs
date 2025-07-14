@@ -30,6 +30,13 @@ export interface ProductTypes {
   };
   price: string;
   discount: string;
+  image: {
+    url: string;
+    file_name: string;
+    uuid: string;
+    mime_type: string;
+    responsive_urls: string[];
+  };
   options: ProductOptionTypes[];
   types: ProductTypeOption[];
   category_id: number;
