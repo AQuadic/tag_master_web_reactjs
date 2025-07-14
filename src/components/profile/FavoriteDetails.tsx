@@ -84,7 +84,7 @@ const FavoriteDetails = () => {
                 </p>
               </div>
               <p className="text-[#4A4A4A] text-[17px] px-[18px] mt-3">
-                {product.description?.[locale]}
+                {product.description?.[locale as "ar" | "en"]}
               </p>
               <div className="mt-4 flex justify-center">
                 <button className="w-[255px] h-11 bg-[#2F3437] text-white text-base rounded-[39px]">

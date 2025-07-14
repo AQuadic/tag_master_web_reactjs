@@ -22,4 +22,10 @@ export interface PostType {
       url: string;
     };
   };
+
+  description: {
+    ar: string;
+    en: string;
+  };
+  price: string;
 }
