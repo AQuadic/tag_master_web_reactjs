@@ -23,7 +23,7 @@ const ProductsPage = async ({ searchParams }: ProductsPageProps) => {
     return (
       <MainProducts
         data={response.data || []}
-        totalPages={response.last_page || 1}
+        totalPages={response.total_pages} 
         initialSearch={search}
         initialPage={page}
         initialFilter={filter}
@@ -34,7 +34,6 @@ const ProductsPage = async ({ searchParams }: ProductsPageProps) => {
     return (
       <MainProducts
         data={[]}
-        totalPages={1}
         initialSearch={search}
         initialPage={page}
         initialFilter={filter}

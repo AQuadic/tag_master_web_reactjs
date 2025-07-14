@@ -4,6 +4,7 @@ export type ProductImageTypes = {
   size: number;
   url: string;
   responsive_urls: string[];
+  total_pages: number;
 };
 
 export type ProductOptionTypes = {
@@ -62,6 +63,7 @@ export interface ProductTypes {
 }
 
 export interface ProductsResponseTypes {
+  total_pages: number | undefined;
   current_page: number;
   to: number;
   last_page?: number;
