@@ -21,7 +21,17 @@ const ProfileDetails = () => {
 
   console.log(user)
 
-  const defaultCountry: ICountryData = { name: "Egypt", iso2: "EG", phone: ["20"] };
+  const defaultCountry: ICountryData = {
+    name: "Egypt",
+    iso2: "EG",
+    iso3: "EGY",
+    capital: "Cairo",
+    continent: "AF",
+    currency: ["EGP"],
+    phone: [20],
+    languages: [],
+    native: ""
+  };;
   if (!selectedCountry) {
     setSelectedCountry(defaultCountry);
   }
@@ -89,7 +99,7 @@ const handleUpdate = async () => {
           <MobileInput
             selectedCountry={selectedCountry!}
             setSelectedCountry={setSelectedCountry}
-            phone={formData.phone}
+            phone={formData.phone || ""}
             setPhone={(newPhone: string) =>
               setFormData({ ...formData, phone: newPhone }) // Update phone in formData
             }
