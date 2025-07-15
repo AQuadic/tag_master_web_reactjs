@@ -1,44 +1,55 @@
-import Head from 'next/head';
-import MainCart from '@/components/cart/MainCart'
+import MainCart from '@/components/cart/MainCart';
+import type { Metadata } from 'next';
 import React from 'react'
+
+export const metadata: Metadata = {
+  title: "Tag Master | Cart",
+  description:
+    "Review the items in your cart before checkout. Secure, simple, and fast shopping with Tag Master.",
+  keywords: [
+    "cart",
+    "shopping cart",
+    "checkout",
+    "Tag Master products",
+    "buy tag master",
+  ],
+  authors: [{ name: "Tag Master Team" }],
+  robots: {
+    index: false,
+    follow: false,
+  },
+  openGraph: {
+    title: "Your Cart | Tag Master",
+    description:
+      "View your selected items and proceed to checkout securely at Tag Master.",
+    type: "website",
+    images: [
+      {
+        url: "/images/logo.png",
+        width: 1200,
+        height: 630,
+        alt: "Tag Master Cart",
+      },
+    ],
+    siteName: "Tag Master",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Your Cart | Tag Master",
+    description:
+      "Check out the products you've added to your cart and continue your Tag Master journey.",
+    images: ["/images/logo.png"],
+  },
+  alternates: {
+    canonical: "/cart",
+  },
+};
 
 const Page = () => {
     return (
-        <>
-        <Head>
-            <title>Tag Master | Cart</title>
-            <meta
-            name="description"
-            content="Review the items in your cart before checkout. Secure, simple, and fast shopping with Tag Master."
-            />
-            <meta
-            name="keywords"
-            content="cart, shopping cart, checkout, Tag Master products"
-            />
-            <meta name="author" content="Tag Master Team" />
-
-            <meta property="og:title" content="Your Cart | Tag Master" />
-            <meta
-            property="og:description"
-            content="View your selected items and proceed to checkout securely at Tag Master."
-            />
-            <meta property="og:image" content="/images/logo.png" />
-            <meta property="og:type" content="website" />
-
-            <meta name="twitter:card" content="summary_large_image" />
-            <meta name="twitter:title" content="Your Cart | Tag Master" />
-            <meta
-            name="twitter:description"
-            content="Check out the products you've added to your cart and continue your Tag Master journey."
-            />
-            <meta name="twitter:image" content="/images/logo.png" />
-
-        </Head>
-
         <section>
             <MainCart />
         </section>
-        </>
     )
 }
 
