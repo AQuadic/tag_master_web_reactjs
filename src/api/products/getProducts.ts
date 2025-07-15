@@ -36,7 +36,7 @@ export const getProducts = async (
       total_pages: totalPages,
     };
   } catch (error) {
-    console.error("Error fetching products:", error);
+    console.error("Error fetching products: ", error);
 
     if (error instanceof Error) {
       throw new Error(`Failed to fetch products: ${error.message}`);
