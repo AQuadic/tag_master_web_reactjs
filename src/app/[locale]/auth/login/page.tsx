@@ -27,7 +27,6 @@ const Page = () => {
           property="og:image"
           content="/images/logo.png"
         />
-        <meta property="og:url" content="https://www.yoursite.com/login" />
         <meta property="og:type" content="website" />
 
         <meta name="twitter:card" content="summary_large_image" />
@@ -41,7 +40,6 @@ const Page = () => {
           content="/images/logo.png"
         />
 
-        <link rel="icon" href="/favicon.ico" />
       </Head>
 
       <MainLogin />
