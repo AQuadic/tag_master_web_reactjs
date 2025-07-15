@@ -37,6 +37,10 @@ export const getProducts = async (
     };
   } catch (error) {
     console.error("Error fetching products:", error);
+
+    if (error instanceof Error) {
+      throw new Error(`Failed to fetch products: ${error.message}`);
+    }
     throw new Error("Failed to fetch products");
   }
 };

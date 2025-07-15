@@ -47,8 +47,20 @@ function authRequestInterceptor(config: {
   return config;
 }
 
+// Get the base URL with fallback
+const getBaseURL = () => {
+  // Try environment variable first
+  const envUrl = process.env.NEXT_PUBLIC_API_URL;
+  if (envUrl) {
+    return envUrl;
+  }
+
+  // Fallback for development and production
+  return "https://tag-master.aquadic.com/api";
+};
+
 export const axios = Axios.create({
-  baseURL: process.env.NEXT_PUBLIC_API_URL,
+  baseURL: getBaseURL(),
 });
 
 axios.interceptors.request.use(authRequestInterceptor as never);
