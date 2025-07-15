@@ -23,7 +23,6 @@ const Page = () => {
             content="View your selected items and proceed to checkout securely at Tag Master."
             />
             <meta property="og:image" content="/images/logo.png" />
-            <meta property="og:url" content="https://www.yoursite.com/cart" />
             <meta property="og:type" content="website" />
 
             <meta name="twitter:card" content="summary_large_image" />
