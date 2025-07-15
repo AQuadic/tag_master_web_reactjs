@@ -1,8 +1,8 @@
 "use client";
 import { Category } from "@/api/categories/getCategories";
 import { ProductTypes } from "@/types/product";
-import React, { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
+import React, { useEffect, useState } from "react";
 import EmptyState from "../general/EmptyState";
 import Pagination from "./Pagination";
 import ProductCard from "./ProductCard";
@@ -146,7 +146,7 @@ const MainProducts = ({
       />
       <AnimatePresence mode="wait">
         {isLoadingProducts ? (
-          <motion.div 
+          <motion.div
             key="loading"
             className="container grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 mt-8"
             initial={{ opacity: 0 }}
@@ -159,7 +159,7 @@ const MainProducts = ({
             ))}
           </motion.div>
         ) : products.length > 0 ? (
-          <motion.div 
+          <motion.div
             key="products"
             className="container grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 mt-8"
             initial={{ opacity: 0 }}
@@ -171,13 +171,13 @@ const MainProducts = ({
               <motion.div
                 key={product.id}
                 initial={{ opacity: 0, y: 20 }}
-                animate={{ 
-                  opacity: 1, 
+                animate={{
+                  opacity: 1,
                   y: 0,
-                  transition: { 
+                  transition: {
                     duration: 0.3,
-                    delay: index * 0.05 
-                  }
+                    delay: index * 0.05,
+                  },
                 }}
               >
                 <ProductCard
