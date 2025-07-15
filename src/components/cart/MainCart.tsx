@@ -210,7 +210,7 @@ const MainCart = () => {
           style={{ boxShadow: " 0px 1px 2px 0px #00000040" }}
         >
           <div className="flex w-full xl:max-w-sm flex-col gap-6">
-            <Tabs defaultValue="total" dir="rtl">
+            <Tabs defaultValue="total" dir={locale === 'ar' ? 'rtl' : 'ltr'}>
               <TabsList>
                 <TabsTrigger value="address">{t("address")}</TabsTrigger>
                 <TabsTrigger value="total">{t("totalorder")}</TabsTrigger>
