@@ -56,7 +56,7 @@ const getBaseURL = () => {
   }
 
   // Fallback for development and production
-  // return "https://tag-master.aquadic.com/api";
+  return "https://tag-master.aquadic.com/api";
 };
 
 export const axios = Axios.create({
