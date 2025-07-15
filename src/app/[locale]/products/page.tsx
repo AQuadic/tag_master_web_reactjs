@@ -1,8 +1,9 @@
 // app/products/page.tsx (App Router)
+import { getCategories } from "@/api/categories/getCategories";
 import { getProducts } from "@/api/products/getProducts";
 import MainProducts from "@/components/ProductsPage/MainProducts";
-import React from "react";
 import { cookies } from "next/headers";
+import React from "react";
 
 interface ProductsPageProps {
   searchParams: Promise<{
@@ -23,26 +24,47 @@ const ProductsPage = async ({ searchParams }: ProductsPageProps) => {
   const token = cookieStore.get("tag-master-token")?.value;
 
   try {
-    const response = await getProducts(page, search, filter, token);
+    const [productsResponse, categoriesResponse] = await Promise.all([
+      getProducts(page, search, filter, token),
+      getCategories(token),
+    ]);
+
     return (
       <MainProducts
-        data={response.data || []}
-        totalPages={response.total_pages}
+        data={productsResponse.data || []}
+        totalPages={productsResponse.total_pages}
         initialSearch={search}
         initialPage={page}
         initialFilter={filter}
+        categories={categoriesResponse.data}
       />
     );
   } catch (error) {
-    console.error("Error fetching products:", error);
-    return (
-      <MainProducts
-        data={[]}
-        initialSearch={search}
-        initialPage={page}
-        initialFilter={filter}
-      />
-    );
+    console.error("Error fetching data:", error);
+    // Fallback: try to fetch categories even if products fail
+    try {
+      const categoriesResponse = await getCategories(token);
+      return (
+        <MainProducts
+          data={[]}
+          initialSearch={search}
+          initialPage={page}
+          initialFilter={filter}
+          categories={categoriesResponse.data}
+        />
+      );
+    } catch (categoriesError) {
+      console.error("Error fetching categories:", categoriesError);
+      return (
+        <MainProducts
+          data={[]}
+          initialSearch={search}
+          initialPage={page}
+          initialFilter={filter}
+          categories={[]}
+        />
+      );
+    }
   }
 };
 

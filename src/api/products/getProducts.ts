@@ -17,7 +17,7 @@ export const getProducts = async (
   }
 
   if (filter) {
-    params.category = filter;
+    params.category_id = filter;
   }
 
   try {
