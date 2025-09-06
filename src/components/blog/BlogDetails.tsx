@@ -1,18 +1,18 @@
-import { getPostById } from '@/api/blogs/getSingleBlog'
-import { PostType } from '@/types/blogs'
-import Image from 'next/image'
-import { notFound } from 'next/navigation'
+import { getPostById } from "@/api/blogs/getSingleBlog";
+import { PostType } from "@/types/blogs";
+import Image from "next/image";
+import { notFound } from "next/navigation";
 
 type Props = {
   params: {
-    slug: string
-  }
-}
+    slug: string;
+  };
+};
 
 const BlogDetails = async ({ params }: Props) => {
-  const post: PostType = await getPostById(params.slug)
+  const post: PostType = await getPostById(params.slug);
 
-  if (!post) return notFound()
+  if (!post) return notFound();
 
   return (
     <section className="container py-10">
@@ -29,15 +29,15 @@ const BlogDetails = async ({ params }: Props) => {
       )}
 
       <div
-        className="text-[#000000] mt-6 text-xl leading-8"
+        className="text-[#000000] mt-6 text-xl leading-8 "
         dangerouslySetInnerHTML={{ __html: post.content }}
       />
 
       <p className="mt-6 text-sm text-[#666]">
- 				{new Date(post.published_at).toLocaleString('ar-EG')}
+        {new Date(post.published_at).toLocaleString("ar-EG")}
       </p>
     </section>
-  )
-}
+  );
+};
 
-export default BlogDetails
+export default BlogDetails;
