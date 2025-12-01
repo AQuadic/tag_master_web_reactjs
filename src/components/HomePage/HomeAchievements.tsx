@@ -62,10 +62,10 @@ const HomeAchievementsSection = () => {
                 className=" h-[68px] object-contain"
               />
               <p className="text-primary font-bold text-4xl">+{item.number}</p>
-              <p className="text-center w-[92px] text-white bg-black rounded-full p-1">
+              <p className="text-center w-[110px] text-white bg-black rounded-full p-1">
                 {item.title[locale as "ar" | "en"]}
               </p>
-              <p className="w-[255px] text-center">
+              <p className="w-[280px] text-center">
                 {item.desc[locale as "ar" | "en"]}
               </p>
             </motion.div>

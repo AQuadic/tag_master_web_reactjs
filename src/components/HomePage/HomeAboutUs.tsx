@@ -6,8 +6,8 @@ import React from "react";
 const HomeAboutUs = () => {
   const t = useTranslations("homeAboutUs");
   return (
-    <section className="bg-[#5985BB] text-white">
-      <div className="container py-20 md:py-32 flex items-center gap-10 flex-wrap">
+    <section className="bg-[#5985BB] text-white relative">
+      <div className="container py-20 md:py-56 flex items-center gap-10 flex-wrap">
         <Image
           width={506}
           height={350}
@@ -26,6 +26,15 @@ const HomeAboutUs = () => {
             {t('knowMore')}
           </Link>
         </div>
+      </div>
+      <div className="md:block hidden">
+        <Image 
+          src='/images/aboutLogo.svg'
+          alt="about logo"
+          width={47}
+          height={44.86}
+          className="absolute top-32 left-20"
+        />
       </div>
     </section>
   );

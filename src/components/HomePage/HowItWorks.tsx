@@ -6,7 +6,7 @@ import React from 'react'
 const HowItWorks = () => {
     const t = useTranslations("howItWorks");
     return (
-        <section className='container'>
+        <section className='container md:py-40'>
             <div className='grid lg:grid-cols-2 grid-cols-1'>
                 <Image 
                     src='/images/home/howItWorks.png' 

@@ -6,7 +6,7 @@ import StarIcon from "../icons/home/StarIcon";
 
 const HomeMarquee = () => {
   return (
-    <div className="w-full overflow-hidden my-10 sm:my-20" dir="ltr">
+    <div className="w-full overflow-hidden my-2 py-20 bg-[#F6F7FB]" dir="ltr">
       <Marquee speed={40} gradient={false} play={true} autoFill>
         {homeMarqueeImages.map((image, idx) => (
           <div key={idx} className="flex items-center">

@@ -104,7 +104,7 @@ const HomeServices = () => {
   };
 
   return (
-    <section className="py-10 sm:py-20 overflow-hidden">
+    <section className="py-10 sm:py-20 overflow-hidden bg-[#F6F7FB]">
       <motion.div
         variants={containerVariants}
         initial="hidden"
@@ -130,7 +130,7 @@ const HomeServices = () => {
             <motion.div
               variants={cardVariants}
               whileHover="hover"
-              className="flex-1 border rounded-lg sm:rounded-xl p-4 sm:p-6 lg:p-8 shadow-sm hover:shadow-xl transition-shadow duration-300 bg-white"
+              className="flex-1 border border-[#EFECEC] rounded-lg sm:rounded-xl p-4 sm:p-6 lg:p-8  hover:shadow-xl transition-shadow duration-300 bg-white"
             >
               <div className="flex gap-4 items-center mb-6">
                 <motion.div variants={iconVariants} whileHover="hover">
@@ -166,7 +166,7 @@ const HomeServices = () => {
               <motion.div
                 variants={cardVariants}
                 whileHover="hover"
-                className="flex-1 border rounded-lg sm:rounded-xl p-4 sm:p-6 lg:p-8 shadow-sm hover:shadow-xl transition-shadow duration-300 bg-white"
+                className="flex-1 border border-[#EFECEC] rounded-lg sm:rounded-xl p-4 sm:p-6 lg:p-8  hover:shadow-xl transition-shadow duration-300 bg-white"
               >
                 <div className="flex gap-4 items-center mb-4">
                   <motion.div variants={iconVariants} whileHover="hover">
@@ -200,7 +200,7 @@ const HomeServices = () => {
               <motion.div
                 variants={cardVariants}
                 whileHover="hover"
-                className="flex-1 border rounded-lg sm:rounded-xl p-4 sm:p-6 lg:p-8 shadow-sm hover:shadow-xl transition-shadow duration-300 bg-white"
+                className="flex-1 border border-[#EFECEC] rounded-lg sm:rounded-xl p-4 sm:p-6 lg:p-8  hover:shadow-xl transition-shadow duration-300 bg-white"
               >
                 <div className="flex gap-4 items-center mb-4">
                   <motion.div variants={iconVariants} whileHover="hover">
