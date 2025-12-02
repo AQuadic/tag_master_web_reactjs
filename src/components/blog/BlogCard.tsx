@@ -55,7 +55,7 @@ const BlogCard = ({ post }: { post: PostType }) => {
           alt={post.title}
           width={387}
           height={212}
-          className='w-full'
+          className='md:w-[387px] w-full h-[212px] object-cover'
         />
 
         <div className='flex items-center justify-between mt-4 px-4'>
