@@ -1,26 +1,35 @@
 "use client";
 
-import React, { useState } from 'react'
-import BlogsHeader from './BlogsHeader'
-import Blogs from './Blogs'
+import React, { useState } from "react";
+import { useQuery } from "@tanstack/react-query";
+import { getPosts, PostsApiResponse } from "@/api/blogs/getBlogs";
+import BlogsHeader from "./BlogsHeader";
+import Blogs from "./Blogs";
 import Pagination from "../ProductsPage/Pagination";
 
 const MainBlogs = () => {
-    const [currentStep, setCurrentStep] = useState<number>(1);
+  const [currentPage, setCurrentPage] = useState<number>(1);
 
-    const handlePageChange = (page: number) => {
-        setCurrentStep(page);
-    };
+  const { data: postsResponse, isLoading } = useQuery<PostsApiResponse>({
+    queryKey: ["posts", currentPage],
+    queryFn: () => getPosts(currentPage),
+  });
+
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page);
+  };
 
     return (
         <div>
             <BlogsHeader />
-            <Blogs />
-            <Pagination
-                currentStep={currentStep}
+            <Blogs posts={postsResponse?.data} isLoading={isLoading} />
+            {postsResponse && postsResponse.meta.last_page > 1 && (
+                <Pagination
+                currentStep={postsResponse.meta.current_page}
+                totalSteps={postsResponse.meta.last_page}
                 onPageChange={handlePageChange}
-                totalSteps={3}
             />
+        )}
         </div>
     )
 }

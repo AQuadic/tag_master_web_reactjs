@@ -3,22 +3,17 @@
 import React from 'react'
 import Image from 'next/image'
 import Spinner from '../icons/general/Spinner'
-import { getPosts } from '@/api/blogs/getBlogs'
-import { useQuery } from '@tanstack/react-query'
-import { PostType } from '@/types/blogs'
-import BlogCard from './BlogCard'
-import { useTranslations } from 'next-intl'
+import { PostType } from "@/types/blogs";
+import BlogCard from "./BlogCard";
+import { useTranslations } from "next-intl";
 
-const Blogs = () => {
+interface BlogsProps {
+  posts?: PostType[];
+  isLoading: boolean;
+}
+
+const Blogs: React.FC<BlogsProps> = ({ posts, isLoading }) => {
   const t = useTranslations("homeblogs");
-
-  const {
-    data: posts,
-    isLoading,
-  } = useQuery<PostType[]>({
-    queryKey: ['posts'],
-    queryFn: getPosts,
-  });
 
   if (isLoading) return <div className='flex justify-center my-10'><Spinner /></div>
 
@@ -41,7 +36,7 @@ const Blogs = () => {
       </div>
 
       <div className='mt-12 grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 items-center justify-center gap-[21px]'>
-        {posts?.map((post) => (
+        {posts?.map((post: PostType) => (
           <BlogCard key={post.id} post={post} />
         ))}
       </div>
