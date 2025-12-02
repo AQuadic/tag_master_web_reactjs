@@ -22,7 +22,10 @@ const MainSingleProduct = ({ product }: MainSingleProductProps) => {
         <SingleProductDetails product={product} />
       </div>
       <div className="container mt-[58px]">
-        <SingleProductReviews />
+        <SingleProductReviews 
+          productId={product.id.toString()} 
+          reviewableType="product"
+        />
       </div>
       <div className="container">
         <SingleProductTutorials />
