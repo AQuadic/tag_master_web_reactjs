@@ -74,12 +74,20 @@ const SingleProductDetails = ({ product }: SingleProductDetailsProps) => {
         selectedColor={selectedColor}
         setSelectedColor={setSelectedColor}
       />
-      <Button
-        onClick={handleAddToCart}
-        className="px-20 rounded-full bg-primary cursor-pointer mt-5 md:self-start"
-      >
-        {t('quickAdd')}
-      </Button>
+      <div className="flex flex-wrap items-center gap-6">
+        <Button
+          onClick={handleAddToCart}
+          className="w-[296px] rounded-full bg-primary cursor-pointer mt-5 md:self-start"
+        >
+          {t('quickAdd')}
+        </Button>
+        <Button
+          onClick={handleAddToCart}
+          className="w-[296px] rounded-full bg-black cursor-pointer mt-5 md:self-start"
+        >
+          {t('buyNow')}
+        </Button>
+      </div>
     </section>
   );
 };
