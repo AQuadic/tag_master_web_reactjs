@@ -63,7 +63,11 @@ const FavoriteDetails = () => {
               className="relative w-full h-[348px] rounded-md bg-[#F6F7FB] mt-4"
             >
               <Image
-                src={product.image?.responsive_urls?.[0] || "/placeholder.jpg"}
+                src={
+                  product.image?.url ||
+                  product.image?.responsive_urls?.[0] ||
+                  "/placeholder.jpg"
+                }
                 alt="product"
                 width={281}
                 height={162}

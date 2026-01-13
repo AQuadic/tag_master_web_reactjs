@@ -29,7 +29,9 @@ export const getProducts = async (
     const hasNextPage = response.data.next_page_url !== null;
     const currentPage = response.data.current_page;
 
-    const totalPages = hasNextPage ? currentPage + 1 : currentPage;
+    const totalPages =
+      response.data.total_pages ||
+      (hasNextPage ? currentPage + 1 : currentPage);
 
     return {
       ...response.data,

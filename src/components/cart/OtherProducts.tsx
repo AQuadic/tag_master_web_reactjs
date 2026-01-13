@@ -80,40 +80,46 @@ const OtherProducts = () => {
     <section className="mt-10">
       <h2 className="text-[#000000] text-[21px] font-medium">{t("anotherProducts")}</h2>
       <div className="mt-[22px] grid xl:grid-cols-4 md:grid-cols-2 grid-cols-1 gap-4">
-        {similarProducts.map((item, index) => (
-          <Link href={`/products/${item.id}`} key={item.id} className="relative w-[281px] h-[348px] rounded-md bg-[#F6F7FB] mt-4 p-2">
-            <Image
-              src={item.images?.[0]?.responsive_urls?.[0] || "/images/products/placeholder.webp"}
-              alt="product"
-              width={281}
-              height={162}
-              className="rounded-md w-[281px] h-[162px]"
-            />
-            <div className="absolute top-6 w-full flex justify-between items-center z-20">
-              <div
-              className="absolute top-2 left-5 bg-[#2CF257]  px-3 py-2 rounded-xl text-white font-semibold text-xs "
-            >
-              {t("recentlyAdded")}
-            </div>
-            <button onClick={() => handleToggleFavorite(item, index)} className="absolute top-3 rtl:right-3 ltr:right-8">
-              {item.is_favorite ? <FavoriteIcon /> : <NotFavoriteIcon />}
-            </button>
-            </div>
-            <div className="mt-3 px-3">
-              <p className="text-[#000000] text-lg font-medium">
-                {parseInt(item.price) - parseInt(item.discount)}{" "}
-                <span className="line-through text-[#4A4A4A] font-normal mx-2">{item.price}</span>
-              </p>
-              <p className="text-[#4A4A4A] text-[17px] mt-2">{item.description?.[locale]}</p>
-              <button
-                onClick={() => handleAddToCart(item.id)}
-                className="w-full h-11 bg-[#2F3437] text-[#FFFFFF] text-base rounded-[39px] mt-4"
+        {similarProducts.map((item, index) => {
+          const price = parseFloat(item.price) || 0;
+          const discount = parseFloat(item.discount) || 0;
+          return (
+            <Link href={`/products/${item.id}`} key={item.id} className="relative w-[281px] h-[348px] rounded-md bg-[#F6F7FB] mt-4 p-2">
+              <Image
+                src={item.images?.[0]?.url || item.images?.[0]?.responsive_urls?.[0] || "/images/products/placeholder.webp"}
+                alt="product"
+                width={281}
+                height={162}
+                className="rounded-md w-[281px] h-[162px]"
+              />
+              <div className="absolute top-6 w-full flex justify-between items-center z-20">
+                <div
+                className="absolute top-2 left-5 bg-[#2CF257]  px-3 py-2 rounded-xl text-white font-semibold text-xs "
               >
-                  {t("quickAdd")}
+                {t("recentlyAdded")}
+              </div>
+              <button onClick={(e) => { e.preventDefault(); handleToggleFavorite(item, index); }} className="absolute top-3 rtl:right-3 ltr:right-8">
+                {item.is_favorite ? <FavoriteIcon /> : <NotFavoriteIcon />}
               </button>
-            </div>
-          </Link>
-        ))}
+              </div>
+              <div className="mt-3 px-3">
+                <p className="text-[#000000] text-lg font-medium">
+                  {price - discount}{" "}
+                  {discount > 0 && (
+                    <span className="line-through text-[#4A4A4A] font-normal mx-2">{item.price}</span>
+                  )}
+                </p>
+                <p className="text-[#4A4A4A] text-[17px] mt-2">{item.description?.[locale as "ar" | "en"]}</p>
+                <button
+                  onClick={(e) => { e.preventDefault(); handleAddToCart(item.id); }}
+                  className="w-full h-11 bg-[#2F3437] text-[#FFFFFF] text-base rounded-[39px] mt-4"
+                >
+                    {t("quickAdd")}
+                </button>
+              </div>
+            </Link>
+          );
+        })}
       </div>
     </section>
   )

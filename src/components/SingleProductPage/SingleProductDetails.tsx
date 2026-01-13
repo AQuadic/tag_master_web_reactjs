@@ -17,8 +17,8 @@ const SingleProductDetails = ({ product }: SingleProductDetailsProps) => {
   const t = useTranslations("products");
   const locale = useLocale();
   const [selectedColor, setSelectedColor] = React.useState<string>("");
-  const price = parseInt(product.price);
-  const discount = parseInt(product.discount) || 10;
+  const price = parseFloat(product.price) || 0;
+  const discount = parseFloat(product.discount) || 0;
   const queryClient = useQueryClient();
   const addToCart = useCartStore((state) => state.addToCart);
 

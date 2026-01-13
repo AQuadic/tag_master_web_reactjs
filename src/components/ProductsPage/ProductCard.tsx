@@ -28,8 +28,8 @@ const ProductCard = ({ product, onFavoriteToggle }: ProductCardProps) => {
   const addToCart = useCartStore((state) => state.addToCart);
 
   const isNew = true;
-  const price = parseInt(product.price);
-  const discount = parseInt(product.discount);
+  const price = parseFloat(product.price) || 0;
+  const discount = parseFloat(product.discount) || 0;
   const isAvailable = product.types?.some((type) => type.in_stock);
 
   const handleAddToCart = async (e: any) => {
@@ -263,7 +263,8 @@ const ProductCard = ({ product, onFavoriteToggle }: ProductCardProps) => {
         >
           <Image
             src={
-              product.images[0]?.responsive_urls[0] ||
+              product.images[0]?.url ||
+              product.image?.url ||
               "/images/products/placeholder.webp"
             }
             width={280}

@@ -4,7 +4,13 @@ import createNextIntlPlugin from "next-intl/plugin";
 const nextConfig: NextConfig = {
   /* config options here */
   images: {
-    domains: ["dev.tagmaster.ae"],
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "dev.tagmaster.ae",
+        pathname: "/**",
+      },
+    ],
   },
 };
 
