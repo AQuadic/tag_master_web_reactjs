@@ -1,16 +1,16 @@
 "use client";
-import { useQuery, useQueryClient } from "@tanstack/react-query"
-import { useTranslations, useLocale } from "next-intl"
-import { addToFavorite } from "@/api/favorite/addToFav"
-import { removeFromFavorite } from "@/api/favorite/removFromFav"
+import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { useTranslations, useLocale } from "next-intl";
+import { addToFavorite } from "@/api/favorite/addToFav";
+import { removeFromFavorite } from "@/api/favorite/removFromFav";
 import { useCartStore } from "../stores/cartStore";
-import { toast } from "sonner"
-import Image from "next/image"
-import React, { useEffect, useState } from "react"
-import FavoriteIcon from "../icons/products/FavoriteIcon"
-import NotFavoriteIcon from "../icons/products/NotFavoriteIcon"
-import { getCart } from "@/api/cart/getCart"
-import { getProductsByCategory } from "@/api/products/getCategories"
+import { toast } from "sonner";
+import Image from "next/image";
+import React, { useEffect, useState } from "react";
+import FavoriteIcon from "../icons/products/FavoriteIcon";
+import NotFavoriteIcon from "../icons/products/NotFavoriteIcon";
+import { getCart } from "@/api/cart/getCart";
+import { getProductsByCategory } from "@/api/products/getCategories";
 import Link from "next/link";
 
 const OtherProducts = () => {
@@ -42,10 +42,16 @@ const OtherProducts = () => {
   const handleToggleFavorite = async (product: any, index: number) => {
     try {
       if (product.is_favorite) {
-        await removeFromFavorite({ favorable_id: product.id, favorable_type: "product" });
+        await removeFromFavorite({
+          favorable_id: product.id,
+          favorable_type: "product",
+        });
         toast.success(t("removedFromFav"));
       } else {
-        await addToFavorite({ favorable_id: product.id, favorable_type: "product" });
+        await addToFavorite({
+          favorable_id: product.id,
+          favorable_type: "product",
+        });
         toast.success(t("addedToFav"));
       }
 
@@ -63,58 +69,79 @@ const OtherProducts = () => {
   const handleAddToCart = async (productId: number) => {
     try {
       await addToCart("product", productId, 1);
-      toast.success(t('addedToCartSuccessfully'));
+      toast.success(t("addedToCartSuccessfully"));
       queryClient.invalidateQueries({ queryKey: ["cart"] });
     } catch (error: any) {
-          const apiMessage =
-            error?.response?.data?.message ||
-            error?.message ||
-            "حدث خطأ أثناء إضافة المنتج إلى السلة";
-          toast.error(apiMessage);
-        }
+      const apiMessage =
+        error?.response?.data?.message ||
+        error?.message ||
+        "حدث خطأ أثناء إضافة المنتج إلى السلة";
+      toast.error(apiMessage);
+    }
   };
 
   if (!firstCategoryId || isLoading || !similarProducts?.length) return null;
 
   return (
     <section className="mt-10">
-      <h2 className="text-[#000000] text-[21px] font-medium">{t("anotherProducts")}</h2>
+      <h2 className="text-[#000000] text-[21px] font-medium">
+        {t("anotherProducts")}
+      </h2>
       <div className="mt-[22px] grid xl:grid-cols-4 md:grid-cols-2 grid-cols-1 gap-4">
         {similarProducts.map((item, index) => {
           const price = parseFloat(item.price) || 0;
           const discount = parseFloat(item.discount) || 0;
           return (
-            <Link href={`/products/${item.id}`} key={item.id} className="relative w-[281px] h-[348px] rounded-md bg-[#F6F7FB] mt-4 p-2">
+            <Link
+              href={`/products/${item.id}`}
+              key={item.id}
+              className="relative w-[281px] h-[348px] rounded-md bg-[#F6F7FB] mt-4 p-2"
+            >
               <Image
-                src={item.images?.[0]?.url || item.images?.[0]?.responsive_urls?.[0] || "/images/products/placeholder.webp"}
+                src={
+                  item.images?.[0]?.url ||
+                  item.images?.[0]?.responsive_urls?.[0] ||
+                  "/images/products/placeholder.webp"
+                }
                 alt="product"
                 width={281}
                 height={162}
                 className="rounded-md w-[281px] h-[162px]"
               />
               <div className="absolute top-6 w-full flex justify-between items-center z-20">
-                <div
-                className="absolute top-2 left-5 bg-[#2CF257]  px-3 py-2 rounded-xl text-white font-semibold text-xs "
-              >
-                {t("recentlyAdded")}
-              </div>
-              <button onClick={(e) => { e.preventDefault(); handleToggleFavorite(item, index); }} className="absolute top-3 rtl:right-3 ltr:right-8">
-                {item.is_favorite ? <FavoriteIcon /> : <NotFavoriteIcon />}
-              </button>
+                <div className="absolute top-2 left-5 bg-[#2CF257]  px-3 py-2 rounded-xl text-white font-semibold text-xs ">
+                  {t("recentlyAdded")}
+                </div>
+                <button
+                  onClick={(e) => {
+                    e.preventDefault();
+                    handleToggleFavorite(item, index);
+                  }}
+                  className="absolute top-3 rtl:right-3 ltr:right-8"
+                >
+                  {item.is_favorite ? <FavoriteIcon /> : <NotFavoriteIcon />}
+                </button>
               </div>
               <div className="mt-3 px-3">
                 <p className="text-[#000000] text-lg font-medium">
                   {price - discount}{" "}
                   {discount > 0 && (
-                    <span className="line-through text-[#4A4A4A] font-normal mx-2">{item.price}</span>
+                    <span className="line-through text-[#4A4A4A] font-normal mx-2">
+                      {item.price}
+                    </span>
                   )}
                 </p>
-                <p className="text-[#4A4A4A] text-[17px] mt-2">{item.description?.[locale as "ar" | "en"]}</p>
+                <p className="text-[#4A4A4A] text-[17px] mt-2">
+                  {item.description?.[locale as "ar" | "en"]}
+                </p>
                 <button
-                  onClick={(e) => { e.preventDefault(); handleAddToCart(item.id); }}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    handleAddToCart(item.id);
+                  }}
                   className="w-full h-11 bg-[#2F3437] text-[#FFFFFF] text-base rounded-[39px] mt-4"
                 >
-                    {t("quickAdd")}
+                  {t("quickAdd")}
                 </button>
               </div>
             </Link>
@@ -122,7 +149,7 @@ const OtherProducts = () => {
         })}
       </div>
     </section>
-  )
-}
+  );
+};
 
-export default OtherProducts
+export default OtherProducts;

@@ -26,7 +26,7 @@ const SingleProductDetails = ({ product }: SingleProductDetailsProps) => {
     try {
       await addToCart("product", product.id, 1);
       await queryClient.invalidateQueries({ queryKey: ["cart"] });
-      toast.success(t('addedToCartSuccessfully'));
+      toast.success(t("addedToCartSuccessfully"));
     } catch (error: any) {
       const apiMessage =
         error?.response?.data?.message ||
@@ -40,7 +40,7 @@ const SingleProductDetails = ({ product }: SingleProductDetailsProps) => {
     <section className="w-full flex flex-col ">
       <div className="flex flex-wrap justify-between">
         <h2 className="font-bold text-lg sm:text-2xl max-w-[400px]">
-            {product.name[locale as "ar" | "en"]}
+          {product.name[locale as "ar" | "en"]}
         </h2>
         <div className="flex flex-col ">
           <span className="text-main-green text-lg sm:text-2xl font-bold">
@@ -53,7 +53,7 @@ const SingleProductDetails = ({ product }: SingleProductDetailsProps) => {
               </span>
               <span className="text-main-green">
                 {" "}
-                {t('discount')} {Math.round((discount * 100) / price)} %
+                {t("discount")} {Math.round((discount * 100) / price)} %
               </span>
             </span>
           )}
@@ -67,8 +67,10 @@ const SingleProductDetails = ({ product }: SingleProductDetailsProps) => {
         <ReviewStarIcon />
         (5)
       </div>
-      <p className="mb-5 sm:mb-8 text-lg">{product.description[locale as "ar" | "en"]}</p>
-      <p className="text-lg mb-2 sm:mb-4">{t('favColor')}</p>
+      <p className="mb-5 sm:mb-8 text-lg">
+        {product.description[locale as "ar" | "en"]}
+      </p>
+      <p className="text-lg mb-2 sm:mb-4">{t("favColor")}</p>
       <SingleProductColorPicker
         options={product.options}
         selectedColor={selectedColor}
@@ -79,13 +81,13 @@ const SingleProductDetails = ({ product }: SingleProductDetailsProps) => {
           onClick={handleAddToCart}
           className="w-[296px] rounded-full bg-primary cursor-pointer mt-5 md:self-start"
         >
-          {t('quickAdd')}
+          {t("quickAdd")}
         </Button>
         <Button
           onClick={handleAddToCart}
           className="w-[296px] rounded-full bg-black cursor-pointer mt-5 md:self-start"
         >
-          {t('buyNow')}
+          {t("buyNow")}
         </Button>
       </div>
     </section>

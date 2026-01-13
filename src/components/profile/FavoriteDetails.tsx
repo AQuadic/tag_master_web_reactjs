@@ -13,8 +13,12 @@ import { useTranslations } from "use-intl";
 const FavoriteDetails = () => {
   const t = useTranslations("products");
   const [updating, setUpdating] = useState(false);
-  const locale = useLocale ()
-  const { data: favorites = [], isLoading, refetch } = useQuery<FavoriteItem[]>({
+  const locale = useLocale();
+  const {
+    data: favorites = [],
+    isLoading,
+    refetch,
+  } = useQuery<FavoriteItem[]>({
     queryKey: ["favorites"],
     queryFn: getFavorites,
   });
@@ -92,11 +96,11 @@ const FavoriteDetails = () => {
               </p>
               <div className="mt-4 flex justify-center">
                 <button className="w-[255px] h-11 bg-[#2F3437] text-white text-base rounded-[39px]">
-                  {t('quickAdd')}
+                  {t("quickAdd")}
                 </button>
               </div>
             </div>
-          )
+          );
         })}
       </div>
     </section>
